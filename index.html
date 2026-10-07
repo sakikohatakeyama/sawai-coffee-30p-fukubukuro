@@ -257,15 +257,15 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .rl-more{margin-top:10px;display:inline-block;font-size:13px;font-weight:700;color:var(--red);text-decoration:underline;text-underline-offset:4px}
 
 /* ===== 今日の一杯ガチャ ===== */
-.gacha{background:var(--brown);color:var(--cream);overflow:hidden}
+.gacha{background:#204ac4;color:#fff8eb;overflow:hidden}
 .gacha .sec-hd h2{color:var(--white)}
 .gacha .sec-hd .en{color:var(--gold)}
 .play{display:grid;grid-template-columns:1fr minmax(0,520px);gap:70px;align-items:center}
-.play-en{font-family:var(--num);font-weight:700;font-size:14px;letter-spacing:.25em;color:var(--gold)}
+.play-en{font-family:var(--num);font-weight:700;font-size:14px;letter-spacing:.25em;color:#f4bd39}
 .play h2{font-size:clamp(34px,4.3vw,56px);font-weight:800;line-height:1.45;color:var(--white);margin:16px 0 26px}
 .play p{font-size:16px;font-weight:700;line-height:1.9}
 .play .note{font-size:13px;font-weight:500;opacity:.75;margin-top:18px}
-.rl{position:relative;background:var(--cream);color:var(--ink);border-radius:16px;padding:38px 34px 32px;text-align:center;box-shadow:14px 14px 0 rgba(0,0,0,.35)}
+.rl{position:relative;background:var(--cream);color:var(--ink);border-radius:16px;padding:38px 34px 32px;text-align:center;box-shadow:14px 14px 0 #122963}
 .rl-en{font-family:var(--num);font-weight:700;font-size:14px;letter-spacing:.25em;color:var(--brown)}
 .rl-body{min-height:260px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:10px 0 18px}
 .rl-q{font-family:var(--num);font-weight:700;font-size:130px;line-height:1;color:var(--red);animation:qBob 1.6s ease-in-out infinite}
@@ -275,12 +275,14 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .rl-spin{display:flex;align-items:center;gap:22px;text-align:left}
 .rl-spin .bag{width:96px}
 .rl-spin .bag-en{font-size:9px;letter-spacing:0}
+.rl-spin .bag-brand{display:none}
 .rl h3,.rl-spin span{word-break:keep-all;overflow-wrap:anywhere}
 .rl h3 small,.rl-spin span small{display:block;font-size:12px;color:var(--brown-lt)}
 .rl-spin b{display:block;font-family:var(--num);font-weight:700;font-size:56px;line-height:1;color:var(--red)}
 .rl-spin span{display:block;font-weight:800;font-size:18px;margin-top:6px}
 .rl-res{display:grid;grid-template-columns:140px 1fr;gap:24px;align-items:center;text-align:left;animation:rlPop .55s cubic-bezier(.2,1.5,.4,1)}
 @keyframes rlPop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+.rl-res .rl-no{display:block;font-family:var(--num);font-weight:700;font-size:44px;line-height:1;color:var(--red);margin-top:6px;letter-spacing:.02em}
 .rl-res .lbl{font-size:13px;font-weight:700;color:var(--red);letter-spacing:.1em}
 .rl-res h3{font-size:26px;font-weight:800;line-height:1.35;margin-top:2px}
 .rl .rl-res p{font-size:14px;line-height:1.8;margin-top:8px}
@@ -374,13 +376,15 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .play{grid-template-columns:1fr;gap:36px}
   .play h2{font-size:32px;margin:12px 0 18px}
   .play p{font-size:14px}
-  .rl{padding:28px 18px 22px;box-shadow:8px 8px 0 rgba(0,0,0,.35)}
+  .rl{padding:28px 18px 22px;box-shadow:8px 8px 0 #122963}
   .rl-body{min-height:230px}
   .rl-q{font-size:100px}
   .rl .rl-ttl{font-size:21px}
   .rl-spin .bag{width:76px}
   .rl-spin b{font-size:44px}
-  .rl-res{grid-template-columns:96px 1fr;gap:16px}
+  .rl-res{grid-template-columns:1fr;gap:14px;text-align:center;justify-items:center}
+  .rl-res .bag{width:120px}
+  .rl-res .rl-no{font-size:38px}
   .rl-res h3{font-size:20px}
   .rl .rl-res p{font-size:13px}
   .rl-btn{font-size:16px;padding:16px}
@@ -922,7 +926,7 @@ rlBtn.addEventListener('click',()=>{
     }
     // 決まった一杯（ルーレット後の表示）
     rlBody.innerHTML=`<div class="rl-res"><div>${bagHTML(win)}</div><div>
-      <div class="lbl">今日のあなたの一杯は…</div><h3>${disp(win.name)}</h3><p>${win.desc}</p>
+      <div class="lbl">今日のあなたの一杯は…</div><b class="rl-no">NO.${noOf(win)}</b><h3>${disp(win.name)}</h3><p>${win.desc}</p>
       <button type="button" class="rl-more">この銘柄を詳しく見る</button></div></div>`;
     rlBody.querySelector('.rl-more').onclick=()=>openCoffee(coffees.indexOf(win));
     if(!reduce)rlConfetti();
