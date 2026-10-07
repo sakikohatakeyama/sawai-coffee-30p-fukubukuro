@@ -187,28 +187,47 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .ft.on{background:var(--brown);color:var(--cream)}
 .lu-note{text-align:center;font-size:13px;color:var(--brown-lt);margin-bottom:34px}
 .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:26px 20px}
-.card{perspective:1000px;transition:opacity .4s,transform .4s}
+.card{transition:opacity .4s,transform .4s}
 .card.hide{display:none}
 .card.pop{animation:pop .5s cubic-bezier(.2,1.4,.4,1) both;animation-delay:var(--dl,0s)}
 @keyframes pop{0%{opacity:0;transform:translateY(24px) scale(.85)}100%{opacity:1;transform:none}}
-.card-in{position:relative;width:100%;aspect-ratio:3/4.75;transition:transform .7s cubic-bezier(.3,1.3,.5,1);transform-style:preserve-3d;cursor:pointer}
-.card.flip .card-in{transform:rotateY(180deg)}
-.card-f,.card-b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px}
-.card-f{display:flex;flex-direction:column;align-items:center;padding:16px 16px 12px;background:var(--white);box-shadow:0 2px 0 var(--cream-dk)}
-.card-f .bag{width:76%;transition:transform .3s}
-.card-in:hover .card-f .bag{transform:translateY(-6px) rotate(-4deg)}
+.card-in{position:relative;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;padding:16px 16px 12px;background:var(--white);border-radius:14px;box-shadow:0 2px 0 var(--cream-dk);cursor:pointer;text-align:center;transition:transform .25s,box-shadow .25s}
+.card-in:hover{transform:translateY(-4px);box-shadow:0 12px 22px -12px rgba(58,35,24,.35)}
+.card-in .bag{width:76%;transition:transform .3s}
+.card-in:hover .bag{transform:translateY(-6px) rotate(-4deg)}
 .card-no{position:absolute;left:10px;top:8px;font-family:var(--num);font-weight:700;font-size:13px;color:var(--brown-lt)}
 .card-cat{margin-top:12px;font-size:11px;font-weight:700;color:var(--white);background:var(--cc);border-radius:999px;padding:1px 10px}
-.card-name{font-weight:900;font-size:15px;line-height:1.35;margin-top:6px;text-align:center;word-break:keep-all;overflow-wrap:anywhere}
+.card-name{font-weight:900;font-size:15px;line-height:1.35;margin:6px 0 10px;text-align:center;word-break:keep-all;overflow-wrap:anywhere}
 .card-name small{display:block;font-size:11px;font-weight:700;color:var(--brown-lt)}
-.card-tap{margin-top:auto;font-size:11px;color:var(--brown-lt);display:flex;align-items:center;gap:4px}
-.card-tap::before{content:"↻";font-size:13px}
-.card-b{transform:rotateY(180deg);background:var(--brown);color:var(--cream);padding:16px 15px 12px;display:flex;flex-direction:column}
-.card-b h3{font-size:15px;font-weight:900;line-height:1.35;color:var(--white)}
-.card-b .desc{font-size:12.5px;line-height:1.75;margin-top:8px}
-.card-b .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:auto;padding-top:8px}
-.card-b .tags span{font-size:10.5px;border:1px solid rgba(247,238,223,.45);border-radius:4px;padding:0 6px;line-height:1.7}
-.card-b .link{font-size:11px;margin-top:8px;color:var(--gold);text-decoration:underline;text-underline-offset:3px}
+.card-tap{margin-top:auto;width:100%;border-top:1px solid var(--cream-dk);padding-top:8px;font-size:11px;color:var(--brown-lt);display:flex;justify-content:space-between;align-items:center}
+.card-tap i{font-style:normal;font-family:var(--num);font-size:20px;line-height:1;color:var(--red)}
+
+/* ===== 銘柄のポップアップ ===== */
+.cdlg{width:min(760px,calc(100% - 32px));max-height:calc(100dvh - 32px);margin:auto;border:0;border-radius:20px;padding:0;background:var(--white);color:var(--ink);overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.cdlg::backdrop{background:rgba(42,26,18,.72);backdrop-filter:blur(4px)}
+.cdlg[open]{display:grid;grid-template-columns:270px minmax(0,1fr);animation:dlgIn .3s cubic-bezier(.2,1.3,.4,1)}
+@keyframes dlgIn{from{opacity:0;transform:translateY(24px) scale(.95)}to{opacity:1;transform:none}}
+.cdlg-x{position:absolute;right:14px;top:14px;z-index:2;width:42px;height:42px;border-radius:50%;background:var(--white);border:1.5px solid var(--brown);color:var(--brown);font-size:24px;line-height:1;display:grid;place-items:center}
+.cdlg-vis{position:relative;background:color-mix(in srgb,var(--cc) 30%,#fff);display:flex;align-items:center;justify-content:center;padding:56px 36px 40px;overflow:hidden}
+.cdlg-no{position:absolute;left:18px;top:6px;font-family:var(--num);font-weight:700;font-size:110px;line-height:1;color:var(--cc);opacity:.35}
+.cdlg-bag{position:relative;width:min(170px,100%)}
+.cdlg-bag.in{animation:bagIn .5s cubic-bezier(.2,1.5,.4,1)}
+@keyframes bagIn{from{opacity:0;transform:translateY(30px) rotate(-10deg) scale(.8)}to{opacity:1;transform:none}}
+.cdlg-body{padding:40px 34px 26px;display:flex;flex-direction:column}
+.cdlg-lbl{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;color:var(--brown-lt)}
+.cdlg-lbl b{font-family:var(--num);font-size:14px;color:var(--red);letter-spacing:.06em}
+.cdlg-lbl span{color:var(--white);background:var(--cc);border-radius:999px;padding:1px 10px;font-size:11px}
+.cdlg-body h3{font-size:26px;font-weight:900;line-height:1.4;margin:10px 0 12px}
+.cdlg-hook{font-size:17px;font-weight:700;line-height:1.6;color:var(--brown)}
+.cdlg-desc{font-size:15px;line-height:1.9;margin-top:12px;padding-top:12px;border-top:1px solid var(--cream-dk)}
+.cdlg-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.cdlg-tags span{font-size:12px;font-weight:700;background:var(--cream);border-radius:4px;padding:2px 10px}
+.cdlg-link{font-size:13px;font-weight:700;color:var(--red);margin-top:16px;text-underline-offset:4px}
+.cdlg-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:22px;padding-top:16px;border-top:1px solid var(--cream-dk)}
+.cdlg-nav button{border:1.5px solid var(--brown);border-radius:999px;padding:9px 16px;font-size:13px;font-weight:700;transition:background .2s,color .2s}
+.cdlg-nav button:hover{background:var(--brown);color:var(--cream)}
+.cdlg-nav span{font-family:var(--num);font-weight:700;font-size:14px;color:var(--brown-lt)}
+.g-more{margin-top:10px;font-size:13px;font-weight:700;color:var(--red);text-decoration:underline;text-underline-offset:4px}
 
 /* ===== 今日の一杯ガチャ ===== */
 .gacha{background:var(--brown);color:var(--cream);overflow:hidden}
@@ -297,8 +316,19 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .nums-item p{font-size:12px}
   .sec{padding:76px 0}
   .grid{grid-template-columns:repeat(2,1fr);gap:16px 12px}
-  .card-in{aspect-ratio:3/4.9}
-  .card-b .desc{font-size:12px;line-height:1.65}
+  .card-in{padding:14px 10px 10px}
+  .card-name{font-size:14px}
+  .cdlg{width:calc(100% - 24px);max-height:calc(100dvh - 24px);border-radius:16px}
+  .cdlg[open]{grid-template-columns:minmax(0,1fr)}
+  .cdlg-vis{padding:30px 0 22px;height:200px}
+  .cdlg-bag{width:120px}
+  .cdlg-no{font-size:90px}
+  .cdlg-x{width:38px;height:38px;right:10px;top:10px}
+  .cdlg-body{padding:20px 20px 18px}
+  .cdlg-body h3{font-size:21px;margin:8px 0}
+  .cdlg-hook{font-size:15px}
+  .cdlg-desc{font-size:14px;line-height:1.8}
+  .cdlg-nav button{padding:8px 12px;font-size:12px}
   .g-row{gap:8px;height:130px}
   .g-row .bag{width:44px}
   .g-row .bag:nth-child(n+7){display:none}
@@ -417,7 +447,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
     <div class="sec-hd">
       <span class="en rv">LINE UP</span>
       <h2 class="rv d1">入っている30種、<br>ぜんぶ見せます。</h2>
-      <p class="rv d2">カードをタップすると、味わいの特長が見られます。</p>
+      <p class="rv d2">気になる銘柄をタップすると、味わいの特長が見られます。</p>
     </div>
     <div class="filters" id="filters">
       <button class="ft on" data-cat="all">すべて（30）</button>
@@ -448,6 +478,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
         <div class="lbl">今日のあなたの一杯は…</div>
         <h3 id="gName"></h3>
         <p id="gDesc"></p>
+        <button type="button" class="g-more" id="gMore">この銘柄を詳しく見る</button>
       </div>
     </div>
   </div>
@@ -548,6 +579,25 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 
 <div class="fix" id="fix"><a href="#spec">30種の福袋を予約する</a></div>
 
+<!-- ===== 銘柄のポップアップ ===== -->
+<dialog class="cdlg" id="cdlg" aria-labelledby="cdlgName">
+  <button type="button" class="cdlg-x" id="cdlgX" aria-label="閉じる">×</button>
+  <div class="cdlg-vis"><span class="cdlg-no" id="cdlgNo" aria-hidden="true"></span><div class="cdlg-bag" id="cdlgBag"></div></div>
+  <div class="cdlg-body">
+    <p class="cdlg-lbl" id="cdlgLbl"></p>
+    <h3 id="cdlgName"></h3>
+    <p class="cdlg-hook" id="cdlgHook"></p>
+    <p class="cdlg-desc" id="cdlgDesc"></p>
+    <div class="cdlg-tags" id="cdlgTags"></div>
+    <a class="cdlg-link" id="cdlgLink" href="#" target="_blank" rel="noopener">この銘柄の単品・セットのページを見る →</a>
+    <div class="cdlg-nav">
+      <button type="button" id="cdlgPrev">← 前の銘柄</button>
+      <span id="cdlgPos"></span>
+      <button type="button" id="cdlgNext">次の銘柄 →</button>
+    </div>
+  </div>
+</dialog>
+
 <script>
 /* ===== 30種のデータ =====
    cat：a=まろやか・やさしい / b=香り華やか・フルーティー / c=バランス・コク / d=しっかりビター
@@ -601,29 +651,52 @@ const bagHTML=(o)=>o.img?`<div class="bag bag-img"><img src="img/${o.img}" alt="
 const grid=document.getElementById('grid');
 grid.innerHTML=coffees.map((o,i)=>`
   <div class="card" data-cat="${o.cat}">
-    <div class="card-in" role="button" tabindex="0" aria-label="${o.name}の味わいを見る">
-      <div class="card-f">
-        <span class="card-no">${String(i+1).padStart(2,'0')}</span>
-        ${bagHTML(o)}
-        <span class="card-cat" style="--cc:${CAT[o.cat].c}">${CAT[o.cat].n}</span>
-        <h3 class="card-name">${disp(o.name)}</h3>
-        <span class="card-tap">タップで味わい</span>
-      </div>
-      <div class="card-b">
-        <h3>${o.name}</h3>
-        <p class="desc">${o.desc}</p>
-        <div class="tags">${o.tags.map(t=>`<span>${t}</span>`).join('')}</div>
-        <a class="link" href="${SHOP+o.url}/" target="_blank" rel="noopener">単品・セットのページを見る</a>
-      </div>
-    </div>
+    <button type="button" class="card-in" data-i="${i}" aria-haspopup="dialog" aria-label="${o.name}の味わいを見る">
+      <span class="card-no">${String(i+1).padStart(2,'0')}</span>
+      ${bagHTML(o)}
+      <span class="card-cat" style="--cc:${CAT[o.cat].c}">${CAT[o.cat].n}</span>
+      <span class="card-name">${disp(o.name)}</span>
+      <span class="card-tap">味わいを見る<i>＋</i></span>
+    </button>
   </div>`).join('');
 grid.addEventListener('click',e=>{
-  if(e.target.closest('a'))return;
-  const c=e.target.closest('.card');if(c)c.classList.toggle('flip');
+  const b=e.target.closest('.card-in');if(b)openCoffee(+b.dataset.i);
 });
-grid.addEventListener('keydown',e=>{
-  if((e.key==='Enter'||e.key===' ')&&e.target.classList.contains('card-in')){e.preventDefault();e.target.parentNode.classList.toggle('flip')}
-});
+
+/* 銘柄のポップアップ（前へ・次へは、絞り込み中の銘柄だけを順番に） */
+const dlg=document.getElementById('cdlg');let dlgIdx=0;
+const $=id=>document.getElementById(id);
+const shownList=()=>[...grid.querySelectorAll('.card:not(.hide) .card-in')].map(b=>+b.dataset.i);
+function renderCoffee(i){
+  dlgIdx=i;const o=coffees[i],no=String(i+1).padStart(2,'0');
+  const k=o.desc.indexOf('。'),hook=k>=0?o.desc.slice(0,k+1):o.desc,rest=k>=0?o.desc.slice(k+1):'';
+  dlg.style.setProperty('--cc',CAT[o.cat].c);
+  $('cdlgNo').textContent=no;
+  $('cdlgLbl').innerHTML=`<b>NO.${no}</b><span>${CAT[o.cat].n}</span>`;
+  $('cdlgName').textContent=o.name;
+  $('cdlgHook').textContent=hook;
+  $('cdlgDesc').textContent=rest;$('cdlgDesc').hidden=!rest;
+  $('cdlgTags').innerHTML=o.tags.map(t=>`<span>${t}</span>`).join('');
+  $('cdlgLink').href=SHOP+o.url+'/';
+  const bag=$('cdlgBag');bag.innerHTML=bagHTML(o);bag.classList.remove('in');void bag.offsetWidth;bag.classList.add('in');
+  const list=shownList(),p=list.indexOf(i);
+  $('cdlgPos').textContent=p>=0?`${p+1} / ${list.length}`:`${i+1} / 30`;
+}
+function openCoffee(i){
+  renderCoffee(i);
+  if(!dlg.open){dlg.showModal();document.documentElement.style.overflow='hidden'}
+}
+function stepCoffee(d){
+  let list=shownList();if(list.indexOf(dlgIdx)<0)list=coffees.map((_,i)=>i);
+  renderCoffee(list[(list.indexOf(dlgIdx)+d+list.length)%list.length]);
+}
+$('cdlgPrev').addEventListener('click',()=>stepCoffee(-1));
+$('cdlgNext').addEventListener('click',()=>stepCoffee(1));
+const closeDlg=()=>{dlg.close();document.documentElement.style.overflow=''};
+$('cdlgX').addEventListener('click',closeDlg);
+dlg.addEventListener('click',e=>{if(e.target===dlg)closeDlg()});  // 外側（背景）をタップで閉じる
+dlg.addEventListener('keydown',e=>{if(e.key==='ArrowRight')stepCoffee(1);if(e.key==='ArrowLeft')stepCoffee(-1)});
+dlg.addEventListener('close',()=>{document.documentElement.style.overflow=''});  // Escキーで閉じたとき
 
 /* 絞り込み */
 const cards=[...grid.children];
@@ -631,7 +704,7 @@ function showCards(cat){
   let n=0;
   cards.forEach(c=>{
     const ok=cat==='all'||c.dataset.cat===cat;
-    c.classList.toggle('hide',!ok);c.classList.remove('pop','flip');
+    c.classList.toggle('hide',!ok);c.classList.remove('pop');
     if(ok){void c.offsetWidth;c.style.setProperty('--dl',(n++*0.04)+'s');c.classList.add('pop')}
   });
 }
@@ -779,6 +852,7 @@ gBtn.addEventListener('click',()=>{
     if(++step<total){speed+=step>total-7?35:3;setTimeout(tick,speed);return}
     // 止まった袋がその日の一杯
     const win=list[rowBags.indexOf(b)];
+    $('gMore').onclick=()=>openCoffee(coffees.indexOf(win));
     document.getElementById('gBag').innerHTML=bagHTML(win);
     document.getElementById('gName').textContent=win.name;
     document.getElementById('gDesc').textContent=win.desc;
