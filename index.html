@@ -249,25 +249,40 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .cdlg-nav button{border:1.5px solid var(--brown);border-radius:999px;padding:9px 16px;font-size:13px;font-weight:700;transition:background .2s,color .2s}
 .cdlg-nav button:hover{background:var(--brown);color:var(--cream)}
 .cdlg-nav span{font-family:var(--num);font-weight:700;font-size:14px;color:var(--brown-lt)}
-.g-more{margin-top:10px;font-size:13px;font-weight:700;color:var(--red);text-decoration:underline;text-underline-offset:4px}
+.rl-more{margin-top:10px;display:inline-block;font-size:13px;font-weight:700;color:var(--red);text-decoration:underline;text-underline-offset:4px}
 
 /* ===== 今日の一杯ガチャ ===== */
 .gacha{background:var(--brown);color:var(--cream);overflow:hidden}
 .gacha .sec-hd h2{color:var(--white)}
 .gacha .sec-hd .en{color:var(--gold)}
-.g-row{display:flex;gap:14px;justify-content:center;align-items:flex-end;height:170px;margin:0 auto 40px;max-width:760px}
-.g-row .bag{width:64px;flex:none;transition:transform .15s,opacity .15s;opacity:.45}
-.g-row .bag-en{font-size:7.5px;letter-spacing:0}
-.g-row .bag-brand{display:none}
-.g-row .bag.hit{transform:translateY(-26px) scale(1.25);opacity:1}
-.g-btn{display:block;margin:0 auto;background:var(--red);color:var(--white);font-weight:900;font-size:19px;padding:18px 46px;border-radius:999px;box-shadow:0 7px 0 var(--red-dk);transition:transform .15s,box-shadow .15s}
-.g-btn:active{transform:translateY(5px);box-shadow:0 2px 0 var(--red-dk)}
-.g-btn:disabled{opacity:.7;cursor:wait}
-.g-res{max-width:620px;margin:44px auto 0;background:var(--cream);color:var(--ink);border-radius:20px;padding:28px;display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:center;opacity:0;transform:scale(.9);transition:opacity .4s,transform .5s cubic-bezier(.2,1.5,.4,1);pointer-events:none}
-.g-res.on{opacity:1;transform:none;pointer-events:auto}
-.g-res .lbl{font-size:12px;font-weight:700;color:var(--red);letter-spacing:.1em}
-.g-res h3{font-size:22px;font-weight:900;line-height:1.4}
-.g-res p{font-size:14px;margin-top:6px}
+.play{display:grid;grid-template-columns:1fr minmax(0,520px);gap:70px;align-items:center}
+.play-en{font-family:var(--num);font-weight:700;font-size:14px;letter-spacing:.25em;color:var(--gold)}
+.play h2{font-size:clamp(34px,4.3vw,56px);font-weight:900;line-height:1.45;color:var(--white);margin:16px 0 26px}
+.play p{font-size:16px;font-weight:700;line-height:1.9}
+.play .note{font-size:13px;font-weight:500;opacity:.75;margin-top:18px}
+.rl{position:relative;background:var(--cream);color:var(--ink);border-radius:16px;padding:38px 34px 32px;text-align:center;box-shadow:14px 14px 0 rgba(0,0,0,.35)}
+.rl-en{font-family:var(--num);font-weight:700;font-size:14px;letter-spacing:.25em;color:var(--brown)}
+.rl-body{min-height:260px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:10px 0 18px}
+.rl-q{font-family:var(--num);font-weight:700;font-size:130px;line-height:1;color:var(--red);animation:qBob 1.6s ease-in-out infinite}
+@keyframes qBob{50%{transform:translateY(-8px) rotate(6deg)}}
+.rl .rl-ttl{font-size:26px;font-weight:900;margin-top:16px;line-height:1.5}
+.rl .rl-sub{font-size:14px;font-weight:700;margin-top:12px}
+.rl-spin{display:flex;align-items:center;gap:22px;text-align:left}
+.rl-spin .bag{width:96px}
+.rl-spin .bag-en{font-size:9px;letter-spacing:0}
+.rl h3,.rl-spin span{word-break:keep-all;overflow-wrap:anywhere}
+.rl h3 small,.rl-spin span small{display:block;font-size:12px;color:var(--brown-lt)}
+.rl-spin b{display:block;font-family:var(--num);font-weight:700;font-size:56px;line-height:1;color:var(--red)}
+.rl-spin span{display:block;font-weight:900;font-size:18px;margin-top:6px}
+.rl-res{display:grid;grid-template-columns:140px 1fr;gap:24px;align-items:center;text-align:left;animation:rlPop .55s cubic-bezier(.2,1.5,.4,1)}
+@keyframes rlPop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+.rl-res .lbl{font-size:13px;font-weight:700;color:var(--red);letter-spacing:.1em}
+.rl-res h3{font-size:26px;font-weight:900;line-height:1.35;margin-top:2px}
+.rl .rl-res p{font-size:14px;line-height:1.8;margin-top:8px}
+.rl-btn{display:block;width:100%;background:var(--red);color:var(--white);font-weight:900;font-size:18px;padding:18px 20px;border-radius:999px;box-shadow:0 6px 0 var(--red-dk);transition:transform .15s,box-shadow .15s}
+.rl-btn:active{transform:translateY(5px);box-shadow:0 1px 0 var(--red-dk)}
+.rl-btn:disabled{opacity:.75;cursor:wait}
+.rl .conf{z-index:5}
 
 /* ===== 楽しみ方 ===== */
 .how{background:var(--cream-dk)}
@@ -351,12 +366,19 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .cdlg-hook{font-size:15px}
   .cdlg-desc{font-size:14px;line-height:1.8}
   .cdlg-nav button{padding:8px 12px;font-size:12px}
-  .g-row{gap:8px;height:130px}
-  .g-row .bag{width:44px}
-  .g-row .bag:nth-child(n+7){display:none}
-  .g-btn{font-size:17px;padding:16px 34px}
-  .g-res{grid-template-columns:84px 1fr;gap:16px;padding:20px;margin:36px 4px 0}
-  .g-res h3{font-size:18px}
+  .play{grid-template-columns:1fr;gap:36px}
+  .play h2{font-size:32px;margin:12px 0 18px}
+  .play p{font-size:14px}
+  .rl{padding:28px 18px 22px;box-shadow:8px 8px 0 rgba(0,0,0,.35)}
+  .rl-body{min-height:230px}
+  .rl-q{font-size:100px}
+  .rl .rl-ttl{font-size:21px}
+  .rl-spin .bag{width:76px}
+  .rl-spin b{font-size:44px}
+  .rl-res{grid-template-columns:96px 1fr;gap:16px}
+  .rl-res h3{font-size:20px}
+  .rl .rl-res p{font-size:13px}
+  .rl-btn{font-size:16px;padding:16px}
   .how-grid{grid-template-columns:1fr;gap:36px}
   .types{grid-template-columns:1fr}
   .type{padding:54px 22px}
@@ -499,24 +521,23 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 </section>
 
 
-<!-- ===== ガチャ ===== -->
+<!-- ===== 今日の一杯ルーレット ===== -->
 <section class="sec gacha">
-  <div class="wrap">
-    <div class="sec-hd">
-      <span class="en rv">TODAY'S CUP</span>
-      <h2 class="rv d1">今日の一杯、<br>なににする？</h2>
-      <p class="rv d2">迷ったらボタンをポチッ。届いたらこんな風に選ぶのも楽しい。</p>
+  <div class="wrap play">
+    <div>
+      <span class="play-en rv">A LITTLE COFFEE PLAY</span>
+      <h2 class="rv d1">届いたら、<br>今日の一杯は<br>ルーレットで。</h2>
+      <p class="rv d2">30袋を前に、うれしく迷ってしまったら。<br>ボタンを押して、一杯との出会いを楽しもう。</p>
+      <p class="note rv d2">飲み比べを楽しむための遊びです。<br>結果に関係なく、30種類すべてが福袋に入っています。</p>
     </div>
-    <div class="g-row" id="gRow" aria-hidden="true"></div>
-    <button class="g-btn" id="gBtn">今日の一杯を引く！</button>
-    <div class="g-res" id="gRes" aria-live="polite">
-      <div id="gBag"></div>
-      <div>
-        <div class="lbl">今日のあなたの一杯は…</div>
-        <h3 id="gName"></h3>
-        <p id="gDesc"></p>
-        <button type="button" class="g-more" id="gMore">この銘柄を詳しく見る</button>
+    <div class="rl rv d1" id="rl">
+      <div class="rl-en">YOUR COFFEE TODAY</div>
+      <div class="rl-body" id="rlBody" aria-live="polite">
+        <div class="rl-q" aria-hidden="true">?</div>
+        <p class="rl-ttl">どの一杯に出会うかな？</p>
+        <p class="rl-sub">全30種類の中からランダムにひとつ。</p>
       </div>
+      <button type="button" class="rl-btn" id="rlBtn">今日の一杯を決める ↗</button>
     </div>
   </div>
 </section>
@@ -872,28 +893,35 @@ const io2=new IntersectionObserver(es=>es.forEach(e=>{
 }),{threshold:.05});
 io2.observe(grid);
 
-/* 今日の一杯ガチャ */
-const gRow=document.getElementById('gRow'),gBtn=document.getElementById('gBtn'),gRes=document.getElementById('gRes');
-const pick=()=>coffees.slice().sort(()=>Math.random()-0.5).slice(0,10);
-function fillRow(list){gRow.innerHTML=list.map(bagHTML).join('');return [...gRow.children]}
-let rowBags=fillRow(pick());
-gBtn.addEventListener('click',()=>{
-  gBtn.disabled=true;gRes.classList.remove('on');
-  const list=pick();
-  rowBags=fillRow(list);
-  const visible=rowBags.filter(b=>b.offsetParent!==null);
-  let step=0,speed=50;const total=reduce?1:20+Math.floor(Math.random()*visible.length);
+/* 今日の一杯ルーレット */
+const rl=$('rl'),rlBody=$('rlBody'),rlBtn=$('rlBtn');
+const noOf=o=>String(coffees.indexOf(o)+1).padStart(2,'0');
+function rlConfetti(){
+  const cols=['#c4161c','#c9a04e','#e58a5f','#d4628b','#3a2318','#7fae5a'],r=rl.getBoundingClientRect();
+  for(let i=0;i<30;i++){
+    const c=document.createElement('div');c.className='conf';
+    const a=-Math.PI*(0.1+Math.random()*0.8),d=120+Math.random()*r.width*0.5;
+    c.style.cssText=`left:50%;top:40%;background:${cols[i%6]};--cx:${Math.cos(a)*d}px;--cy:${Math.sin(a)*d+60}px;--cr:${Math.random()*720-360}deg;--t:${1+Math.random()*0.8}s`;
+    rl.appendChild(c);c.addEventListener('animationend',()=>c.remove());
+  }
+}
+rlBtn.addEventListener('click',()=>{
+  rlBtn.disabled=true;rlBtn.textContent='一杯との出会いを探しています…';
+  const win=coffees[Math.floor(Math.random()*coffees.length)];
+  let step=0,speed=45;const total=reduce?1:24;
   (function tick(){
-    rowBags.forEach(b=>b.classList.remove('hit'));
-    const b=visible[step%visible.length];b.classList.add('hit');
-    if(++step<total){speed+=step>total-7?35:3;setTimeout(tick,speed);return}
-    // 止まった袋がその日の一杯
-    const win=list[rowBags.indexOf(b)];
-    $('gMore').onclick=()=>openCoffee(coffees.indexOf(win));
-    document.getElementById('gBag').innerHTML=bagHTML(win);
-    document.getElementById('gName').textContent=win.name;
-    document.getElementById('gDesc').textContent=win.desc;
-    gRes.classList.add('on');gBtn.disabled=false;gBtn.textContent='もう一回引く！';
+    if(++step<total){
+      const o=coffees[Math.floor(Math.random()*coffees.length)];
+      rlBody.innerHTML=`<div class="rl-spin" aria-hidden="true">${bagHTML(o)}<div><b>${noOf(o)}</b><span>${disp(o.name)}</span></div></div>`;
+      speed+=step>total-8?40:3;setTimeout(tick,speed);return;
+    }
+    // 決まった一杯（ルーレット後の表示）
+    rlBody.innerHTML=`<div class="rl-res"><div>${bagHTML(win)}</div><div>
+      <div class="lbl">今日のあなたの一杯は…</div><h3>${disp(win.name)}</h3><p>${win.desc}</p>
+      <button type="button" class="rl-more">この銘柄を詳しく見る</button></div></div>`;
+    rlBody.querySelector('.rl-more').onclick=()=>openCoffee(coffees.indexOf(win));
+    if(!reduce)rlConfetti();
+    rlBtn.disabled=false;rlBtn.textContent='もう一回まわす！';
   })();
 });
 </script>
