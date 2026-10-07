@@ -90,6 +90,28 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .box-noshi small{display:block;font-size:.45em;letter-spacing:.1em;color:var(--brown);margin-top:4px;font-weight:700}
 .box-count{position:relative;z-index:1;margin-top:12px;font-weight:700;font-size:14px;letter-spacing:.1em}
 .box.bump{animation:bump .35s}
+/* 30袋そろったら：ぶるぶる→パーン！ */
+.box{cursor:pointer}
+.box::before{transition:transform .7s cubic-bezier(.3,.6,.4,1),opacity .7s ease-in}
+.box.charge{animation:shake .08s linear 8}
+@keyframes shake{25%{transform:translate(-3px,1px) rotate(-1.5deg)}75%{transform:translate(3px,-1px) rotate(1.5deg)}}
+.box::before{transform-origin:8% 100%}
+.box.open::before{transform:translate(-30%,-420%) rotate(-35deg);opacity:0}
+.box.open .box-count{color:var(--gold);font-size:16px}
+.burst-layer{position:absolute;inset:0;z-index:3;pointer-events:none}
+.burst{position:absolute;width:var(--s,52px);margin:calc(var(--s,52px)*-.67) 0 0 calc(var(--s,52px)*-.5);transform:translate(var(--fx),var(--fy)) scale(.2);opacity:0;transition:transform 1s cubic-bezier(.15,1.25,.35,1),opacity .2s}
+.burst.out{transform:rotate(var(--r)) scale(1);opacity:1}
+.burst .bag-en{font-size:calc(var(--s)*.16);letter-spacing:0;margin:2px 0}
+.burst .bag-brand{font-size:calc(var(--s)*.11)}
+.burst .bag-dot{width:calc(var(--s)*.22);height:calc(var(--s)*.22);margin-top:1px}
+.burst.out>div{animation:bob 3.2s ease-in-out infinite;animation-delay:var(--fd)}
+@keyframes bob{50%{transform:translateY(-9px) rotate(4deg)}}
+.flash{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;z-index:2;pointer-events:none;
+  background:repeating-conic-gradient(from 0deg,rgba(201,160,78,.55) 0 8deg,transparent 8deg 22deg);
+  animation:flash 1.1s ease-out forwards}
+@keyframes flash{0%{transform:scale(0) rotate(0);opacity:1}60%{opacity:.9}100%{transform:scale(55) rotate(40deg);opacity:0}}
+.conf{position:absolute;width:8px;height:14px;border-radius:2px;z-index:3;pointer-events:none;animation:conf var(--t) cubic-bezier(.2,.6,.4,1) forwards}
+@keyframes conf{0%{transform:translate(0,0) rotate(0)}40%{opacity:1}100%{transform:translate(var(--cx),var(--cy)) rotate(var(--cr));opacity:0}}
 @keyframes bump{40%{transform:scale(1.04,.96)}70%{transform:scale(.98,1.02)}}
 .fv-scroll{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:3;font-size:11px;letter-spacing:.3em;color:var(--brown);display:flex;flex-direction:column;align-items:center;gap:6px}
 .fv-scroll::after{content:"";width:1px;height:40px;background:var(--brown);animation:line 1.8s infinite;transform-origin:top}
@@ -248,8 +270,8 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .fv-h1{font-size:25px}
   .fv-sub{font-size:13.5px}
   .fv-btns{margin-top:22px}
-  .fv-r{height:330px}
-  .fv-box{width:70%;margin-bottom:50px}
+  .fv-r{height:440px}
+  .fv-box{width:60%;margin-bottom:34px}
   .drop{width:46px}
   .btn{padding:13px 22px;font-size:14px}
   .msg{padding:84px 20px}
@@ -306,8 +328,9 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   </div>
   <div class="fv-r">
     <div class="fv-stage" id="stage" aria-hidden="true"></div>
+    <div class="burst-layer" id="burstLayer" aria-hidden="true"></div>
     <div class="fv-box">
-      <div class="box" id="box">
+      <div class="box" id="box" title="タップでもう一度">
         <span class="box-ribbon"></span>
         <div class="box-noshi">福袋<small>30P ASSORT</small></div>
         <div class="box-count"><span id="boxCount">0</span> / 30 袋</div>
@@ -588,9 +611,10 @@ document.getElementById('mq1').innerHTML=names+names;
 const rev=coffees.slice().reverse().map(o=>`<span>${o.name}</span>`).join('');
 document.getElementById('mq2').innerHTML=rev+rev;
 
-/* FV：30から数える＋袋が箱に落ちる */
-const countEl=document.getElementById('count'),boxCount=document.getElementById('boxCount'),box=document.getElementById('box'),stage=document.getElementById('stage');
-let dropped=0,launched=0;
+/* FV：30から数える＋袋が箱に落ちる → 30袋そろったらパーン！と飛び出す */
+const countEl=document.getElementById('count');let boxCount=document.getElementById('boxCount');const box=document.getElementById('box'),stage=document.getElementById('stage'),burstLayer=document.getElementById('burstLayer');
+const fvR=stage.parentNode;
+let dropped=0,launched=0,dropTimer=null,busy=false;
 function dropOne(){
   const o=coffees[launched++%30];
   const d=document.createElement('div');d.className='drop';
@@ -606,15 +630,56 @@ function dropOne(){
     d.remove();
     if(dropped<30){dropped++;boxCount.textContent=dropped;countEl.textContent=dropped}
     box.classList.remove('bump');void box.offsetWidth;box.classList.add('bump');
+    if(dropped===30&&!stage.querySelector('.drop'))setTimeout(burst,350);
   });
 }
-if(reduce){countEl.textContent=30;boxCount.textContent=30}
-else{
-  let i=0;
-  const t=setInterval(()=>{dropOne();if(++i>=30){clearInterval(t);
-    // 30袋入ったあとも、ときどき袋が舞う
-    setInterval(()=>{if(!document.hidden)dropOne()},1400)}},110);
+function burst(){
+  const R=fvR.getBoundingClientRect(),B=box.getBoundingClientRect();
+  const w=R.width,h=R.height,ox=B.left-R.left+B.width/2,oy=B.top-R.top+B.height*0.15;
+  const size=w<500?36:54;
+  box.classList.remove('bump');box.classList.add('charge');
+  setTimeout(()=>{
+    box.classList.remove('charge');box.classList.add('open');
+    box.querySelector('.box-count').innerHTML='全30種 そろった！';
+    // 光の輪
+    const f=document.createElement('div');f.className='flash';f.style.left=ox+'px';f.style.top=oy+'px';
+    fvR.appendChild(f);f.addEventListener('animationend',()=>f.remove());
+    // 紙吹雪
+    const cols=['#c4161c','#c9a04e','#e58a5f','#d4628b','#3a2318','#7fae5a'];
+    for(let i=0;i<36;i++){
+      const c=document.createElement('div');c.className='conf';
+      const a=Math.random()*Math.PI*2,r=120+Math.random()*w*0.45;
+      c.style.cssText=`left:${ox}px;top:${oy}px;background:${cols[i%6]};--cx:${Math.cos(a)*r}px;--cy:${Math.sin(a)*r*0.8+80}px;--cr:${Math.random()*720-360}deg;--t:${1.2+Math.random()*0.8}s`;
+      fvR.appendChild(c);c.addEventListener('animationend',()=>c.remove());
+    }
+    // 30袋が箱のまわりに飛び出す（扇形に散らす）
+    burstLayer.innerHTML='';
+    coffees.forEach((o,i)=>{
+      const a=(-200+220*((i*0.618034)%1))*Math.PI/180;
+      const k=0.42+0.58*Math.sqrt((i+0.5)/30);
+      let x=ox+Math.cos(a)*w*0.47*k, y=oy+Math.sin(a)*oy*0.95*k;
+      x=Math.max(size*0.6,Math.min(w-size*0.6,x));y=Math.max(size*0.8,Math.min(h-size*0.8,y));
+      const el=document.createElement('div');el.className='burst';
+      el.style.cssText=`left:${x/w*100}%;top:${y/h*100}%;--s:${size*(0.8+Math.random()*0.35)}px;--fx:${ox-x}px;--fy:${oy-y}px;--r:${Math.random()*50-25}deg;--fd:${-Math.random()*3}s;transition-delay:${i*0.018}s`;
+      el.innerHTML='<div>'+bagHTML(o)+'</div>';
+      burstLayer.appendChild(el);
+    });
+    void burstLayer.offsetWidth;setTimeout(()=>burstLayer.querySelectorAll('.burst').forEach(el=>el.classList.add('out')),30);
+    busy=false;
+  },reduce?0:700);
 }
+function startFV(){
+  busy=true;dropped=0;launched=0;
+  burstLayer.innerHTML='';box.classList.remove('open');
+  box.querySelector('.box-count').innerHTML='<span id="boxCount">0</span> / 30 袋';
+  boxCount=document.getElementById('boxCount');countEl.textContent=0;
+  if(reduce){countEl.textContent=30;dropped=30;burst();return}
+  let i=0;clearInterval(dropTimer);
+  dropTimer=setInterval(()=>{dropOne();if(++i>=30)clearInterval(dropTimer)},110);
+}
+// 箱をタップするともう一度
+box.addEventListener('click',()=>{if(!busy)startFV()});
+startFV();
 
 /* ヘッダー・固定ボタン */
 const hd=document.getElementById('hd'),fix=document.getElementById('fix'),spec=document.getElementById('spec');
