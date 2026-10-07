@@ -83,7 +83,13 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   100%{transform:translateY(var(--y,70vh)) rotate(var(--r1,15deg));opacity:0}
 }
 .fv-box{position:relative;z-index:2;width:min(78%,420px);margin-bottom:9vh}
-.box{position:relative;background:var(--brown);border-radius:6px 6px 16px 16px;aspect-ratio:1.45/1;box-shadow:0 26px 40px -18px rgba(58,35,24,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--cream);text-align:center}
+.fv-box .box{z-index:1}
+.bouquet{position:absolute;left:0;right:0;top:0;height:0;z-index:0}
+.bq{position:absolute;left:50%;bottom:calc(var(--s)*-.7);width:var(--s);transform-origin:50% 100%;transform:translate(-50%,70%) scale(.7);opacity:0;transition:transform .8s cubic-bezier(.2,1.6,.4,1),opacity .15s}
+.bq.out{transform:translate(calc(-50% + var(--x)),calc(var(--rise)*-1)) rotate(var(--r));opacity:1}
+.bq.out>div{animation:bob 3.4s ease-in-out infinite;animation-delay:var(--fd)}
+.bq .bag-en{font-size:calc(var(--s)*.15);letter-spacing:0}
+.box{position:relative;background:var(--brown);border-radius:6px 6px 16px 16px;aspect-ratio:1.7/1;box-shadow:0 26px 40px -18px rgba(58,35,24,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--cream);text-align:center}
 .box::before{content:"";position:absolute;left:-4%;right:-4%;top:-9%;height:16%;background:var(--brown-lt);border-radius:6px;box-shadow:0 4px 0 rgba(0,0,0,.15)}
 .box-ribbon{position:absolute;left:50%;top:-9%;bottom:0;width:13%;transform:translateX(-50%);background:var(--red)}
 .box-noshi{position:relative;z-index:1;background:var(--cream);color:var(--red);padding:10px 22px 12px;border-radius:4px;font-weight:900;font-size:clamp(20px,2.4vw,30px);letter-spacing:.2em;line-height:1.2;box-shadow:0 3px 0 rgba(0,0,0,.15)}
@@ -126,6 +132,22 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .bag-en{font-weight:900;font-size:11px;line-height:1.15;letter-spacing:.06em;margin:4px 2px}
 .bag-dot{width:16px;height:16px;border-radius:50%;background:currentColor;opacity:.9;margin-top:4px;-webkit-mask:radial-gradient(circle at 50% 50%,transparent 3px,#000 3.5px);mask:radial-gradient(circle at 50% 50%,transparent 3px,#000 3.5px)}
 .bag.light::before{border-color:rgba(0,0,0,.25)}
+.bag-img{background:none;box-shadow:none;overflow:visible;display:flex;align-items:center;justify-content:center}
+.bag-img::before,.bag-img::after{display:none}
+.bag-img img{width:100%;height:auto;max-height:100%;object-fit:contain;filter:drop-shadow(0 6px 8px rgba(58,35,24,.35))}
+
+/* ===== 福袋の概要（コンパクト版） ===== */
+.brief{background:var(--white);border-bottom:1px solid var(--cream-dk)}
+.brief-in{display:flex;align-items:center;gap:28px;padding-top:22px;padding-bottom:22px}
+.brief-ttl{font-weight:900;font-size:17px;line-height:1.4;white-space:nowrap}
+.brief-ttl span{display:block;font-size:11px;color:var(--white);background:var(--red);border-radius:4px;padding:0 8px;width:max-content;margin-bottom:4px;letter-spacing:.08em}
+.brief-list{display:flex;flex:1;gap:0}
+.brief-list>div{flex:1;padding:0 18px;border-left:1px solid var(--cream-dk)}
+.brief-list dt{font-size:11px;font-weight:700;color:var(--brown-lt);letter-spacing:.08em}
+.brief-list dd{font-size:15px;font-weight:700;line-height:1.5;white-space:nowrap}
+.brief-list dd b{font-size:22px;font-weight:900;color:var(--red)}
+.brief-list dd small{font-size:11px;font-weight:500}
+.brief-btn{padding:12px 30px;flex:none}
 
 /* ===== 流れる銘柄名 ===== */
 .marquee{background:var(--brown);color:var(--cream);overflow:hidden;padding:16px 0;white-space:nowrap}
@@ -296,6 +318,15 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .spec-box th,.spec-box td{display:block;width:auto;border:0;padding:0}
   .spec-box th{padding-top:16px;font-size:13px}
   .spec-box td{padding:2px 0 14px;border-bottom:1px solid var(--cream-dk)}
+  .brief-in{flex-wrap:wrap;gap:12px;padding-top:18px;padding-bottom:20px}
+  .brief-ttl{width:100%;display:flex;align-items:center;gap:8px;font-size:16px}
+  .brief-ttl span{margin:0}
+  .brief-list{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:10px 0}
+  .brief-list>div{padding:0 12px}
+  .brief-list>div:nth-child(odd){border-left:0;padding-left:0}
+  .brief-list dd{font-size:14px}
+  .brief-list dd b{font-size:19px}
+  .brief-btn{width:100%}
   .fix{display:block}
   .fv-scroll{display:none}
 }
@@ -330,6 +361,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
     <div class="fv-stage" id="stage" aria-hidden="true"></div>
     <div class="burst-layer" id="burstLayer" aria-hidden="true"></div>
     <div class="fv-box">
+      <div class="bouquet" id="bouquet" aria-hidden="true"></div>
       <div class="box" id="box" title="タップでもう一度">
         <span class="box-ribbon"></span>
         <div class="box-noshi">福袋<small>30P ASSORT</small></div>
@@ -337,6 +369,21 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
       </div>
     </div>
     <div class="fv-scroll">SCROLL</div>
+  </div>
+</section>
+
+<!-- ===== 福袋の概要（コンパクト版） ===== -->
+<section class="brief" aria-label="福袋の概要">
+  <div class="wrap brief-in">
+    <p class="brief-ttl"><span>予約販売</span>30Pアソート福袋</p>
+    <dl class="brief-list">
+      <div><dt>内容</dt><dd>30種×各1袋</dd></div>
+      <!-- ▼ 価格・予約期間・発送予定：確定したら差し替え（下の商品概要も） -->
+      <div><dt>価格</dt><dd><b class="tbd">◯,◯◯◯</b>円<small>（税込）</small></dd></div>
+      <div><dt>予約期間</dt><dd><span class="tbd">◯/◯〜◯/◯</span></dd></div>
+      <div><dt>発送予定</dt><dd><span class="tbd">◯月◯日ごろ〜</span></dd></div>
+    </dl>
+    <a class="btn btn-r brief-btn" href="#spec">予約する</a>
   </div>
 </section>
 
@@ -385,7 +432,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
       <button class="ft" data-cat="c" style="--dot:var(--cat-c)"><i></i>バランス・コク</button>
       <button class="ft" data-cat="d" style="--dot:var(--cat-d)"><i></i>しっかりビター</button>
     </div>
-    <p class="lu-note">※袋のイラストはイメージです。実際のパッケージとは異なります。</p>
+    <p class="lu-note">※パッケージ写真がない銘柄はイラストで表示しています。</p>
     <div class="grid" id="grid"></div>
   </div>
 </section>
@@ -511,39 +558,40 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 <script>
 /* ===== 30種のデータ =====
    cat：a=まろやか・やさしい / b=香り華やか・フルーティー / c=バランス・コク / d=しっかりビター
+   img：商品ページから切り抜いたパッケージ写真（img/フォルダ）。写真がない銘柄は c の色でイラストを表示
    c：袋イラストの色（イメージ） k：袋の文字色
    味わいの文章は各商品ページの説明をもとに要約しています */
 const coffees=[
-  {name:'マイルドブレンド',en:'MILD',cat:'a',c:'#c8202f',tags:['ハイロースト'],url:'dp-mdb50',desc:'香ばしい香りと、ふんわり広がるやさしい甘み。家族みんなで楽しめる、まろやかな定番の味わい。'},
-  {name:'ライトブレンド',en:'LIGHT',cat:'a',c:'#f0c869',k:'#5a3a1f',tags:['ミディアムロースト'],url:'dp-ltb50',desc:'苦味が少なく、酸味もひかえめ。すっきりとしたコクとキレで、軽やかに飲める一杯。'},
-  {name:'アニバーサリーブレンド',en:'ANNI-<br>VERSARY',cat:'a',c:'#7b4f9e',tags:['ブラジル','コロンビア'],url:'dp-anb70',desc:'ブルーマウンテンを思わせる上品な風味に、芳ばしい香りがアクセント。おもてなしにも。'},
+  {name:'マイルドブレンド',img:'pk-mild.webp',en:'MILD',cat:'a',c:'#c8202f',tags:['ハイロースト'],url:'dp-mdb50',desc:'香ばしい香りと、ふんわり広がるやさしい甘み。家族みんなで楽しめる、まろやかな定番の味わい。'},
+  {name:'ライトブレンド',img:'pk-light.webp',en:'LIGHT',cat:'a',c:'#f0c869',k:'#5a3a1f',tags:['ミディアムロースト'],url:'dp-ltb50',desc:'苦味が少なく、酸味もひかえめ。すっきりとしたコクとキレで、軽やかに飲める一杯。'},
+  {name:'アニバーサリーブレンド',img:'pk-anniversary.webp',en:'ANNI-<br>VERSARY',cat:'a',c:'#7b4f9e',tags:['ブラジル','コロンビア'],url:'dp-anb70',desc:'ブルーマウンテンを思わせる上品な風味に、芳ばしい香りがアクセント。おもてなしにも。'},
   {name:'ブレンドフォルテシモ',en:'FORTI-<br>SSIMO',cat:'a',c:'#e27396',tags:['サントスベース'],url:'dp-fv100',desc:'サントスをベースにした、優しい口当たり。焼き立ての香ばしい香りがあふれます。'},
-  {name:'メローブレンド',en:'MELLOW',cat:'a',c:'#d98c5f',tags:['ホンジュラス','ウガンダ'],url:'osechi-sw100set',desc:'甘い香りとまろやかな味わいが魅力。ほっとひと息つきたいときにぴったり。'},
+  {name:'メローブレンド',img:'pk-mellow.webp',en:'MELLOW',cat:'a',c:'#d98c5f',tags:['ホンジュラス','ウガンダ'],url:'osechi-sw100set',desc:'甘い香りとまろやかな味わいが魅力。ほっとひと息つきたいときにぴったり。'},
   {name:'ブレンドハーモニー',en:'HARMONY',cat:'a',c:'#7fae5a',tags:['中深煎り'],url:'dp-bhm50',desc:'しっかりしたコクとほどよい苦味、なのに口あたりはやさしい。酸味ひかえめで飲みやすい。'},
   {name:'氷温甘熟ブレンド',en:'HYO-ON<br>KANJUKU',cat:'a',c:'#262222',tags:['氷温熟成'],url:'dp-hyouon2set',desc:'生豆を氷温域でじっくり熟成。引き出した甘みと旨みで、雑味が少なくまろやか。'},
-  {name:'ハローブレンド',en:'HELLO',cat:'a',c:'#f4f1ea',k:'#2a1a12',tags:['あっさり'],url:'dp-richhello50',desc:'あっさりした風味と爽やかな後味。軽やかでまろやか、コーヒー初心者にもおすすめ。'},
+  {name:'ハローブレンド',img:'pk-hello.webp',en:'HELLO',cat:'a',c:'#f4f1ea',k:'#2a1a12',tags:['あっさり'],url:'dp-richhello50',desc:'あっさりした風味と爽やかな後味。軽やかでまろやか、コーヒー初心者にもおすすめ。'},
 
-  {name:'やくもブレンド',en:'YAKUMO',cat:'b',c:'#8a5a3c',tags:['グアテマラ','人気No.1'],url:'dp-yakumofuku100',desc:'花のような香りと気品ある味わい。松江店限定から生まれた、澤井珈琲の人気No.1ブレンド。'},
-  {name:'モカブレンド',en:'MOCHA',cat:'b',c:'#d9668a',tags:['ハイロースト','エチオピア'],url:'dp-macha100',desc:'モカ特有の甘さを活かした、優しく華やかな香り。実店舗で女性に一番人気のブレンド。'},
+  {name:'やくもブレンド',img:'pk-yakumo.webp',en:'YAKUMO',cat:'b',c:'#8a5a3c',tags:['グアテマラ','人気No.1'],url:'dp-yakumofuku100',desc:'花のような香りと気品ある味わい。松江店限定から生まれた、澤井珈琲の人気No.1ブレンド。'},
+  {name:'モカブレンド',img:'pk-mocha.webp',en:'MOCHA',cat:'b',c:'#d9668a',tags:['ハイロースト','エチオピア'],url:'dp-macha100',desc:'モカ特有の甘さを活かした、優しく華やかな香り。実店舗で女性に一番人気のブレンド。'},
   {name:'キリマンジャロブレンド',en:'KILIMA-<br>NJARO',cat:'b',c:'#e07b24',tags:['中強煎り','タンザニア'],url:'dp-kilimanb50p',desc:'柑橘を思わせる瑞々しい果実感と、力強く上品な酸味。朝の目覚めにぴったり。'},
-  {name:'プレミアムゴールド',en:'PREMIUM<br>GOLD',cat:'b',c:'#b8862b',tags:['フルーティー'],url:'dp-premiumgold60',desc:'透明感のある口当たりに、完熟フルーツのような香りと甘み。上質なひとときに。'},
+  {name:'プレミアムゴールド',img:'pk-premiumgold.webp',en:'PREMIUM<br>GOLD',cat:'b',c:'#b8862b',tags:['フルーティー'],url:'dp-premiumgold60',desc:'透明感のある口当たりに、完熟フルーツのような香りと甘み。上質なひとときに。'},
   {name:'ソルブレンド',en:'SOL',cat:'b',c:'#b3262c',tags:['金のドリップ','メキシコ'],url:'dp-sol60',desc:'「金のドリップ」。メキシコ産豆のフルーティーな香りと、奥深いコクが楽しめます。'},
   {name:'テルスブレンド',en:'TELLUS',cat:'b',c:'#8c5a2b',tags:['銅のドリップ'],url:'dp-tellus',desc:'「銅のドリップ」。フルーティーな香味とバランスの取れた飲みやすさ、すっきりした余韻。'},
-  {name:'星降るブレンド カシオペア',en:'CASSIO-<br>PEIA',cat:'b',c:'#3f7fc1',tags:['インドネシア'],url:'dp-seizablend3s60',desc:'フルーティーな香りとマイルドな口当たり。苦味と酸味のバランスがとれた飲みやすさ。'},
-  {name:'星降るブレンド サザンクロス',en:'SOUTHERN<br>CROSS',cat:'b',c:'#24508f',tags:['コクをプラス'],url:'dp-seizablend3s60',desc:'カシオペアをベースに少しコクをプラス。フルーティーな香りはそのまま、より深い味わいに。'},
+  {name:'星降るブレンド カシオペア',img:'pk-cassiopeia.webp',en:'CASSIO-<br>PEIA',cat:'b',c:'#3f7fc1',tags:['インドネシア'],url:'dp-seizablend3s60',desc:'フルーティーな香りとマイルドな口当たり。苦味と酸味のバランスがとれた飲みやすさ。'},
+  {name:'星降るブレンド サザンクロス',img:'pk-southerncross.webp',en:'SOUTHERN<br>CROSS',cat:'b',c:'#24508f',tags:['コクをプラス'],url:'dp-seizablend3s60',desc:'カシオペアをベースに少しコクをプラス。フルーティーな香りはそのまま、より深い味わいに。'},
   {name:'星降るブレンド 星ロマン',en:'HOSHI<br>ROMAN',cat:'b',c:'#6a5acd',tags:['スペシャリティー配合'],url:'dp-seizablend3s60',desc:'カシオペアにスペシャリティーコーヒーを配合。華やかな香りと甘さが加わった贅沢な一杯。'},
 
-  {name:'ブレンド夢浪漫',en:'YUME<br>ROMAN',cat:'c',c:'#9b2d5a',tags:['40周年記念'],url:'dp-yumeroman40',desc:'創業40周年の記念ブレンド。香り・コク・酸味・苦みが調和した、贅沢な味わい。'},
-  {name:'ビタークラシック',en:'BITTER<br>CLASSIC',cat:'c',c:'#a8141f',tags:['ブラジル','インドネシア'],url:'bitterclassicdripbag',desc:'程よい苦味と濃厚なコク。酸味ひかえめで、毎日飲んでも飽きない本格派。'},
+  {name:'ブレンド夢浪漫',img:'pk-yumeroman.webp',en:'YUME<br>ROMAN',cat:'c',c:'#9b2d5a',tags:['40周年記念'],url:'dp-yumeroman40',desc:'創業40周年の記念ブレンド。香り・コク・酸味・苦みが調和した、贅沢な味わい。'},
+  {name:'ビタークラシック',img:'pk-bitterclassic.webp',en:'BITTER<br>CLASSIC',cat:'c',c:'#a8141f',tags:['ブラジル','インドネシア'],url:'bitterclassicdripbag',desc:'程よい苦味と濃厚なコク。酸味ひかえめで、毎日飲んでも飽きない本格派。'},
   {name:'ビターゴールド',en:'BITTER<br>GOLD',cat:'c',c:'#c9a04e',k:'#3a2318',tags:['中深煎り','ブラジル','グアテマラ'],url:'dp-bittergold200',desc:'苦すぎないのにコクが深い。香ばしい中深煎りで、厚みのある旨みが続きます。'},
   {name:'ビジネスブレンド',en:'BUSINESS',cat:'c',c:'#1d6b4a',tags:['深煎り','ブラジル','コロンビア'],url:'dp-business50',desc:'苦味と甘味のバランスが絶妙。香ばしく濃厚なコクと、甘く芳醇な香り。'},
   {name:'豆太のブレンド',en:'MAMETA',cat:'c',c:'#b5462f',tags:['グアテマラ','カフェオレ向き'],url:'dp-mtb80',desc:'少しビターな味わいと、しっかりしたコク。ミルクとの相性がよく、カフェオレ派に人気。'},
-  {name:'リッチブレンド',en:'RICH',cat:'c',c:'#1e1e1e',tags:['濃厚'],url:'dp-richhello50',desc:'豊かなコクと深い風味のあとに、すっきりとした清涼感。濃厚な味わいを楽しみたい方に。'},
+  {name:'リッチブレンド',img:'pk-rich.webp',en:'RICH',cat:'c',c:'#1e1e1e',tags:['濃厚'],url:'dp-richhello50',desc:'豊かなコクと深い風味のあとに、すっきりとした清涼感。濃厚な味わいを楽しみたい方に。'},
 
-  {name:'ビターブレンド',en:'BITTER',cat:'d',c:'#5b3a29',tags:['深煎り','インドネシア'],url:'dp-btb50',desc:'香り高いインドネシア産の豆を深煎りに。濃厚なコクと苦味で、カフェオレにもぴったり。'},
+  {name:'ビターブレンド',img:'pk-bitter.webp',en:'BITTER',cat:'d',c:'#5b3a29',tags:['深煎り','インドネシア'],url:'dp-btb50',desc:'香り高いインドネシア産の豆を深煎りに。濃厚なコクと苦味で、カフェオレにもぴったり。'},
   {name:'濃い味ブレンド',en:'KOI-AJI',cat:'d',c:'#8f1d24',tags:['深煎り'],url:'dp-pbb70',desc:'通常の2倍の時間をかけて深煎りにした、本場ヨーロッパスタイル。深いコクでカフェオレにも。'},
   {name:'ビクトリーブレンド',en:'VICTORY',cat:'d',c:'#2d4c8c',tags:['深煎り'],url:'dp-fv100',desc:'深煎りならではの、濃厚なコク。飲みごたえのある大人のブレンドです。'},
-  {name:'リッチヨーロピアン',en:'RICH<br>EUROPEAN',cat:'d',c:'#6b3f22',tags:['深煎り','5種の豆'],url:'dp-ecb100-k',desc:'ヨーロッパで愛される伝統の味わいを再現。5種の豆を深煎りにした、ほろ苦さとコク。'},
+  {name:'リッチヨーロピアン',img:'pk-richeuropean.webp',en:'RICH<br>EUROPEAN',cat:'d',c:'#6b3f22',tags:['深煎り','5種の豆'],url:'dp-ecb100-k',desc:'ヨーロッパで愛される伝統の味わいを再現。5種の豆を深煎りにした、ほろ苦さとコク。'},
   {name:'ハウスブレンド',en:'HOUSE',cat:'d',c:'#4f5a2e',tags:['深煎り'],url:'dp-house80',desc:'旨みぎゅっと深煎り仕立て。雑味のないキレと、心落ち着くほろ苦さ。'},
   {name:'オフィスブレンド',en:'OFFICE',cat:'d',c:'#1f3a6b',tags:['深煎り'],url:'dp-office80',desc:'通常の2倍の時間でじっくり深煎り。香ばしい香りとしっかりしたコクで、仕事の合間に。'},
   {name:'ルナブレンド',en:'LUNA',cat:'d',c:'#1b2a55',tags:['銀のドリップ','グアテマラ'],url:'dp-luna60',desc:'「銀のドリップ」。倍以上の時間をかけた焙煎で、しっかりした苦味の中に豆本来の甘みも。'}
@@ -554,7 +602,7 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* 長い銘柄名は「ブレンド」などの手前で改行させる */
 const disp=n=>n.startsWith('星降るブレンド ')?'<small>星降るブレンド</small>'+n.slice(8):n.replace(/(ブレンド|ゴールド|クラシック|ヨーロピアン|ジャロ)/g,'<wbr>$1').replace(/^<wbr>ブレンド/,'ブレンド<wbr>');
-const bagHTML=(o)=>`<div class="bag${o.k?' light':''}" style="--c:${o.c};--k:${o.k||'#fff'}"><div class="bag-in"><span class="bag-brand">SAWAI</span><span class="bag-en">${o.en}</span><span class="bag-dot"></span></div></div>`;
+const bagHTML=(o)=>o.img?`<div class="bag bag-img"><img src="img/${o.img}" alt=""></div>`:`<div class="bag${o.k?' light':''}" style="--c:${o.c};--k:${o.k||'#fff'}"><div class="bag-in"><span class="bag-brand">SAWAI</span><span class="bag-en">${o.en}</span><span class="bag-dot"></span></div></div>`;
 
 /* ラインナップのカード */
 const grid=document.getElementById('grid');
@@ -612,7 +660,7 @@ const rev=coffees.slice().reverse().map(o=>`<span>${o.name}</span>`).join('');
 document.getElementById('mq2').innerHTML=rev+rev;
 
 /* FV：30から数える＋袋が箱に落ちる → 30袋そろったらパーン！と飛び出す */
-const countEl=document.getElementById('count');let boxCount=document.getElementById('boxCount');const box=document.getElementById('box'),stage=document.getElementById('stage'),burstLayer=document.getElementById('burstLayer');
+const countEl=document.getElementById('count');let boxCount=document.getElementById('boxCount');const box=document.getElementById('box'),stage=document.getElementById('stage'),burstLayer=document.getElementById('burstLayer'),bouquet=document.getElementById('bouquet');
 const fvR=stage.parentNode;
 let dropped=0,launched=0,dropTimer=null,busy=false;
 function dropOne(){
@@ -636,7 +684,7 @@ function dropOne(){
 function burst(){
   const R=fvR.getBoundingClientRect(),B=box.getBoundingClientRect();
   const w=R.width,h=R.height,ox=B.left-R.left+B.width/2,oy=B.top-R.top+B.height*0.15;
-  const size=w<500?36:54;
+  const size=w<500?34:50;
   box.classList.remove('bump');box.classList.add('charge');
   setTimeout(()=>{
     box.classList.remove('charge');box.classList.add('open');
@@ -652,25 +700,37 @@ function burst(){
       c.style.cssText=`left:${ox}px;top:${oy}px;background:${cols[i%6]};--cx:${Math.cos(a)*r}px;--cy:${Math.sin(a)*r*0.8+80}px;--cr:${Math.random()*720-360}deg;--t:${1.2+Math.random()*0.8}s`;
       fvR.appendChild(c);c.addEventListener('animationend',()=>c.remove());
     }
-    // 30袋が箱のまわりに飛び出す（扇形に散らす）
+    // 写真のある袋から12袋を箱に刺さった状態に、残りは箱のまわりへ飛び散らす
+    const order=coffees.slice().sort((a,b)=>(b.img?1:0)-(a.img?1:0));
+    const inBox=order.slice(0,12),flying=order.slice(12);
+    const bw=B.width,bs=bw*0.31;
+    bouquet.innerHTML='';
+    inBox.forEach((o,i)=>{
+      const back=i<6,j=back?i:i-6,t=j/5-0.5;  // 後ろの列6袋＋手前の列6袋
+      const el=document.createElement('div');el.className='bq';
+      const sz=bs*(back?0.92:1)*(0.92+Math.random()*0.16);
+      el.style.cssText=`--s:${sz}px;--x:${t*bw*(back?0.74:0.9)+(back?bw*0.04:0)}px;--rise:${(back?sz*1.2:sz*0.62)+Math.random()*sz*0.2-Math.abs(t)*sz*0.35}px;--r:${t*(back?46:64)+(Math.random()*10-5)}deg;--fd:${-Math.random()*3}s;transition-delay:${0.05+Math.random()*0.25}s`;
+      el.innerHTML='<div>'+bagHTML(o)+'</div>';
+      bouquet.appendChild(el);
+    });
     burstLayer.innerHTML='';
-    coffees.forEach((o,i)=>{
-      const a=(-200+220*((i*0.618034)%1))*Math.PI/180;
-      const k=0.42+0.58*Math.sqrt((i+0.5)/30);
+    flying.forEach((o,i)=>{
+      const n=flying.length,a=(-195+210*((i*0.618034)%1))*Math.PI/180;
+      const k=0.72+0.28*((i*0.382)%1);
       let x=ox+Math.cos(a)*w*0.47*k, y=oy+Math.sin(a)*oy*0.95*k;
       x=Math.max(size*0.6,Math.min(w-size*0.6,x));y=Math.max(size*0.8,Math.min(h-size*0.8,y));
       const el=document.createElement('div');el.className='burst';
-      el.style.cssText=`left:${x/w*100}%;top:${y/h*100}%;--s:${size*(0.8+Math.random()*0.35)}px;--fx:${ox-x}px;--fy:${oy-y}px;--r:${Math.random()*50-25}deg;--fd:${-Math.random()*3}s;transition-delay:${i*0.018}s`;
+      el.style.cssText=`left:${x/w*100}%;top:${y/h*100}%;--s:${size*(0.8+Math.random()*0.3)}px;--fx:${ox-x}px;--fy:${oy-y}px;--r:${Math.random()*60-30}deg;--fd:${-Math.random()*3}s;transition-delay:${i*0.02}s`;
       el.innerHTML='<div>'+bagHTML(o)+'</div>';
       burstLayer.appendChild(el);
     });
-    void burstLayer.offsetWidth;setTimeout(()=>burstLayer.querySelectorAll('.burst').forEach(el=>el.classList.add('out')),30);
+    void burstLayer.offsetWidth;setTimeout(()=>document.querySelectorAll('.burst,.bq').forEach(el=>el.classList.add('out')),30);
     busy=false;
   },reduce?0:700);
 }
 function startFV(){
   busy=true;dropped=0;launched=0;
-  burstLayer.innerHTML='';box.classList.remove('open');
+  burstLayer.innerHTML='';bouquet.innerHTML='';box.classList.remove('open');
   box.querySelector('.box-count').innerHTML='<span id="boxCount">0</span> / 30 袋';
   boxCount=document.getElementById('boxCount');countEl.textContent=0;
   if(reduce){countEl.textContent=30;dropped=30;burst();return}
