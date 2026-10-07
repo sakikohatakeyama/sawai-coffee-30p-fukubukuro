@@ -80,7 +80,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .fv-ring.r2{right:-60px;bottom:-60px;width:260px;height:260px;animation-direction:reverse;animation-duration:28s}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.fv-r{background:var(--cream);position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
+.fv-r{background:var(--red);position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
 .fv-stage{position:absolute;inset:0}
 /* 落ちてくるドリップバッグ */
 .drop{position:absolute;top:-120px;width:58px;animation:drop var(--t,3.2s) cubic-bezier(.45,.05,.55,.95) forwards}
@@ -123,8 +123,8 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .conf{position:absolute;width:8px;height:14px;border-radius:2px;z-index:3;pointer-events:none;animation:conf var(--t) cubic-bezier(.2,.6,.4,1) forwards}
 @keyframes conf{0%{transform:translate(0,0) rotate(0)}40%{opacity:1}100%{transform:translate(var(--cx),var(--cy)) rotate(var(--cr));opacity:0}}
 @keyframes bump{40%{transform:scale(1.04,.96)}70%{transform:scale(.98,1.02)}}
-.fv-scroll{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:3;font-size:11px;letter-spacing:.3em;color:var(--brown);display:flex;flex-direction:column;align-items:center;gap:6px}
-.fv-scroll::after{content:"";width:1px;height:40px;background:var(--brown);animation:line 1.8s infinite;transform-origin:top}
+.fv-scroll{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:3;font-size:11px;letter-spacing:.3em;color:var(--white);display:flex;flex-direction:column;align-items:center;gap:6px}
+.fv-scroll::after{content:"";width:1px;height:40px;background:var(--white);animation:line 1.8s infinite;transform-origin:top}
 @keyframes line{0%{transform:scaleY(0)}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
 /* ===== ドリップバッグのイラスト（CSSで描画） ===== */
@@ -349,7 +349,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .fv-h1{font-size:25px}
   .fv-sub{font-size:13.5px}
   .fv-btns{margin-top:22px}
-  .fv-r{height:440px}
+  .fv-r{height:350px}
   .fv-box{width:60%;margin-bottom:34px}
   .drop{width:46px}
   .btn{padding:13px 22px;font-size:14px}
@@ -796,9 +796,10 @@ new IntersectionObserver((es,ob)=>es.forEach(e=>{if(e.isIntersecting){msgBig.cla
 /* FV：30から数える＋袋が箱に落ちる → 30袋そろったらパーン！と飛び出す */
 const countEl=document.getElementById('count');let boxCount=document.getElementById('boxCount');const box=document.getElementById('box'),stage=document.getElementById('stage'),burstLayer=document.getElementById('burstLayer'),bouquet=document.getElementById('bouquet');
 const fvR=stage.parentNode;
+const photoBags=coffees.filter(o=>o.img);
 let dropped=0,launched=0,dropTimer=null,busy=false;
 function dropOne(){
-  const o=coffees[launched++%30];
+  const o=photoBags[launched++%photoBags.length];
   const d=document.createElement('div');d.className='drop';
   d.innerHTML=bagHTML(o);
   const w=stage.clientWidth,h=stage.clientHeight;
@@ -834,29 +835,17 @@ function burst(){
       c.style.cssText=`left:${ox}px;top:${oy}px;background:${cols[i%6]};--cx:${Math.cos(a)*r}px;--cy:${Math.sin(a)*r*0.8+80}px;--cr:${Math.random()*720-360}deg;--t:${1.2+Math.random()*0.8}s`;
       fvR.appendChild(c);c.addEventListener('animationend',()=>c.remove());
     }
-    // 写真のある袋から12袋を箱に刺さった状態に、残りは箱のまわりへ飛び散らす
-    const order=coffees.slice().sort((a,b)=>(b.img?1:0)-(a.img?1:0));
-    const inBox=order.slice(0,12),flying=order.slice(12);
-    const bw=B.width,bs=bw*0.31;
-    bouquet.innerHTML='';
+    // 写真のある袋（15袋）だけを、箱に刺さった状態で扇形に飛び出させる
+    const inBox=photoBags;
+    const bw=B.width,bs=bw*0.3,nb=7,nf=inBox.length-nb;  // 後ろの列7袋＋手前の列8袋
+    bouquet.innerHTML='';burstLayer.innerHTML='';
     inBox.forEach((o,i)=>{
-      const back=i<6,j=back?i:i-6,t=j/5-0.5;  // 後ろの列6袋＋手前の列6袋
+      const back=i<nb,j=back?i:i-nb,t=j/((back?nb:nf)-1)-0.5;
       const el=document.createElement('div');el.className='bq';
       const sz=bs*(back?0.92:1)*(0.92+Math.random()*0.16);
-      el.style.cssText=`--s:${sz}px;--x:${t*bw*(back?0.74:0.9)+(back?bw*0.04:0)}px;--rise:${(back?sz*1.2:sz*0.62)+Math.random()*sz*0.2-Math.abs(t)*sz*0.35}px;--r:${t*(back?46:64)+(Math.random()*10-5)}deg;--fd:${-Math.random()*3}s;transition-delay:${0.05+Math.random()*0.25}s`;
+      el.style.cssText=`--s:${sz}px;--x:${t*bw*(back?0.74:0.92)+(back?bw*0.03:0)}px;--rise:${(back?sz*1.2:sz*0.62)+Math.random()*sz*0.2-Math.abs(t)*sz*0.35}px;--r:${t*(back?46:64)+(Math.random()*10-5)}deg;transition-delay:${0.05+Math.random()*0.25}s`;
       el.innerHTML='<div>'+bagHTML(o)+'</div>';
       bouquet.appendChild(el);
-    });
-    burstLayer.innerHTML='';
-    flying.forEach((o,i)=>{
-      const n=flying.length,a=(-195+210*((i*0.618034)%1))*Math.PI/180;
-      const k=0.72+0.28*((i*0.382)%1);
-      let x=ox+Math.cos(a)*w*0.47*k, y=oy+Math.sin(a)*oy*0.95*k;
-      x=Math.max(size*0.6,Math.min(w-size*0.6,x));y=Math.max(size*0.8,Math.min(h-size*0.8,y));
-      const el=document.createElement('div');el.className='burst';
-      el.style.cssText=`left:${x/w*100}%;top:${y/h*100}%;--s:${size*(0.8+Math.random()*0.3)}px;--fx:${ox-x}px;--fy:${oy-y}px;--r:${Math.random()*60-30}deg;--fd:${-Math.random()*3}s;transition-delay:${i*0.02}s`;
-      el.innerHTML='<div>'+bagHTML(o)+'</div>';
-      burstLayer.appendChild(el);
     });
     void burstLayer.offsetWidth;setTimeout(()=>document.querySelectorAll('.burst,.bq').forEach(el=>el.classList.add('out')),30);
     busy=false;
