@@ -140,7 +140,8 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 /* ===== PCのFV（画像） ===== */
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .fv-img{padding-top:64px;background:#fff}
-.fv-img img{display:block;width:100%;height:auto;max-width:2000px;margin:0 auto}
+.fv-img-in{background:linear-gradient(#fff 0 13.33%,#c4171b 13.33% 86.67%,#fff 86.67%)}  /* 画像の赤い帯を左右に延ばす */
+.fv-img img{display:block;width:100%;height:auto;max-width:1000px;margin:0 auto}  /* 2000px画像を半分の幅で表示してくっきり見せる */
 @media (min-width:769px){
   .fv{display:none}
   .hd{background:rgba(247,238,223,.96);box-shadow:0 2px 12px rgba(58,35,24,.08)}
@@ -449,7 +450,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 <!-- ▼ PCのFV（画像・仮）。スマホは下の動くFVを表示 -->
 <h1 class="vh" id="top">澤井珈琲ドリップコーヒー オールスターズ30｜予約限定価格2,250円（税込）送料無料</h1>
 <section class="fv-img">
-  <img src="img/fv-pc.jpg" width="2000" height="960" alt="澤井珈琲ドリップコーヒー オールスターズ30　予約限定価格 2,250円（税込）送料無料">
+  <div class="fv-img-in"><img src="img/fv-pc.jpg" width="2000" height="960" alt="澤井珈琲ドリップコーヒー オールスターズ30　予約限定価格 2,250円（税込）送料無料"></div>
 </section>
 
 <section class="fv" id="topSp">
