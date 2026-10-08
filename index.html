@@ -57,6 +57,37 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .hd-cta{background:var(--white);color:#d0121c;font-weight:800;font-size:13px;padding:8px 18px;border-radius:999px;text-decoration:none;transition:transform .2s}
 
 .hd-cta:hover{transform:scale(1.05)}
+/* メニュー（PC：ヘッダーに横並び／スマホ：ハンバーガーで開く） */
+.hd-nav{margin-left:auto;margin-right:20px}
+.hd-nav ul{display:flex;gap:22px;list-style:none}
+.hd-nav a{color:var(--white);font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;opacity:.92}
+.hd-nav a:hover{opacity:1;text-decoration:underline;text-underline-offset:5px}
+.hd-nav-cta{display:none}
+.hd-burger{display:none}
+html{scroll-padding-top:72px}
+@media (max-width:1100px){.hd-nav ul{gap:14px}.hd-nav a{font-size:12px}}
+@media (max-width:960px){.hd-nav{display:none}}
+@media (max-width:768px){
+  html{scroll-padding-top:58px}
+  .hd-burger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;margin-right:-8px;padding:0 10px}
+  .hd-burger span{display:block;height:2px;background:var(--white);border-radius:2px;transition:transform .3s,opacity .3s}
+  .hd.menu-on .hd-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hd.menu-on .hd-burger span:nth-child(2){opacity:0}
+  .hd.menu-on .hd-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .hd-nav{display:block;position:fixed;left:0;right:0;top:52px;bottom:0;margin:0;background:#d0121c;padding:12px 24px 40px;overflow:auto;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .25s,transform .25s,visibility .25s}
+  .hd.menu-on .hd-nav{opacity:1;visibility:visible;transform:none}
+  .hd-nav ul{flex-direction:column;gap:0}
+  .hd-nav li{border-bottom:1px solid rgba(255,255,255,.25)}
+  .hd-nav a{display:block;font-size:17px;padding:17px 4px;opacity:1}
+  .hd-nav a:hover{text-decoration:none}
+  .hd-nav-cta{display:block!important;margin-top:28px;text-align:center;background:var(--white);color:#d0121c!important;border-radius:999px;padding:16px!important;font-weight:800}
+}
+/* スマホ：FVの下の「ご予約はこちら」ボタン（FVの背景と同じ赤） */
+.sp-cta{display:none}
+@media (max-width:768px){
+  .sp-cta{display:block;background:var(--cream);padding:22px 16px 6px}
+  .sp-cta a{display:block;background:#c4171b;color:var(--white);font-weight:800;font-size:18px;letter-spacing:.06em;text-align:center;text-decoration:none;border-radius:999px;padding:17px;box-shadow:0 5px 0 var(--red-dk)}
+}
 
 /* ===== FV（左右2色に分けたヒーロー） ===== */
 .fv{position:relative;overflow:hidden;background:var(--red);display:grid;grid-template-columns:minmax(0,440px) minmax(0,400px);justify-content:center;align-items:center;column-gap:clamp(24px,4vw,64px);padding:0 max(9vw,40px);min-height:min(100vh,800px);min-height:min(100svh,800px)}
@@ -403,7 +434,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .fv-box{width:62%;margin:0 0 30px}
   .drop{width:46px}
   .btn{padding:13px 22px;font-size:14px}
-  .msg{padding:84px 20px}
+  .msg{padding:56px 20px 84px}
   .msg p{text-align:left;line-height:2}
   .msg p br{display:none}
   .sec{padding:76px 0}
@@ -481,8 +512,21 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 
 <header class="hd" id="hd">
   <a class="hd-logo" href="#top"><img src="img/logo.png" width="960" height="160" alt="SAWAI COFFEE 澤井珈琲"></a>
+  <nav class="hd-nav" id="hdNav" aria-label="メニュー">
+    <ul>
+      <li><a href="#story">30種の飲み比べ</a></li>
+      <li><a href="#reserve">ご予約について</a></li>
+      <li><a href="#lineup">30種ラインナップ</a></li>
+      <li><a href="#pick">本日のおすすめ</a></li>
+      <li><a href="#types">味わいタイプ</a></li>
+      <li><a href="#how">楽しみ方</a></li>
+      <li><a href="#spec">商品概要</a></li>
+    </ul>
+    <a class="hd-nav-cta" href="#spec">ご予約はこちら</a>
+  </nav>
   <!-- ▼ 購入URL：福袋の商品ページURLに差し替え -->
   <a class="hd-cta" href="#spec">予約はこちら</a>
+  <button type="button" class="hd-burger" id="hdBurger" aria-label="メニューを開く" aria-expanded="false" aria-controls="hdNav"><span></span><span></span><span></span></button>
 </header>
 
 <!-- ===== FV ===== -->
@@ -507,11 +551,12 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
     <img class="fv-sp-cup" src="img/fv-sp-cup.webp" width="800" height="783" alt="" aria-hidden="true">
   </div>
 </section>
+<div class="sp-cta"><a href="#spec">ご予約はこちら</a></div>
 
 
 
 <!-- ===== メッセージ ===== -->
-<section class="msg">
+<section class="msg" id="story">
   <p class="msg-big" id="msgBig" aria-label="30 DAYS, 30 COFFEES!"><span class="ln">30 DAYS,</span><span class="ln">30 COFFEES!</span></p>
   <h2 class="rv d1">同じ一杯は、<br class="sp-br"><em>ひとつもない。</em></h2>
   <!-- 福袋の演出（スクロールで見えたら開始。箱をタップでもう一度） -->
@@ -541,7 +586,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 </section>
 
 <!-- ===== 数字＋ご予約チケット ===== -->
-<section class="brief" aria-label="福袋のご予約">
+<section class="brief" id="reserve" aria-label="福袋のご予約">
   <div class="wrap">
     <div class="brief-hd rv">
       <small>RESERVATION</small>
@@ -593,7 +638,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 
 
 <!-- ===== 本日の澤井珈琲おすすめ ===== -->
-<section class="sec gacha">
+<section class="sec gacha" id="pick">
   <div class="wrap play">
     <div>
       <span class="play-en rv">TODAY'S PICK</span>
@@ -646,7 +691,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 </section>
 
 <!-- ===== 楽しみ方 ===== -->
-<section class="sec how">
+<section class="sec how" id="how">
   <div class="wrap">
     <div class="sec-hd">
       <span class="en rv">HOW TO ENJOY</span>
@@ -708,7 +753,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   澤井珈琲
 </footer>
 
-<div class="fix" id="fix"><a href="#spec">30種の福袋を予約する</a></div>
+<div class="fix" id="fix"><a href="#spec">ご予約はこちら</a></div>
 
 <!-- ===== 銘柄のポップアップ ===== -->
 <dialog class="cdlg" id="cdlg" aria-labelledby="cdlgName">
@@ -942,6 +987,13 @@ function startFV(){
 box.addEventListener('click',()=>{if(!busy)startFV()});
 // 演出の場所までスクロールしたら開始
 new IntersectionObserver((es,ob)=>es.forEach(e=>{if(e.isIntersecting){startFV();ob.disconnect()}}),{threshold:.35}).observe(fvR);
+
+/* スマホのハンバーガーメニュー */
+const hdEl=document.getElementById('hd'),burger=document.getElementById('hdBurger');
+const setMenu=on=>{hdEl.classList.toggle('menu-on',on);burger.setAttribute('aria-expanded',on);burger.setAttribute('aria-label',on?'メニューを閉じる':'メニューを開く');document.documentElement.style.overflow=on?'hidden':''};
+burger.addEventListener('click',()=>setMenu(!hdEl.classList.contains('menu-on')));
+document.getElementById('hdNav').addEventListener('click',e=>{if(e.target.closest('a'))setMenu(false)});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&hdEl.classList.contains('menu-on'))setMenu(false)});
 
 /* ヘッダー・固定ボタン */
 const hd=document.getElementById('hd'),fix=document.getElementById('fix'),spec=document.getElementById('spec');
