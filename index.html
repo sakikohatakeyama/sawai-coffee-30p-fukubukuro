@@ -233,6 +233,8 @@ html{scroll-padding-top:72px}
 .brief-hd h2 .sub{display:block;font-size:.62em;letter-spacing:.08em}
 .brief-hd h2 em{display:block;font-style:normal;color:#ffe08a;white-space:nowrap;font-size:1.45em;line-height:1.2;margin-top:4px}
 .sp-br{display:none}
+/* 開始前・終了後は見出しの文言が長いので少し小さく */
+[data-phase=pre] .brief-hd h2 em,[data-phase=end] .brief-hd h2 em{font-size:1.1em}
 /* カウントダウン */
 .cd{display:inline-flex;flex-direction:column;align-items:center;margin-top:20px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.35);border-radius:14px;padding:14px 26px 16px}
 .cd-lbl{font-size:16px;font-weight:800;letter-spacing:.08em;color:var(--white)}
@@ -240,7 +242,7 @@ html{scroll-padding-top:72px}
 .cd-time b{font-family:var(--num);font-weight:700;font-size:44px;line-height:1.05;color:#ffe08a;min-width:1.25em;text-align:center}
 .cd-time b#cdD{min-width:auto}
 .cd-u{font-size:15px;font-weight:800;margin-right:4px}
-.cd.end .cd-time{display:none}
+.cd.end{display:none}
 /* 予約のご案内カード */
 .rsv{position:relative;max-width:720px;margin:40px auto 0;background:var(--white);border-radius:24px;padding:44px 56px 46px;color:var(--ink);box-shadow:0 24px 40px -22px rgba(80,0,0,.55)}
 .rsv-top{text-align:center}
@@ -444,6 +446,7 @@ html{scroll-padding-top:72px}
 }
 @media (max-width:768px){
   .sp-br{display:inline}
+  [data-phase=pre] .brief-hd h2 em,[data-phase=end] .brief-hd h2 em{font-size:1em}
   .cd{padding:12px 14px 14px;margin-top:16px}
   .cd-lbl{font-size:14px}
   .cd-time b{font-size:32px}
@@ -643,7 +646,7 @@ html{scroll-padding-top:72px}
   <div class="wrap">
     <div class="brief-hd rv">
       <small>RESERVATION</small>
-      <h2><span class="sub">ドリップバッグ30袋入り</span><em>ご予約受付中！</em></h2>
+      <h2><span class="sub">ドリップバッグ30袋入り</span><em data-phase-pre="まもなく予約受付開始！" data-phase-on="ご予約受付中！" data-phase-end="ご予約受付は終了しました">ご予約受付中！</em></h2>
       <!-- カウントダウン（予約受付：10/24 00:00〜11/15 10:00 日本時間。開始前・受付中・終了後で表示が変わる） -->
       <div class="cd" id="cd" aria-live="off">
         <p class="cd-lbl" id="cdLbl">ご予約特典終了まで</p>
@@ -652,7 +655,7 @@ html{scroll-padding-top:72px}
     </div>
     <div class="rsv rv d1">
       <div class="rsv-top">
-        <span class="rsv-badge"><i></i>予約受付中</span>
+        <span class="rsv-badge"><i></i><span data-phase-pre="10/24（土）予約受付開始" data-phase-on="予約受付中" data-phase-end="予約受付終了">予約受付中</span></span>
         <p class="rsv-name"><small>澤井珈琲ドリップコーヒー</small>オールスターズ30</p>
       </div>
       <div class="rsv-price">
@@ -1089,6 +1092,10 @@ io2.observe(grid);
   const p2=n=>String(n).padStart(2,'0');
   function tick(){
     const now=Date.now();
+    // 「ご予約受付中！」などの文言も、開始前・受付中・終了後で切り替える（data-phase-pre / on / end）
+    const phase=now<START?'pre':now<END?'on':'end';
+    document.documentElement.dataset.phase=phase;
+    document.querySelectorAll('[data-phase-'+phase+']').forEach(el=>{const t=el.getAttribute('data-phase-'+phase);if(el.textContent!==t)el.textContent=t});
     if(now>=END){cd.classList.add('end');lbl.textContent='ご予約受付は終了しました';return}
     const target=now<START?START:END;
     lbl.textContent=now<START?'予約受付開始まで':'ご予約特典終了まで';
