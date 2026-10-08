@@ -7,11 +7,8 @@
 <meta name="description" content="澤井珈琲の予約販売・ドリップバッグ30種アソート福袋。30袋ぜんぶ違う珈琲を飲み比べできます。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
-/* 文章中の数字（0〜9）だけFuturaで表示する。Futuraが入っていない環境ではヒラギノ／Notoの数字になる */
-@font-face{font-family:"SawaiNum";src:local("Futura-Medium"),local("Futura Medium");font-weight:100 600;unicode-range:U+0030-0039}
-@font-face{font-family:"SawaiNum";src:local("Futura-Bold"),local("Futura Bold");font-weight:700 900;unicode-range:U+0030-0039}
 :root{
   --red:#c4161c;
   --red-dk:#9c0f14;
@@ -23,10 +20,10 @@
   --ink:#2a1a12;
   --white:#fff;
   --cw:1040px;
-  /* 数字・英字用：Futura（Mac）→ Jost（Futuraに近いWebフォント）→ Helvetica */
+  /* 数字・英字用：Jost（Webフォント）→ Helvetica */
   /* 日本語：ヒラギノ角ゴ（Mac・iPhone）→ Noto Sans JP（Windows・Androidなど） */
-  --jp:"SawaiNum","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif;
-  --num:"Futura","Jost","Helvetica Neue",Helvetica,Arial,"Hiragino Sans","Noto Sans JP",sans-serif;
+  --jp:"Jost","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic","Meiryo",sans-serif;
+  --num:"Jost","Helvetica Neue",Helvetica,Arial,"Hiragino Sans","Noto Sans JP",sans-serif;
   /* 4つの味わいグループの色 */
   --cat-a:#e58a5f;
   --cat-b:#d4628b;
@@ -182,29 +179,26 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .brief-hd h2{font-size:clamp(22px,2.4vw,30px);font-weight:800;line-height:1.4;letter-spacing:.04em}
 .brief-hd h2 em{font-style:normal;color:#ffe08a;white-space:nowrap}
 .sp-br{display:none}
-/* 縦長のチケット（上：本券／下：半券） */
-.ticket{position:relative;display:grid;grid-template-columns:1fr;max-width:560px;margin:40px auto 0;filter:drop-shadow(0 20px 30px rgba(80,0,0,.35))}
-.tk-main{position:relative;background:var(--cream);border-radius:22px 22px 0 0;padding:40px 48px 30px;text-align:center;-webkit-mask:radial-gradient(circle at 0 100%,transparent 16px,#000 16.5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 100%,transparent 16px,#000 16.5px) right/51% 100% no-repeat;mask:radial-gradient(circle at 0 100%,transparent 16px,#000 16.5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 100%,transparent 16px,#000 16.5px) right/51% 100% no-repeat}
-.tk-stub{position:relative;background:var(--gold);border-radius:0 0 22px 22px;display:flex;align-items:center;justify-content:center;gap:26px;padding:26px 48px 30px;border-top:3px dashed rgba(58,35,24,.35);-webkit-mask:radial-gradient(circle at 0 0,transparent 16px,#000 16.5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 0,transparent 16px,#000 16.5px) right/51% 100% no-repeat;mask:radial-gradient(circle at 0 0,transparent 16px,#000 16.5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 0,transparent 16px,#000 16.5px) right/51% 100% no-repeat}
-.tk-stamp{position:absolute;right:-40px;top:-38px;z-index:2;width:108px;height:108px;border-radius:50%;background:var(--red);color:var(--white);display:grid;place-content:center;text-align:center;line-height:1.25;font-weight:800;font-size:19px;box-shadow:0 0 0 4px var(--cream),0 0 0 7px var(--red),0 10px 20px rgba(0,0,0,.25);animation:stampSway 3s ease-in-out infinite}
-.tk-stamp b{display:block;font-size:13px;color:#ffe08a;letter-spacing:.1em}
-@keyframes stampSway{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(6deg) scale(1.06)}}
-.tk-ttl{font-size:24px;font-weight:800;line-height:1.35;color:var(--brown)}
-.tk-ttl small{display:block;font-size:14px;color:var(--red);letter-spacing:.1em;margin-bottom:4px}
-.tk-list{display:grid;grid-template-columns:1fr 1fr;margin-top:20px;border-top:2px dotted rgba(58,35,24,.25);padding-top:18px}
-.tk-list>div{padding:6px 16px}
-.tk-list>div:first-child{grid-column:1/-1;padding-bottom:16px;margin-bottom:12px;border-bottom:1px solid rgba(58,35,24,.15)}
-.tk-list>div:nth-child(3){border-left:1px solid rgba(58,35,24,.15)}
-.tk-list dt{font-size:13px;font-weight:700;color:var(--brown-lt);letter-spacing:.1em}
-.tk-list dd{font-size:17px;font-weight:700;line-height:1.6;white-space:nowrap}
-.tk-list dd.tk-price{font-family:var(--num);font-size:54px;font-weight:700;line-height:1.1;color:var(--red)}
-.tk-free{display:inline-block;vertical-align:middle;margin-left:10px;font-family:var(--jp);font-size:14px;font-weight:800;color:var(--white);background:var(--red);border-radius:4px;padding:2px 10px;line-height:1.5}
-.tk-free.tk-pt{background:#f4bd39;color:var(--brown)}
-.tk-price small{font-family:var(--jp);font-size:16px;color:var(--ink);margin-left:4px}
-.tk-stub p{font-size:15px;font-weight:800;color:var(--brown);line-height:1.3;flex:none}
-.tk-stub p b{display:block;font-family:var(--num);font-size:40px;line-height:1.05}
-.tk-btn{position:relative;overflow:hidden;display:block;flex:1;max-width:340px;background:var(--red);color:var(--white);font-weight:800;font-size:21px;text-align:center;border-radius:999px;padding:18px 10px;text-decoration:none;box-shadow:0 6px 0 var(--red-dk);animation:tkPulse 1.8s ease-in-out infinite}
-.tk-btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-20deg);animation:shine 2.6s ease-in-out infinite}
+/* 予約のご案内カード */
+.rsv{position:relative;max-width:720px;margin:40px auto 0;background:var(--white);border-radius:24px;padding:44px 56px 46px;color:var(--ink);box-shadow:0 24px 40px -22px rgba(80,0,0,.55)}
+.rsv-top{text-align:center}
+.rsv-badge{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:var(--white);font-weight:800;font-size:16px;border-radius:999px;padding:4px 18px}
+.rsv-badge i{width:9px;height:9px;border-radius:50%;background:#ffe08a;animation:blink 1.4s infinite}
+.rsv-name{font-size:30px;font-weight:800;line-height:1.35;color:var(--brown);margin-top:14px}
+.rsv-name small{display:block;font-size:16px;font-weight:700;color:var(--brown-lt);margin-bottom:2px}
+.rsv-price{text-align:center;margin-top:22px;padding:22px 0 24px;border-top:1px solid var(--cream-dk);border-bottom:1px solid var(--cream-dk)}
+.rsv-price .lbl{display:block;font-size:17px;font-weight:800;color:var(--red)}
+.rsv-price b{font-family:var(--num);font-weight:700;font-size:84px;line-height:1.05;color:var(--red);letter-spacing:-.01em}
+.rsv-price .yen{font-size:24px;font-weight:800;color:var(--red);margin-left:4px}
+.rsv-price .yen small{font-size:16px;color:var(--ink);font-weight:700}
+.rsv-tags{display:flex;justify-content:center;gap:10px;margin-top:10px}
+.rsv-tags span{font-size:17px;font-weight:800;border:2px solid var(--red);color:var(--red);border-radius:6px;padding:2px 14px}
+.rsv-list{margin-top:8px}
+.rsv-list>div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:16px 4px;border-bottom:1px solid var(--cream-dk)}
+.rsv-list dt{font-size:16px;font-weight:800;color:var(--brown-lt)}
+.rsv-list dd{font-size:19px;font-weight:700;line-height:1.6}
+.rsv-btn{position:relative;overflow:hidden;display:block;max-width:420px;margin:30px auto 0;background:var(--red);color:var(--white);font-weight:800;font-size:22px;text-align:center;border-radius:999px;padding:20px 10px;text-decoration:none;box-shadow:0 6px 0 var(--red-dk);animation:tkPulse 1.8s ease-in-out infinite}
+.rsv-btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-20deg);animation:shine 2.6s ease-in-out infinite}
 @keyframes shine{0%,55%{left:-60%}100%{left:130%}}
 @keyframes tkPulse{50%{transform:scale(1.05)}}
 
@@ -426,24 +420,22 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .spec-box td{padding:2px 0 14px;border-bottom:1px solid var(--cream-dk)}
   .brief{padding:50px 0 46px}
   .brief-hd{margin-top:0}
-  .ticket{margin-top:46px}
-  .tk-main{border-radius:18px 18px 0 0;padding:30px 18px 20px}
-  .tk-stub{border-radius:0 0 18px 18px;gap:14px;padding:20px 18px 22px}
-  .tk-stamp{right:-8px;top:-38px;width:88px;height:88px;font-size:14px}
-  .tk-stamp b{font-size:10px}
-  .tk-ttl{font-size:22px}
-  .tk-ttl small{font-size:12px}
-  .tk-list>div{padding:4px 8px}
-  .tk-list dd{font-size:14px}
-  .tk-list dd.tk-price{font-size:48px}
-  .tk-stub p b{font-size:30px}
-  .tk-btn{font-size:17px;padding:15px 8px}
+  .rsv{margin-top:28px;padding:30px 20px 30px;border-radius:18px}
+  .rsv-name{font-size:23px}
+  .rsv-name small{font-size:14px}
+  .rsv-price b{font-size:60px}
+  .rsv-price .yen{font-size:20px}
+  .rsv-tags span{font-size:15px}
+  .rsv-list>div{grid-template-columns:1fr;gap:2px;padding:12px 2px}
+  .rsv-list dt{font-size:14px}
+  .rsv-list dd{font-size:17px}
+  .rsv-btn{font-size:19px;padding:17px 10px}
   .fix{display:block}
 }
 @media (prefers-reduced-motion:reduce){
   .fv-track{animation:none!important}
   .fv-cup .steam{opacity:.7}
-  .tk-stamp,.tk-btn,.tk-btn::after{animation:none!important}
+  .rsv-btn,.rsv-btn::after,.rsv-badge i{animation:none!important}
   .msg-big .ch{opacity:1;transform:none}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   .rv{opacity:1;transform:none}
@@ -536,21 +528,23 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
       <small>RESERVATION</small>
       <h2>30種 飲み比べ福袋、<br class="sp-br"><em>ご予約受付中！</em></h2>
     </div>
-    <div class="ticket rv d1">
-      <div class="tk-stamp" aria-hidden="true"><b>予約販売</b>受付中</div>
-      <div class="tk-main">
-        <p class="tk-ttl"><small>澤井珈琲のドリップバッグ</small>30Pアソート福袋</p>
-        <dl class="tk-list">
-          <!-- 予約期間・発売日（下の商品概要も同じ内容） -->
-          <div><dt>予約限定価格</dt><dd class="tk-price">2,250<small>円（税込）</small><span class="tk-free">送料無料</span><span class="tk-free tk-pt">さらにポイント2倍</span></dd></div>
-          <div><dt>予約受付期間</dt><dd class="sm">10/24（土）00:00〜<br>11/15（日）10:00</dd></div>
-          <div><dt>発売日</dt><dd class="sm">11月15日（日）</dd></div>
-        </dl>
+    <div class="rsv rv d1">
+      <div class="rsv-top">
+        <span class="rsv-badge"><i></i>予約受付中</span>
+        <p class="rsv-name"><small>澤井珈琲のドリップバッグ</small>30Pアソート福袋</p>
       </div>
-      <div class="tk-stub">
-        <p><b>30種</b>×各1袋</p>
-        <a class="tk-btn" href="#spec">今すぐ予約する</a>
+      <div class="rsv-price">
+        <span class="lbl">予約販売限定価格</span>
+        <b>2,250</b><span class="yen">円<small>（税込）</small></span>
+        <div class="rsv-tags"><span>送料無料</span><span>ポイント2倍</span></div>
       </div>
+      <!-- 予約受付期間・発売日（下の商品概要も同じ内容） -->
+      <dl class="rsv-list">
+        <div><dt>内容</dt><dd>ドリップバッグ 30袋入り（30種×各1袋）</dd></div>
+        <div><dt>予約受付期間</dt><dd>10月24日（土）00:00 〜 11月15日（日）10:00</dd></div>
+        <div><dt>発売日</dt><dd>11月15日（日）</dd></div>
+      </dl>
+      <a class="rsv-btn" href="#spec">今すぐ予約する</a>
     </div>
   </div>
 </section>
