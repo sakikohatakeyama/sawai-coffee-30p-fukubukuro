@@ -137,6 +137,18 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 @keyframes bump{40%{transform:scale(1.04,.96)}70%{transform:scale(.98,1.02)}}
 @keyframes line{0%{transform:scaleY(0)}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
+/* ===== PCのFV（画像） ===== */
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.fv-img{padding-top:64px;background:#fff}
+.fv-img img{display:block;width:100%;height:auto;max-width:2000px;margin:0 auto}
+@media (min-width:769px){
+  .fv{display:none}
+  .hd{background:rgba(247,238,223,.96);box-shadow:0 2px 12px rgba(58,35,24,.08)}
+  .hd .hd-logo{color:var(--red)}
+  .hd .hd-cta{background:var(--red);color:var(--white)}
+}
+@media (max-width:768px){.fv-img{display:none}}
+
 /* ===== ドリップバッグのイラスト（CSSで描画） ===== */
 .bag{position:relative;width:100%;aspect-ratio:3/4;background:var(--c);color:var(--k,#fff);border-radius:5px 5px 9px 9px;box-shadow:0 8px 16px -8px rgba(58,35,24,.5),inset 0 -10px 18px -10px rgba(0,0,0,.25);overflow:hidden}
 .bag::before{content:"";position:absolute;left:0;right:0;top:13%;border-top:2px dashed rgba(255,255,255,.55)}
@@ -175,6 +187,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .tk-list dt{font-size:13px;font-weight:700;color:var(--brown-lt);letter-spacing:.1em}
 .tk-list dd{font-size:17px;font-weight:700;line-height:1.6;white-space:nowrap}
 .tk-list dd.tk-price{font-family:var(--num);font-size:54px;font-weight:700;line-height:1.1;color:var(--red)}
+.tk-free{display:inline-block;vertical-align:middle;margin-left:10px;font-family:var(--jp);font-size:14px;font-weight:800;color:var(--white);background:var(--red);border-radius:4px;padding:2px 10px;line-height:1.5}
 .tk-price small{font-family:var(--jp);font-size:16px;color:var(--ink);margin-left:4px}
 .tk-stub p{font-size:15px;font-weight:800;color:var(--brown);line-height:1.3;flex:none}
 .tk-stub p b{display:block;font-family:var(--num);font-size:40px;line-height:1.05}
@@ -433,11 +446,17 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 </header>
 
 <!-- ===== FV ===== -->
-<section class="fv" id="top">
+<!-- ▼ PCのFV（画像・仮）。スマホは下の動くFVを表示 -->
+<h1 class="vh" id="top">澤井珈琲ドリップコーヒー オールスターズ30｜予約限定価格2,250円（税込）送料無料</h1>
+<section class="fv-img">
+  <img src="img/fv-pc.jpg" width="2000" height="960" alt="澤井珈琲ドリップコーヒー オールスターズ30　予約限定価格 2,250円（税込）送料無料">
+</section>
+
+<section class="fv" id="topSp">
   <div class="fv-l">
     <span class="fv-tag"><i></i>予約販売</span>
     <div class="fv-num"><span id="count">0</span><small>種類の<br>珈琲</small></div>
-    <h1 class="fv-h1">ぜんぶ違う珈琲、30袋。<br>飲み比べアソート福袋</h1>
+    <p class="fv-h1">ぜんぶ違う珈琲、30袋。<br>飲み比べアソート福袋</p>
     <p class="fv-sub">澤井珈琲のドリップバッグを、1袋ずつ30種類。<br>今日はどれにしよう？が、毎日の楽しみに。</p>
     <div class="fv-btns">
       <a class="btn btn-w" href="#spec">予約する</a>
@@ -504,8 +523,8 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
       <div class="tk-main">
         <p class="tk-ttl"><small>澤井珈琲のドリップバッグ</small>30Pアソート福袋</p>
         <dl class="tk-list">
-          <!-- ▼ 価格・予約期間・発送予定：確定したら差し替え（下の商品概要も） -->
-          <div><dt>価格</dt><dd class="tk-price"><span class="tbd">◯,◯◯◯</span><small>円（税込）</small></dd></div>
+          <!-- ▼ 予約期間・発送予定：確定したら差し替え（下の商品概要も） -->
+          <div><dt>予約限定価格</dt><dd class="tk-price">2,250<small>円（税込）</small><span class="tk-free">送料無料</span></dd></div>
           <div><dt>予約期間</dt><dd class="sm"><span class="tbd">◯/◯（◯）〜◯/◯（◯）</span></dd></div>
           <div><dt>発送予定</dt><dd class="sm"><span class="tbd">◯月◯日ごろ〜</span></dd></div>
         </dl>
@@ -632,8 +651,9 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
     <div class="spec-box rv">
       <table>
         <tr><th>商品名</th><td>ドリップバッグ 30種アソート福袋（予約販売）</td></tr>
-        <!-- ▼ 価格：確定したら差し替え -->
-        <tr><th>価格</th><td><b class="tbd">◯,◯◯◯</b>円（税込）</td></tr>
+        <!-- 価格：予約限定価格 2,250円（税込）送料無料 -->
+        <tr><th>予約限定価格</th><td><b>2,250</b>円（税込）</td></tr>
+        <tr><th>送料</th><td>送料無料</td></tr>
         <tr><th>内容量</th><td>ドリップバッグ 30袋（30種類×各1袋）</td></tr>
         <!-- ▼ 発送予定・予約期間：確定したら差し替え -->
         <tr><th>予約期間</th><td><span class="tbd">◯月◯日（◯）〜◯月◯日（◯）</span></td></tr>
