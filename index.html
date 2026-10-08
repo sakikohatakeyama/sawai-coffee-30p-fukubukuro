@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ぜんぶ違う30袋 飲み比べアソート福袋｜澤井珈琲</title>
-<meta name="description" content="澤井珈琲の予約販売・ドリップバッグ30種アソート福袋。30袋ぜんぶ違う珈琲を飲み比べできます。">
+<title>澤井珈琲ドリップコーヒー オールスターズ30｜予約販売</title>
+<meta name="description" content="澤井珈琲ドリップコーヒー オールスターズ30。ドリップパック30袋入り、30種類ぜんぶ違う珈琲を飲み比べできる予約販売の福袋です。予約販売限定価格2,250円（税込）送料無料。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -396,8 +396,15 @@ html{scroll-padding-top:72px}
 .spec-cta p{font-size:14px;color:var(--brown-lt);margin-top:14px}
 
 /* ===== フッター ===== */
-.ft-end{background:var(--brown);color:var(--cream);text-align:center;padding:60px 24px 110px;font-size:13px}
-.ft-end b{display:block;font-size:20px;letter-spacing:.2em;margin-bottom:8px}
+.ft-end{background:#d0121c;color:var(--white);text-align:center;padding:56px 24px 60px;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:26px}  /* 背景はロゴの赤 */
+.ft-logo{display:block;line-height:0;transition:opacity .2s}
+.ft-logo:hover{opacity:.85}
+.ft-logo img{display:block;height:44px;width:auto}
+.ft-top{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--white);color:var(--white);font-weight:800;font-size:15px;border-radius:999px;padding:12px 30px;text-decoration:none;transition:background .2s,color .2s}
+.ft-top::before{content:"↑";font-family:var(--num)}
+.ft-top:hover{background:var(--white);color:#d0121c}
+.ft-end small{font-family:var(--num);font-size:12px;letter-spacing:.1em;opacity:.8}
+@media (max-width:768px){.ft-end{padding:44px 20px calc(96px + env(safe-area-inset-bottom));gap:18px}.ft-logo img{height:32px}.ft-top{display:none}}
 
 /* スマホ下部の固定ボタン */
 .fix{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;display:none;transform:translateY(130%);transition:transform .4s}
@@ -460,7 +467,8 @@ html{scroll-padding-top:72px}
   .sec-hd h2{font-size:32px}
   .brief-hd h2{font-size:28px}
   .type h3{font-size:26px}
-  .spec .sec-hd h2,.how .sec-hd h2{font-size:34px}
+  .how .sec-hd h2{font-size:34px}
+  .spec .sec-hd h2{font-size:26px}
   .play p{font-size:14px}
   .rl{padding:28px 18px 22px;box-shadow:8px 8px 0 #122963}
   .rl-body{min-height:230px}
@@ -595,7 +603,7 @@ html{scroll-padding-top:72px}
     <div class="rsv rv d1">
       <div class="rsv-top">
         <span class="rsv-badge"><i></i>予約受付中</span>
-        <p class="rsv-name"><small>澤井珈琲のドリップバッグ</small>30Pアソート福袋</p>
+        <p class="rsv-name"><small>澤井珈琲ドリップコーヒー</small>オールスターズ30</p>
       </div>
       <div class="rsv-price">
         <span class="lbl">予約販売限定価格</span>
@@ -605,7 +613,7 @@ html{scroll-padding-top:72px}
       <!-- 予約受付期間・発売日（下の商品概要も同じ内容） -->
       <dl class="rsv-list">
         <div><dt>内容</dt><dd>ドリップバッグ 30袋入り（30種×各1袋）</dd></div>
-        <div><dt>予約受付期間</dt><dd>10月24日（土）00:00 〜 11月15日（日）10:00</dd></div>
+        <div><dt>予約受付期間</dt><dd>10月24日（土）00:00 〜<br class="sp-br">11月15日（日）10:00</dd></div>
         <div><dt>発売日</dt><dd>11月15日（日）</dd></div>
       </dl>
       <a class="rsv-btn" href="#spec">今すぐ予約する</a>
@@ -725,17 +733,17 @@ html{scroll-padding-top:72px}
   <div class="wrap">
     <div class="sec-hd">
       <span class="en rv">ITEM</span>
-      <h2 class="rv d1">30Pアソート福袋</h2>
+      <h2 class="rv d1">澤井珈琲ドリップコーヒー<br>オールスターズ30</h2>
     </div>
     <div class="spec-box rv">
       <table>
-        <tr><th>商品名</th><td>ドリップバッグ 30種アソート福袋（予約販売）</td></tr>
+        <tr><th>商品名</th><td>澤井珈琲ドリップコーヒー オールスターズ30（予約販売）</td></tr>
         <!-- 価格：予約限定価格 2,250円（税込）送料無料 -->
         <tr><th>予約限定価格</th><td><b>2,250</b>円（税込）</td></tr>
         <tr><th>送料</th><td>送料無料</td></tr>
         <tr><th>内容量</th><td>ドリップバッグ 30袋（30種類×各1袋）</td></tr>
         <!-- 予約期間・発売日 -->
-        <tr><th>予約受付期間</th><td>10月24日（土）00:00〜11月15日（日）10:00</td></tr>
+        <tr><th>予約受付期間</th><td>10月24日（土）00:00〜<br class="sp-br">11月15日（日）10:00</td></tr>
         <tr><th>発売日</th><td>11月15日（日）</td></tr>
         <tr><th>ポイント</th><td>ポイント2倍</td></tr>
       </table>
@@ -749,8 +757,9 @@ html{scroll-padding-top:72px}
 </section>
 
 <footer class="ft-end">
-  <b>SAWAI COFFEE</b>
-  澤井珈琲
+  <a class="ft-logo" href="https://www.rakuten.co.jp/sawaicoffee-tea/" target="_blank" rel="noopener"><img src="img/logo.png" width="960" height="160" alt="澤井珈琲 トップページへ" loading="lazy"></a>
+  <a class="ft-top" href="#top">特集トップページに戻る</a>
+  <small>&copy; SAWAI COFFEE</small>
 </footer>
 
 <div class="fix" id="fix"><a href="#spec">ご予約はこちら</a></div>
