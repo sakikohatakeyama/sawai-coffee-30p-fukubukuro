@@ -95,13 +95,10 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .box-ribbon{position:absolute;left:50%;top:-12%;bottom:0;width:13%;transform:translateX(-50%);background:#fffaf0;border-left:3px solid var(--red);border-right:3px solid var(--red)}
 .box-bow{position:absolute;left:50%;top:-4%;z-index:2;width:28%;transform:translateX(-50%);filter:drop-shadow(0 3px 0 rgba(0,0,0,.12))}
 .box-bow svg{display:block;width:100%;height:auto}
-.box-noshi{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:37%;aspect-ratio:1;margin-top:17%;border-radius:50%;background:#fffaf0;box-shadow:0 0 0 4px #fffaf0,0 0 0 6px var(--red),0 8px 14px -6px rgba(70,0,0,.4);animation:fukuBob 2.6s ease-in-out infinite}
-.box-noshi::before{content:"";position:absolute;inset:7%;border-radius:50%;border:2px dashed rgba(196,23,27,.55)}
-.box-noshi em{font-style:normal;font-family:var(--num);font-weight:700;font-size:clamp(7px,.75vw,10px);letter-spacing:.18em;color:var(--red)}
-.box-noshi b{font-weight:800;font-size:clamp(30px,3.4vw,44px);line-height:1.1;color:var(--red)}
 @keyframes fukuBob{50%{transform:rotate(-6deg) scale(1.04)}}
-.box-noshi small{display:block;font-family:var(--num);font-size:clamp(8px,.85vw,11px);letter-spacing:.12em;font-weight:700;color:var(--brown)}
-.box-count{position:relative;z-index:1;margin-top:6%;font-family:var(--num);font-weight:700;font-size:14px;letter-spacing:.1em;color:var(--brown);background:#fffaf0;border-radius:999px;padding:1px 14px}
+.fv-count{position:absolute;left:0;right:0;bottom:24px;z-index:4;margin:0;text-align:center;color:var(--white);font-family:var(--num);font-weight:700;font-size:26px;letter-spacing:.08em;line-height:1.2}
+.fv-count.done{font-size:clamp(34px,4.6vw,52px);letter-spacing:.1em;color:#ffe08a;animation:doneIn .6s cubic-bezier(.2,1.6,.4,1)}
+@keyframes doneIn{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
 .box.bump{animation:bump .35s}
 /* 30袋そろったら：ぶるぶる→パーン！ */
 .box{cursor:pointer}
@@ -110,7 +107,6 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 @keyframes shake{25%{transform:translate(-3px,1px) rotate(-1.5deg)}75%{transform:translate(3px,-1px) rotate(1.5deg)}}
 .box::before{transform-origin:8% 100%}
 .box.open::before{transform:translate(-30%,-420%) rotate(-35deg);opacity:0}
-.box.open .box-count{color:var(--red);font-size:16px}
 .box-bow{transition:transform .5s cubic-bezier(.2,1.6,.4,1)}
 .box.open .box-bow{transform:translateX(-50%) scale(1.12)}
 .box-ribbon{transition:top .3s}
@@ -172,7 +168,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .brief::before{left:-80px;top:-90px}.brief::after{right:-70px;bottom:-110px}
 .brief-hd{position:relative;text-align:center;color:var(--white);margin:0}
 .brief-hd small{display:inline-block;font-family:var(--num);font-weight:700;font-size:13px;letter-spacing:.3em;color:var(--gold)}
-.brief-hd h2{font-size:clamp(22px,2.4vw,30px);font-weight:800;line-height:1.4;letter-spacing:.04em}
+.brief-hd h2{font-size:clamp(26px,3.2vw,40px);font-weight:800;line-height:1.4;letter-spacing:.04em}
 .brief-hd h2 em{font-style:normal;color:#ffe08a;white-space:nowrap}
 .sp-br{display:none}
 /* 予約のご案内カード */
@@ -207,9 +203,9 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .msg-big .sp{display:inline-block;width:.28em}
 @keyframes chIn{to{opacity:1;transform:none}}
 .msg-show{max-width:760px;margin:0 auto 54px}
-.msg-show .fv-r{height:500px;padding-top:0;background:var(--red);border-radius:28px;overflow:hidden;box-shadow:0 24px 40px -26px rgba(80,0,0,.6)}
-.msg-show .fv-box{margin-bottom:56px}
-.msg h2{font-size:clamp(24px,2.8vw,34px);font-weight:800;line-height:1.5;margin:14px 0 36px}
+.msg-show .fv-r{height:540px;padding-top:0;background:var(--red);border-radius:28px;overflow:hidden;box-shadow:0 24px 40px -26px rgba(80,0,0,.6)}
+.msg-show .fv-box{margin-bottom:104px}
+.msg h2{font-size:clamp(28px,3.4vw,42px);font-weight:800;line-height:1.5;margin:14px 0 36px}
 .msg h2 em{font-style:normal;color:var(--red)}
 .msg p{font-size:clamp(15px,1.4vw,17px);line-height:2.2;font-weight:500}
 @keyframes float{50%{transform:translateY(-18px)}}
@@ -219,7 +215,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .sec{padding:96px 0}
 .sec-hd{text-align:center;margin-bottom:46px}
 .sec-hd .en{display:block;font-size:13px;letter-spacing:.4em;font-weight:700;color:var(--red)}
-.sec-hd h2{font-size:clamp(24px,2.6vw,34px);font-weight:800;line-height:1.45;margin-top:10px}
+.sec-hd h2{font-size:clamp(28px,3.4vw,44px);font-weight:800;line-height:1.45;margin-top:10px}
 .sec-hd p{margin-top:14px;font-weight:500}
 
 /* ===== 30袋ぜんぶ見せる ===== */
@@ -279,7 +275,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .gacha .sec-hd .en{color:var(--gold)}
 .play{display:grid;grid-template-columns:1fr minmax(0,470px);gap:60px;align-items:center}
 .play-en{font-family:var(--num);font-weight:700;font-size:14px;letter-spacing:.25em;color:#f4bd39}
-.play h2{font-size:clamp(30px,3.4vw,44px);font-weight:800;line-height:1.45;color:var(--white);margin:16px 0 26px}
+.play h2{font-size:clamp(32px,4vw,52px);font-weight:800;line-height:1.45;color:var(--white);margin:16px 0 26px}
 .play p{font-size:16px;font-weight:700;line-height:1.9}
 .play .note{font-size:13px;font-weight:500;opacity:.75;margin-top:18px}
 .rl{position:relative;background:var(--cream);color:var(--ink);border-radius:16px;padding:38px 34px 32px;text-align:center;box-shadow:14px 14px 0 #122963}
@@ -325,7 +321,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .type:nth-child(3){background:var(--cat-c)}
 .type:nth-child(4){background:var(--cat-d)}
 .type .n{font-size:13px;font-weight:700;letter-spacing:.3em;opacity:.85}
-.type h3{font-size:clamp(21px,2vw,26px);font-weight:800;line-height:1.4;margin-top:6px}
+.type h3{font-size:clamp(23px,2.4vw,30px);font-weight:800;line-height:1.4;margin-top:6px}
 .type p{margin-top:10px;font-size:15px;font-weight:500}
 .type ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
 .type li{font-size:12.5px;font-weight:700;background:rgba(255,255,255,.2);border-radius:999px;padding:2px 12px}
@@ -373,8 +369,10 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .fv-btns{margin-top:22px}
   .fv-r{height:330px;padding-top:0;align-self:auto}
   .msg-show{margin:0 -4px 40px}
-  .msg-show .fv-r{height:380px;border-radius:20px}
-  .msg-show .fv-box{margin-bottom:34px}
+  .msg-show .fv-r{height:400px;border-radius:20px}
+  .msg-show .fv-box{margin-bottom:76px}
+  .fv-count{font-size:22px;bottom:18px}
+  .fv-count.done{font-size:32px}
   .fv-box{width:62%;margin:0 0 30px}
   .drop{width:46px}
   .btn{padding:13px 22px;font-size:14px}
@@ -397,7 +395,12 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .cdlg-desc{font-size:14px;line-height:1.8}
   .cdlg-nav button{padding:8px 12px;font-size:12px}
   .play{grid-template-columns:1fr;gap:36px}
-  .play h2{font-size:32px;margin:12px 0 18px}
+  .play h2{font-size:34px;margin:12px 0 18px}
+  .msg h2{font-size:28px;line-height:1.45}
+  .sec-hd h2{font-size:28px}
+  .brief-hd h2{font-size:26px}
+  .type h3{font-size:24px}
+  .spec .sec-hd h2,.how .sec-hd h2{font-size:30px}
   .play p{font-size:14px}
   .rl{padding:28px 18px 22px;box-shadow:8px 8px 0 #122963}
   .rl-body{min-height:230px}
@@ -479,7 +482,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 <!-- ===== メッセージ ===== -->
 <section class="msg">
   <p class="msg-big" id="msgBig" aria-label="30 DAYS, 30 COFFEES!"><span class="ln">30 DAYS,</span><span class="ln">30 COFFEES!</span></p>
-  <h2 class="rv d1">同じ一杯は、<em>ひとつもない。</em></h2>
+  <h2 class="rv d1">同じ一杯は、<br class="sp-br"><em>ひとつもない。</em></h2>
   <!-- 福袋の演出（スクロールで見えたら開始。箱をタップでもう一度） -->
   <div class="msg-show rv d2">
   <div class="fv-r">
@@ -490,10 +493,9 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
       <div class="box" id="box" title="タップでもう一度">
         <span class="box-ribbon"></span>
         <span class="box-bow" aria-hidden="true"><svg viewBox="0 0 140 84"><path d="M62 40 L44 80 L56 74 L64 84 L70 44Z M78 40 L96 80 L84 74 L76 84 L70 44Z" fill="#fffaf0" stroke="#c4161c" stroke-width="3" stroke-linejoin="round"/><path d="M70 38 C52 6 14 2 9 22 C4 42 40 50 70 38Z M70 38 C88 6 126 2 131 22 C136 42 100 50 70 38Z" fill="#fffaf0" stroke="#c4161c" stroke-width="4" stroke-linejoin="round"/><path d="M66 36 C54 20 30 16 26 26 M74 36 C86 20 110 16 114 26" fill="none" stroke="#fffaf0" stroke-width="4" stroke-linecap="round"/><rect x="58" y="26" width="24" height="24" rx="8" fill="#fffaf0" stroke="#c4161c" stroke-width="4"/></svg></span>
-        <div class="box-noshi"><em>SAWAI COFFEE</em><b>福</b><small>30 COFFEES</small></div>
-        <div class="box-count"><span id="boxCount">0</span> / 30 袋</div>
       </div>
     </div>
+    <p class="fv-count" id="fvCount" aria-live="polite"><span id="boxCount">0</span> / 30 袋</p>
   </div>
   </div>
   <p class="rv d2">
@@ -858,7 +860,7 @@ function burst(){
   box.classList.remove('bump');box.classList.add('charge');
   setTimeout(()=>{
     box.classList.remove('charge');box.classList.add('open');
-    box.querySelector('.box-count').innerHTML='全30種 そろった！';
+    const fc=document.getElementById('fvCount');fc.textContent='ALL STARS 30';fc.classList.add('done');
     // 光の輪
     const f=document.createElement('div');f.className='flash';f.style.left=ox+'px';f.style.top=oy+'px';
     fvR.appendChild(f);f.addEventListener('animationend',()=>f.remove());
@@ -889,7 +891,7 @@ function burst(){
 function startFV(){
   busy=true;dropped=0;launched=0;
   burstLayer.innerHTML='';bouquet.innerHTML='';box.classList.remove('open');
-  box.querySelector('.box-count').innerHTML='<span id="boxCount">0</span> / 30 袋';
+  const fc=document.getElementById('fvCount');fc.classList.remove('done');fc.innerHTML='<span id="boxCount">0</span> / 30 袋';
   boxCount=document.getElementById('boxCount');
   if(reduce){dropped=30;burst();return}
   let i=0;clearInterval(dropTimer);
