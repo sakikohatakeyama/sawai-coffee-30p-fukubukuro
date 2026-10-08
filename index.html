@@ -210,11 +210,12 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .msg-big.on .ch{animation:chIn .55s cubic-bezier(.2,1.6,.4,1) forwards;animation-delay:calc(var(--i)*.06s)}
 .msg-big .sp{display:inline-block;width:.28em}
 @keyframes chIn{to{opacity:1;transform:none}}
+.msg-show{max-width:760px;margin:0 auto 54px}
+.msg-show .fv-r{height:500px;padding-top:0;background:var(--red);border-radius:28px;overflow:hidden;box-shadow:0 24px 40px -26px rgba(80,0,0,.6)}
+.msg-show .fv-box{margin-bottom:56px}
 .msg h2{font-size:clamp(24px,2.8vw,34px);font-weight:800;line-height:1.5;margin:14px 0 36px}
 .msg h2 em{font-style:normal;color:var(--red)}
 .msg p{font-size:clamp(15px,1.4vw,17px);line-height:2.2;font-weight:500}
-.msg-cups{position:absolute;inset:0;pointer-events:none}
-.msg-cups span{position:absolute;width:64px;height:64px;border-radius:50%;border:2px solid var(--cream-dk);animation:float 7s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(-18px)}}
 
 
@@ -375,6 +376,9 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .fv-sub{font-size:13.5px}
   .fv-btns{margin-top:22px}
   .fv-r{height:330px;padding-top:0;align-self:auto}
+  .msg-show{margin:0 -4px 40px}
+  .msg-show .fv-r{height:380px;border-radius:20px}
+  .msg-show .fv-box{margin-bottom:34px}
   .fv-box{width:56%;margin:0 0 30px 16%}
   .drop{width:46px}
   .btn{padding:13px 22px;font-size:14px}
@@ -465,7 +469,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 <section class="fv" id="topSp">
   <div class="fv-l">
     <span class="fv-tag"><i></i>予約販売</span>
-    <div class="fv-num"><span id="count">0</span><small>種類の<br>珈琲</small></div>
+    <div class="fv-num"><span>30</span><small>種類の<br>珈琲</small></div>
     <p class="fv-h1">ぜんぶ違う珈琲、30袋。<br>飲み比べアソート福袋</p>
     <p class="fv-sub">澤井珈琲のドリップバッグを、1袋ずつ30種類。<br>今日はどれにしよう？が、毎日の楽しみに。</p>
     <div class="fv-btns">
@@ -473,6 +477,16 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
       <a class="btn btn-line" href="#lineup">30種を見る</a>
     </div>
   </div>
+</section>
+
+
+
+<!-- ===== メッセージ ===== -->
+<section class="msg">
+  <p class="msg-big" id="msgBig" aria-label="30 DAYS, 30 COFFEES!"><span class="ln">30 DAYS,</span><span class="ln">30 COFFEES!</span></p>
+  <h2 class="rv d1">同じ一杯は、<em>ひとつもない。</em></h2>
+  <!-- 福袋の演出（スクロールで見えたら開始。箱をタップでもう一度） -->
+  <div class="msg-show rv d2">
   <div class="fv-r">
     <div class="fv-stage" id="stage" aria-hidden="true"></div>
     <div class="burst-layer" id="burstLayer" aria-hidden="true"></div>
@@ -498,18 +512,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
       </div>
     </div>
   </div>
-</section>
-
-
-
-<!-- ===== メッセージ ===== -->
-<section class="msg">
-  <div class="msg-cups" aria-hidden="true">
-    <span style="left:6%;top:18%"></span><span style="left:86%;top:12%;animation-delay:-2s;width:90px;height:90px"></span>
-    <span style="left:12%;top:72%;animation-delay:-4s;width:40px;height:40px"></span><span style="left:80%;top:70%;animation-delay:-1s"></span>
   </div>
-  <p class="msg-big" id="msgBig" aria-label="30 DAYS, 30 COFFEES!"><span class="ln">30 DAYS,</span><span class="ln">30 COFFEES!</span></p>
-  <h2 class="rv d1">同じ一杯は、<em>ひとつもない。</em></h2>
   <p class="rv d2">
     やさしい甘みのマイルドブレンド、<br>
     花のように香るやくもブレンド、<br>
@@ -843,7 +846,7 @@ msgBig.querySelectorAll('.ln').forEach(ln=>{
 new IntersectionObserver((es,ob)=>es.forEach(e=>{if(e.isIntersecting){msgBig.classList.add('on');ob.disconnect()}}),{threshold:.4}).observe(msgBig);
 
 /* FV：30から数える＋袋が箱に落ちる → 30袋そろったらパーン！と飛び出す */
-const countEl=document.getElementById('count');let boxCount=document.getElementById('boxCount');const box=document.getElementById('box'),stage=document.getElementById('stage'),burstLayer=document.getElementById('burstLayer'),bouquet=document.getElementById('bouquet');
+let boxCount=document.getElementById('boxCount');const box=document.getElementById('box'),stage=document.getElementById('stage'),burstLayer=document.getElementById('burstLayer'),bouquet=document.getElementById('bouquet');
 const fvR=stage.parentNode;
 const photoBags=coffees.filter(o=>o.img);
 let dropped=0,launched=0,dropTimer=null,busy=false;
@@ -860,7 +863,7 @@ function dropOne(){
   stage.appendChild(d);
   d.addEventListener('animationend',()=>{
     d.remove();
-    if(dropped<30){dropped++;boxCount.textContent=dropped;countEl.textContent=dropped}
+    if(dropped<30){dropped++;boxCount.textContent=dropped}
     box.classList.remove('bump');void box.offsetWidth;box.classList.add('bump');
     if(dropped===30&&!stage.querySelector('.drop'))setTimeout(burst,350);
   });
@@ -904,14 +907,15 @@ function startFV(){
   busy=true;dropped=0;launched=0;
   burstLayer.innerHTML='';bouquet.innerHTML='';box.classList.remove('open');
   box.querySelector('.box-count').innerHTML='<span id="boxCount">0</span> / 30 袋';
-  boxCount=document.getElementById('boxCount');countEl.textContent=0;
-  if(reduce){countEl.textContent=30;dropped=30;burst();return}
+  boxCount=document.getElementById('boxCount');
+  if(reduce){dropped=30;burst();return}
   let i=0;clearInterval(dropTimer);
   dropTimer=setInterval(()=>{dropOne();if(++i>=30)clearInterval(dropTimer)},110);
 }
 // 箱をタップするともう一度
 box.addEventListener('click',()=>{if(!busy)startFV()});
-startFV();
+// 演出の場所までスクロールしたら開始
+new IntersectionObserver((es,ob)=>es.forEach(e=>{if(e.isIntersecting){startFV();ob.disconnect()}}),{threshold:.35}).observe(fvR);
 
 /* ヘッダー・固定ボタン */
 const hd=document.getElementById('hd'),fix=document.getElementById('fix'),spec=document.getElementById('spec');
