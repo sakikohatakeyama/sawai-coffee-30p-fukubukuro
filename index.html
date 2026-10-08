@@ -73,12 +73,6 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .btn-line{border:2px solid var(--white);color:var(--white)}
 .btn-r{background:var(--red);color:var(--white);box-shadow:0 6px 0 var(--red-dk)}
 /* 背景で回る湯気の輪 */
-/* 湯気の立つコーヒーカップ（箱の左下に置く） */
-.fv-cup{position:absolute;left:-46%;bottom:-6px;z-index:3;width:44%;pointer-events:none}
-.fv-cup svg{display:block;width:100%;height:auto;overflow:visible}
-.fv-cup .steam{fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round;opacity:0;animation:steam 3s ease-in-out infinite}
-.fv-cup .steam.s2{animation-delay:1s}.fv-cup .steam.s3{animation-delay:2s}
-@keyframes steam{0%{opacity:0;transform:translateY(14px)}35%{opacity:.85}100%{opacity:0;transform:translateY(-26px)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 .fv-r{position:relative;align-self:stretch;display:flex;align-items:flex-end;justify-content:center;padding-top:170px}
@@ -90,22 +84,24 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   70%{opacity:1}
   100%{transform:translateY(var(--y,70vh)) rotate(var(--r1,15deg));opacity:0}
 }
-.fv-box{position:relative;z-index:2;width:min(78%,320px);margin:0 0 72px 12%}
+.fv-box{position:relative;z-index:2;width:min(70%,330px);margin:0 0 72px}
 .fv-box .box{z-index:1}
 .bouquet{position:absolute;left:0;right:0;top:0;height:0;z-index:0}
 .bq{position:absolute;left:50%;bottom:calc(var(--s)*-.7);width:var(--s);transform-origin:50% 100%;transform:translate(-50%,70%) scale(.7);opacity:0;transition:transform .8s cubic-bezier(.2,1.6,.4,1),opacity .15s}
 .bq.out{transform:translate(calc(-50% + var(--x)),calc(var(--rise)*-1)) rotate(var(--r));opacity:1}
 .bq .bag-en{font-size:calc(var(--s)*.15);letter-spacing:0}
-.box{position:relative;background:#fffaf0 radial-gradient(circle,rgba(196,22,28,.16) 4px,transparent 4.5px) 0 0/26px 26px;border-radius:12px 12px 30px 30px;aspect-ratio:1.55/1;box-shadow:inset 0 -12px 0 rgba(58,35,24,.07),0 26px 34px -16px rgba(70,0,0,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--brown);text-align:center}
-.box::before{content:"";position:absolute;left:-5%;right:-5%;top:-11%;height:18%;background:#fffaf0;border-radius:12px;border-bottom:5px solid #e8b84a;box-shadow:0 5px 0 rgba(0,0,0,.08)}
-.box-ribbon{position:absolute;left:50%;top:-11%;bottom:0;width:14%;transform:translateX(-50%);background:linear-gradient(90deg,#d9a53a,#f2cd6b 50%,#d9a53a)}
-.box-bow{position:absolute;left:50%;top:-2%;z-index:2;width:36%;transform:translateX(-50%);filter:drop-shadow(0 3px 0 rgba(0,0,0,.12))}
+.box{position:relative;background:linear-gradient(90deg,rgba(196,23,27,.26) 50%,transparent 50%) 0 0/30px 30px,linear-gradient(rgba(196,23,27,.26) 50%,transparent 50%) 0 0/30px 30px,#fffaf0;border-radius:16px 16px 26px 26px;aspect-ratio:1.5/1;box-shadow:inset 0 0 0 5px #fffaf0,inset 0 -14px 0 rgba(58,35,24,.06),0 26px 34px -16px rgba(70,0,0,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--brown);text-align:center}
+.box::before{content:"";position:absolute;left:-5%;right:-5%;top:-12%;height:19%;background:#fffaf0 radial-gradient(circle,var(--red) 2.2px,transparent 2.6px) 0 0/16px 16px;border-radius:14px;border-bottom:5px solid var(--red);box-shadow:0 6px 0 rgba(0,0,0,.08)}
+.box-ribbon{position:absolute;left:50%;top:-12%;bottom:0;width:13%;transform:translateX(-50%);background:#fffaf0;border-left:3px solid var(--red);border-right:3px solid var(--red)}
+.box-bow{position:absolute;left:50%;top:-4%;z-index:2;width:28%;transform:translateX(-50%);filter:drop-shadow(0 3px 0 rgba(0,0,0,.12))}
 .box-bow svg{display:block;width:100%;height:auto}
-.box-noshi{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:16%}
-.box-noshi b{display:grid;place-items:center;width:clamp(64px,7vw,84px);aspect-ratio:1;border-radius:50%;background:var(--red);color:var(--white);font-weight:800;font-size:clamp(30px,3.2vw,40px);line-height:1;box-shadow:0 0 0 4px #fffaf0,0 0 0 6px var(--red);animation:fukuBob 2.4s ease-in-out infinite}
-@keyframes fukuBob{50%{transform:rotate(-8deg) scale(1.06)}}
-.box-noshi small{display:block;font-family:var(--num);font-size:12px;letter-spacing:.14em;font-weight:700;background:#fffaf0;border:2px solid var(--brown);border-radius:999px;padding:1px 12px}
-.box-count{position:relative;z-index:1;margin-top:8px;font-family:var(--num);font-weight:700;font-size:14px;letter-spacing:.1em;color:var(--brown)}
+.box-noshi{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:37%;aspect-ratio:1;margin-top:17%;border-radius:50%;background:#fffaf0;box-shadow:0 0 0 4px #fffaf0,0 0 0 6px var(--red),0 8px 14px -6px rgba(70,0,0,.4);animation:fukuBob 2.6s ease-in-out infinite}
+.box-noshi::before{content:"";position:absolute;inset:7%;border-radius:50%;border:2px dashed rgba(196,23,27,.55)}
+.box-noshi em{font-style:normal;font-family:var(--num);font-weight:700;font-size:clamp(7px,.75vw,10px);letter-spacing:.18em;color:var(--red)}
+.box-noshi b{font-weight:800;font-size:clamp(30px,3.4vw,44px);line-height:1.1;color:var(--red)}
+@keyframes fukuBob{50%{transform:rotate(-6deg) scale(1.04)}}
+.box-noshi small{display:block;font-family:var(--num);font-size:clamp(8px,.85vw,11px);letter-spacing:.12em;font-weight:700;color:var(--brown)}
+.box-count{position:relative;z-index:1;margin-top:6%;font-family:var(--num);font-weight:700;font-size:14px;letter-spacing:.1em;color:var(--brown);background:#fffaf0;border-radius:999px;padding:1px 14px}
 .box.bump{animation:bump .35s}
 /* 30袋そろったら：ぶるぶる→パーン！ */
 .box{cursor:pointer}
@@ -379,7 +375,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .msg-show{margin:0 -4px 40px}
   .msg-show .fv-r{height:380px;border-radius:20px}
   .msg-show .fv-box{margin-bottom:34px}
-  .fv-box{width:56%;margin:0 0 30px 16%}
+  .fv-box{width:62%;margin:0 0 30px}
   .drop{width:46px}
   .btn{padding:13px 22px;font-size:14px}
   .msg{padding:84px 20px}
@@ -438,7 +434,6 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 }
 @media (prefers-reduced-motion:reduce){
   .fv-track{animation:none!important}
-  .fv-cup .steam{opacity:.7}
   .rsv-btn,.rsv-btn::after,.rsv-badge i{animation:none!important}
   .msg-big .ch{opacity:1;transform:none}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
@@ -459,7 +454,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 <h1 class="vh" id="top">澤井珈琲ドリップコーヒー オールスターズ30｜予約販売限定価格2,250円（税込）送料無料</h1>
 <section class="fv-img">
   <div class="fv-img-in">
-    <img src="img/fv-pc.jpg" width="2000" height="960" alt="澤井珈琲ドリップコーヒー オールスターズ30　発売日11月15日　ドリップパック30袋入り　予約販売限定価格 2,250円（税込）送料無料　ポイント2倍　予約受付期間：10月24日00:00〜11月15日10:00">
+    <img src="img/fv-pc.jpg" width="2500" height="1200" alt="澤井珈琲ドリップコーヒー オールスターズ30　発売日11月15日　ドリップパック30袋入り　予約販売限定価格 2,250円（税込）送料無料　ポイント2倍　予約受付期間：10月24日00:00〜11月15日10:00">
     <!-- 左の2列：ドリップバッグが縦に流れる（中身はJSで30種を入れる） -->
     <div class="fv-col c1" aria-hidden="true"><div class="fv-track" id="fvTrack1"></div></div>
     <div class="fv-col c2" aria-hidden="true"><div class="fv-track" id="fvTrack2"></div></div>
@@ -492,22 +487,10 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
     <div class="burst-layer" id="burstLayer" aria-hidden="true"></div>
     <div class="fv-box">
       <div class="bouquet" id="bouquet" aria-hidden="true"></div>
-      <div class="fv-cup" aria-hidden="true"><svg viewBox="0 0 160 170">
-        <path class="steam" d="M58 62 C46 48 70 40 58 24 C50 14 62 6 58 0"/>
-        <path class="steam s2" d="M80 62 C68 48 92 40 80 24 C72 14 84 6 80 0"/>
-        <path class="steam s3" d="M102 62 C90 48 114 40 102 24 C94 14 106 6 102 0"/>
-        <ellipse cx="80" cy="156" rx="74" ry="12" fill="#3a2318" opacity=".25"/>
-        <ellipse cx="80" cy="150" rx="70" ry="13" fill="#fffaf0"/>
-        <path d="M128 92 C156 90 156 128 126 126" fill="none" stroke="#fffaf0" stroke-width="11" stroke-linecap="round"/>
-        <path d="M24 78 L136 78 C136 122 116 148 80 148 C44 148 24 122 24 78Z" fill="#fffaf0"/>
-        <path d="M30 96 C60 104 100 104 130 96" fill="none" stroke="#c4161c" stroke-width="5" opacity=".85"/>
-        <ellipse cx="80" cy="78" rx="56" ry="11" fill="#6b3f22"/>
-        <ellipse cx="74" cy="76" rx="20" ry="3.5" fill="#a0673d" opacity=".7"/>
-      </svg></div>
       <div class="box" id="box" title="タップでもう一度">
         <span class="box-ribbon"></span>
-        <span class="box-bow" aria-hidden="true"><svg viewBox="0 0 140 84"><path d="M62 40 L44 80 L56 74 L64 84 L70 44Z M78 40 L96 80 L84 74 L76 84 L70 44Z" fill="#e2ae45" stroke="#c8932c" stroke-width="3" stroke-linejoin="round"/><path d="M70 38 C52 6 14 2 9 22 C4 42 40 50 70 38Z M70 38 C88 6 126 2 131 22 C136 42 100 50 70 38Z" fill="#f6d77d" stroke="#c8932c" stroke-width="4" stroke-linejoin="round"/><path d="M66 36 C54 20 30 16 26 26 M74 36 C86 20 110 16 114 26" fill="none" stroke="#e2ae45" stroke-width="4" stroke-linecap="round"/><rect x="58" y="26" width="24" height="24" rx="8" fill="#e2ae45" stroke="#c8932c" stroke-width="4"/></svg></span>
-        <div class="box-noshi"><b>福</b><small>30P ASSORT</small></div>
+        <span class="box-bow" aria-hidden="true"><svg viewBox="0 0 140 84"><path d="M62 40 L44 80 L56 74 L64 84 L70 44Z M78 40 L96 80 L84 74 L76 84 L70 44Z" fill="#fffaf0" stroke="#c4161c" stroke-width="3" stroke-linejoin="round"/><path d="M70 38 C52 6 14 2 9 22 C4 42 40 50 70 38Z M70 38 C88 6 126 2 131 22 C136 42 100 50 70 38Z" fill="#fffaf0" stroke="#c4161c" stroke-width="4" stroke-linejoin="round"/><path d="M66 36 C54 20 30 16 26 26 M74 36 C86 20 110 16 114 26" fill="none" stroke="#fffaf0" stroke-width="4" stroke-linecap="round"/><rect x="58" y="26" width="24" height="24" rx="8" fill="#fffaf0" stroke="#c4161c" stroke-width="4"/></svg></span>
+        <div class="box-noshi"><em>SAWAI COFFEE</em><b>福</b><small>30 COFFEES</small></div>
         <div class="box-count"><span id="boxCount">0</span> / 30 袋</div>
       </div>
     </div>
