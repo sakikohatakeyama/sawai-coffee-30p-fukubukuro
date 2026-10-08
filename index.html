@@ -67,8 +67,9 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 html{scroll-padding-top:72px}
 @media (max-width:1100px){.hd-nav ul{gap:14px}.hd-nav a{font-size:12px}}
 @media (min-width:769px){.hd-nav{display:none}}  /* PCのメニューはFVの下（.pc-nav） */
-.hd-ttl{margin:0 auto 0 22px;color:var(--white);font-weight:800;font-size:15px;letter-spacing:.06em;padding-left:22px;border-left:1px solid rgba(255,255,255,.45);line-height:1.4}
-@media (max-width:768px){.hd-ttl{display:none}}
+.hd-ttl{white-space:nowrap;margin:0 auto 0 22px;color:var(--white);font-weight:800;font-size:15px;letter-spacing:.06em;padding-left:22px;border-left:1px solid rgba(255,255,255,.45);line-height:1.4}
+@media (max-width:1100px){.hd-ttl{font-size:13px;margin-left:16px;padding-left:16px}}
+@media (max-width:960px){.hd-ttl{display:none}}
 /* PC：FVの下のメニュー */
 .pc-nav{background:#fff;border-bottom:1px solid var(--cream-dk);position:relative;z-index:5}
 .pc-nav ul{display:flex;justify-content:center;flex-wrap:wrap;list-style:none;max-width:var(--cw);margin:0 auto;padding:0 24px}
@@ -550,7 +551,7 @@ html{scroll-padding-top:72px}
 
 <header class="hd" id="hd">
   <a class="hd-logo" href="https://www.rakuten.co.jp/sawaicoffee-tea/" target="_blank" rel="noopener"><img src="img/logo.png" width="960" height="160" alt="SAWAI COFFEE 澤井珈琲"></a>
-  <p class="hd-ttl">ドリップバッグ30種セットご予約キャンペーン</p>
+  <p class="hd-ttl">発売日11月15日『オールスターズ30』ご予約キャンペーン</p>
   <nav class="hd-nav" id="hdNav" aria-label="メニュー">
     <ul>
       <li><a href="#story">30種の飲み比べ</a></li>
@@ -573,7 +574,7 @@ html{scroll-padding-top:72px}
 <h1 class="vh" id="top">澤井珈琲ドリップコーヒー オールスターズ30｜予約販売限定価格2,250円（税込）送料無料</h1>
 <section class="fv-img">
   <div class="fv-img-in">
-    <img src="img/fv-pc.jpg" width="2500" height="1200" alt="澤井珈琲ドリップコーヒー オールスターズ30　発売日11月15日　ドリップバッグ30袋入り　予約販売限定価格 2,250円（税込）送料無料　ポイント2倍　予約受付期間：10月24日00:00〜11月15日10:00">
+    <img src="img/fv-pc.jpg" width="2500" height="1200" alt="今がお得なご予約キャンペーン　澤井珈琲ドリップコーヒー オールスターズ30　ドリップバッグ30袋入り　予約販売限定価格 2,250円（税込）送料無料　ポイント2倍　予約受付期間：10月24日00:00〜11月15日10:00">
     <!-- 左の2列：ドリップバッグが縦に流れる（中身はJSで30種を入れる） -->
     <div class="fv-col c1" aria-hidden="true"><div class="fv-track" id="fvTrack1"></div></div>
     <div class="fv-col c2" aria-hidden="true"><div class="fv-track" id="fvTrack2"></div></div>
@@ -596,7 +597,7 @@ html{scroll-padding-top:72px}
 <!-- ▼ スマホのFV（画像＋横に流れる2列＋コーヒーカップ）。PCは上の画像FV -->
 <section class="fv-sp">
   <div class="fv-sp-in">
-    <img src="img/fv-sp.jpg" width="1500" height="2063" alt="澤井珈琲ドリップコーヒー オールスターズ30　発売日11月15日　ドリップバッグ30袋入り　予約販売限定価格 2,250円（税込）送料無料　ポイント2倍　予約受付期間：10月24日00:00〜11月15日10:00">
+    <img src="img/fv-sp.jpg" width="1500" height="2063" alt="今がお得なご予約キャンペーン　澤井珈琲ドリップコーヒー オールスターズ30　ドリップバッグ30袋入り　予約販売限定価格 2,250円（税込）送料無料　ポイント2倍　予約受付期間：10月24日00:00〜11月15日10:00">
     <!-- 画像1500×2063のうち y=1252〜1593 と y=1622〜1963 の位置に、袋が横に流れる2列 -->
     <div class="fv-row r1" aria-hidden="true"><div class="fv-row-track" id="spTrack1"></div></div>
     <div class="fv-row r2" aria-hidden="true"><div class="fv-row-track" id="spTrack2"></div></div>
