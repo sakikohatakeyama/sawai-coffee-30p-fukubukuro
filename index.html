@@ -140,7 +140,18 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 /* ===== PCのFV（画像） ===== */
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .fv-img{padding-top:64px;background:#fff}
-.fv-img img{display:block;width:100%;height:auto;max-width:2000px;margin:0 auto}
+.fv-img-in{position:relative;overflow:hidden}
+.fv-img img{display:block;width:100%;height:auto}
+/* 左の2列（画像幅2000pxのうち x=45〜175 と x=199〜328 の位置） */
+.fv-col{position:absolute;top:0;bottom:0;width:6.5%;overflow:hidden}
+.fv-col.c1{left:2.25%}.fv-col.c2{left:9.95%}
+.fv-track{animation:flowUp 70s linear infinite}
+.fv-col.c2 .fv-track{animation-name:flowDown}
+.fv-track .bag{margin-bottom:.9vw}
+.fv-track .bag-en{font-size:clamp(8px,.75vw,12px);letter-spacing:0}
+.fv-track .bag-brand{font-size:clamp(6px,.5vw,8px)}
+@keyframes flowUp{to{transform:translateY(-50%)}}
+@keyframes flowDown{from{transform:translateY(-50%)}to{transform:none}}
 @media (min-width:769px){
   .fv{display:none}
   .hd{background:rgba(247,238,223,.96);box-shadow:0 2px 12px rgba(58,35,24,.08)}
@@ -188,6 +199,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .tk-list dd{font-size:17px;font-weight:700;line-height:1.6;white-space:nowrap}
 .tk-list dd.tk-price{font-family:var(--num);font-size:54px;font-weight:700;line-height:1.1;color:var(--red)}
 .tk-free{display:inline-block;vertical-align:middle;margin-left:10px;font-family:var(--jp);font-size:14px;font-weight:800;color:var(--white);background:var(--red);border-radius:4px;padding:2px 10px;line-height:1.5}
+.tk-free.tk-pt{background:#f4bd39;color:var(--brown)}
 .tk-price small{font-family:var(--jp);font-size:16px;color:var(--ink);margin-left:4px}
 .tk-stub p{font-size:15px;font-weight:800;color:var(--brown);line-height:1.3;flex:none}
 .tk-stub p b{display:block;font-family:var(--num);font-size:40px;line-height:1.05}
@@ -429,6 +441,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .fix{display:block}
 }
 @media (prefers-reduced-motion:reduce){
+  .fv-track{animation:none!important}
   .fv-cup .steam{opacity:.7}
   .tk-stamp,.tk-btn,.tk-btn::after{animation:none!important}
   .msg-big .ch{opacity:1;transform:none}
@@ -447,9 +460,14 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 
 <!-- ===== FV ===== -->
 <!-- ▼ PCのFV（画像・仮）。スマホは下の動くFVを表示 -->
-<h1 class="vh" id="top">澤井珈琲ドリップコーヒー オールスターズ30｜予約限定価格2,250円（税込）送料無料</h1>
+<h1 class="vh" id="top">澤井珈琲ドリップコーヒー オールスターズ30｜予約販売限定価格2,250円（税込）送料無料</h1>
 <section class="fv-img">
-  <img src="img/fv-pc.jpg" width="2000" height="960" alt="澤井珈琲ドリップコーヒー オールスターズ30　予約限定価格 2,250円（税込）送料無料">
+  <div class="fv-img-in">
+    <img src="img/fv-pc.jpg" width="2000" height="960" alt="澤井珈琲ドリップコーヒー オールスターズ30　発売日11月15日　予約販売限定価格 2,250円（税込）送料無料　さらにポイント2倍　予約受付期間：10月24日00:00〜11月15日10:00">
+    <!-- 左の2列：ドリップバッグが縦に流れる（中身はJSで30種を入れる） -->
+    <div class="fv-col c1" aria-hidden="true"><div class="fv-track" id="fvTrack1"></div></div>
+    <div class="fv-col c2" aria-hidden="true"><div class="fv-track" id="fvTrack2"></div></div>
+  </div>
 </section>
 
 <section class="fv" id="topSp">
@@ -523,10 +541,10 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
       <div class="tk-main">
         <p class="tk-ttl"><small>澤井珈琲のドリップバッグ</small>30Pアソート福袋</p>
         <dl class="tk-list">
-          <!-- ▼ 予約期間・発送予定：確定したら差し替え（下の商品概要も） -->
-          <div><dt>予約限定価格</dt><dd class="tk-price">2,250<small>円（税込）</small><span class="tk-free">送料無料</span></dd></div>
-          <div><dt>予約期間</dt><dd class="sm"><span class="tbd">◯/◯（◯）〜◯/◯（◯）</span></dd></div>
-          <div><dt>発送予定</dt><dd class="sm"><span class="tbd">◯月◯日ごろ〜</span></dd></div>
+          <!-- 予約期間・発売日（下の商品概要も同じ内容） -->
+          <div><dt>予約限定価格</dt><dd class="tk-price">2,250<small>円（税込）</small><span class="tk-free">送料無料</span><span class="tk-free tk-pt">さらにポイント2倍</span></dd></div>
+          <div><dt>予約受付期間</dt><dd class="sm">10/24（土）00:00〜<br>11/15（日）10:00</dd></div>
+          <div><dt>発売日</dt><dd class="sm">11月15日（日）</dd></div>
         </dl>
       </div>
       <div class="tk-stub">
@@ -655,9 +673,10 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
         <tr><th>予約限定価格</th><td><b>2,250</b>円（税込）</td></tr>
         <tr><th>送料</th><td>送料無料</td></tr>
         <tr><th>内容量</th><td>ドリップバッグ 30袋（30種類×各1袋）</td></tr>
-        <!-- ▼ 発送予定・予約期間：確定したら差し替え -->
-        <tr><th>予約期間</th><td><span class="tbd">◯月◯日（◯）〜◯月◯日（◯）</span></td></tr>
-        <tr><th>発送予定</th><td><span class="tbd">◯月◯日ごろより順次発送</span></td></tr>
+        <!-- 予約期間・発売日 -->
+        <tr><th>予約受付期間</th><td>10月24日（土）00:00〜11月15日（日）10:00</td></tr>
+        <tr><th>発売日</th><td>11月15日（日）</td></tr>
+        <tr><th>ポイント</th><td>さらにポイント2倍</td></tr>
       </table>
       <div class="spec-cta">
         <!-- ▼ 購入URL：福袋の商品ページURLに差し替え -->
@@ -742,6 +761,13 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* 長い銘柄名は「ブレンド」などの手前で改行させる */
 const disp=n=>n.startsWith('星降るブレンド ')?'<small>星降るブレンド</small>'+n.slice(8):n.replace(/(ブレンド|ゴールド|クラシック|ヨーロピアン|ジャロ)/g,'<wbr>$1').replace(/^<wbr>ブレンド/,'ブレンド<wbr>');
 const bagHTML=(o)=>o.img?`<div class="bag bag-img"><img src="img/${o.img}" alt=""></div>`:`<div class="bag${o.k?' light':''}" style="--c:${o.c};--k:${o.k||'#fff'}"><div class="bag-in"><span class="bag-brand">SAWAI</span><span class="bag-en">${o.en}</span><span class="bag-dot"></span></div></div>`;
+
+/* PCのFV：左の2列にドリップバッグを流す（1列目は上へ、2列目は下へ。同じ並びを2回入れてつなぎ目なくループ） */
+(()=>{
+  const a=coffees,b=coffees.slice(15).concat(coffees.slice(0,15)).reverse();
+  document.getElementById('fvTrack1').innerHTML=(a.map(bagHTML).join('')).repeat(2);
+  document.getElementById('fvTrack2').innerHTML=(b.map(bagHTML).join('')).repeat(2);
+})();
 
 /* ラインナップのカード */
 const grid=document.getElementById('grid');
