@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>澤井珈琲ドリップコーヒー オールスターズ30｜予約販売</title>
-<meta name="description" content="澤井珈琲ドリップコーヒー オールスターズ30。ドリップパック30袋入り、30種類ぜんぶ違う珈琲を飲み比べできる予約販売の福袋です。予約販売限定価格2,250円（税込）送料無料。">
+<meta name="description" content="澤井珈琲ドリップコーヒー オールスターズ30。ドリップバッグ30袋入り、30種類ぜんぶ違う珈琲を飲み比べできる予約販売の福袋です。予約販売限定価格2,250円（税込）送料無料。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -66,7 +66,19 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .hd-burger{display:none}
 html{scroll-padding-top:72px}
 @media (max-width:1100px){.hd-nav ul{gap:14px}.hd-nav a{font-size:12px}}
-@media (max-width:960px){.hd-nav{display:none}}
+@media (min-width:769px){.hd-nav{display:none}}  /* PCのメニューはFVの下（.pc-nav） */
+.hd-ttl{margin:0 auto 0 22px;color:var(--white);font-weight:800;font-size:15px;letter-spacing:.06em;padding-left:22px;border-left:1px solid rgba(255,255,255,.45);line-height:1.4}
+@media (max-width:768px){.hd-ttl{display:none}}
+/* PC：FVの下のメニュー */
+.pc-nav{background:#fff;border-bottom:1px solid var(--cream-dk);position:relative;z-index:5}
+.pc-nav ul{display:flex;justify-content:center;flex-wrap:wrap;list-style:none;max-width:var(--cw);margin:0 auto;padding:0 24px}
+.pc-nav li{flex:1;text-align:center}
+.pc-nav li+li{border-left:1px solid var(--cream-dk)}
+.pc-nav a{display:block;padding:20px 8px;color:var(--brown);font-weight:800;font-size:15px;text-decoration:none;transition:color .2s,background .2s;white-space:nowrap}
+.pc-nav a::after{content:"";display:block;width:7px;height:7px;margin:6px auto 0;border-right:2px solid var(--red);border-bottom:2px solid var(--red);transform:rotate(45deg)}
+.pc-nav a:hover{color:var(--red);background:var(--cream)}
+@media (max-width:1100px){.pc-nav a{font-size:13px;padding:18px 4px}}
+@media (max-width:768px){.pc-nav{display:none}}
 @media (max-width:768px){
   html{scroll-padding-top:58px}
   .hd-burger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;margin-right:-8px;padding:0 10px}
@@ -520,6 +532,7 @@ html{scroll-padding-top:72px}
 
 <header class="hd" id="hd">
   <a class="hd-logo" href="#top"><img src="img/logo.png" width="960" height="160" alt="SAWAI COFFEE 澤井珈琲"></a>
+  <p class="hd-ttl">ドリップバッグ30種ご予約キャンペーン</p>
   <nav class="hd-nav" id="hdNav" aria-label="メニュー">
     <ul>
       <li><a href="#story">30種の飲み比べ</a></li>
@@ -542,17 +555,30 @@ html{scroll-padding-top:72px}
 <h1 class="vh" id="top">澤井珈琲ドリップコーヒー オールスターズ30｜予約販売限定価格2,250円（税込）送料無料</h1>
 <section class="fv-img">
   <div class="fv-img-in">
-    <img src="img/fv-pc.jpg" width="2500" height="1200" alt="澤井珈琲ドリップコーヒー オールスターズ30　発売日11月15日　ドリップパック30袋入り　予約販売限定価格 2,250円（税込）送料無料　ポイント2倍　予約受付期間：10月24日00:00〜11月15日10:00">
+    <img src="img/fv-pc.jpg" width="2500" height="1200" alt="澤井珈琲ドリップコーヒー オールスターズ30　発売日11月15日　ドリップバッグ30袋入り　予約販売限定価格 2,250円（税込）送料無料　ポイント2倍　予約受付期間：10月24日00:00〜11月15日10:00">
     <!-- 左の2列：ドリップバッグが縦に流れる（中身はJSで30種を入れる） -->
     <div class="fv-col c1" aria-hidden="true"><div class="fv-track" id="fvTrack1"></div></div>
     <div class="fv-col c2" aria-hidden="true"><div class="fv-track" id="fvTrack2"></div></div>
   </div>
 </section>
 
+<!-- ▼ PCのメニュー（FVの下） -->
+<nav class="pc-nav" aria-label="ページ内メニュー">
+  <ul>
+    <li><a href="#story">30種の飲み比べ</a></li>
+    <li><a href="#reserve">ご予約について</a></li>
+    <li><a href="#lineup">30種ラインナップ</a></li>
+    <li><a href="#pick">本日のおすすめ</a></li>
+    <li><a href="#types">味わいタイプ</a></li>
+    <li><a href="#how">楽しみ方</a></li>
+    <li><a href="#spec">商品概要</a></li>
+  </ul>
+</nav>
+
 <!-- ▼ スマホのFV（画像＋横に流れる2列＋コーヒーカップ）。PCは上の画像FV -->
 <section class="fv-sp">
   <div class="fv-sp-in">
-    <img src="img/fv-sp.jpg" width="1500" height="2063" alt="澤井珈琲ドリップコーヒー オールスターズ30　発売日11月15日　ドリップパック30袋入り　予約販売限定価格 2,250円（税込）送料無料　ポイント2倍　予約受付期間：10月24日00:00〜11月15日10:00">
+    <img src="img/fv-sp.jpg" width="1500" height="2063" alt="澤井珈琲ドリップコーヒー オールスターズ30　発売日11月15日　ドリップバッグ30袋入り　予約販売限定価格 2,250円（税込）送料無料　ポイント2倍　予約受付期間：10月24日00:00〜11月15日10:00">
     <!-- 画像1500×2063のうち y=1252〜1593 と y=1622〜1963 の位置に、袋が横に流れる2列 -->
     <div class="fv-row r1" aria-hidden="true"><div class="fv-row-track" id="spTrack1"></div></div>
     <div class="fv-row r2" aria-hidden="true"><div class="fv-row-track" id="spTrack2"></div></div>
@@ -598,7 +624,7 @@ html{scroll-padding-top:72px}
   <div class="wrap">
     <div class="brief-hd rv">
       <small>RESERVATION</small>
-      <h2><span class="sub">ドリップパック30袋入り</span><em>ご予約受付中！</em></h2>
+      <h2><span class="sub">ドリップバッグ30袋入り</span><em>ご予約受付中！</em></h2>
     </div>
     <div class="rsv rv d1">
       <div class="rsv-top">
