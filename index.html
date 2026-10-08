@@ -288,6 +288,13 @@ html{scroll-padding-top:72px}
 /* ===== 30袋ぜんぶ見せる ===== */
 .lineup{background:var(--cream)}
 .filters{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:16px}
+@media (max-width:768px){
+  /* スマホ：「すべて」を横幅いっぱい、残り4つを2列×2段にそろえる */
+  .filters{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .filters .ft{justify-content:center;padding:10px 6px;font-size:14px;white-space:nowrap}
+  .filters .ft:first-child{grid-column:1/-1}
+  .pc-only{display:none}
+}
 .ft{border:2px solid var(--brown);border-radius:999px;padding:8px 18px;font-weight:700;font-size:14px;transition:background .2s,color .2s,transform .2s;display:inline-flex;align-items:center;gap:8px}
 .ft i{width:10px;height:10px;border-radius:50%;background:var(--dot)}
 .ft:hover{transform:translateY(-2px)}
@@ -512,8 +519,8 @@ html{scroll-padding-top:72px}
   .rsv-price .yen{font-size:20px}
   .rsv-tags span{font-size:15px}
   .rsv-list>div{grid-template-columns:1fr;gap:2px;padding:12px 2px}
-  .rsv-list dt{font-size:14px}
-  .rsv-list dd{font-size:17px}
+  .rsv-list dt{font-size:15px}
+  .rsv-list dd{font-size:20px;line-height:1.55}
   .rsv-btn{font-size:19px;padding:17px 10px}
   .fix{display:block;left:0;right:0;bottom:0}
   .fix a{border-radius:0;background:#1a1a1a;padding:18px 16px calc(18px + env(safe-area-inset-bottom));font-size:17px;letter-spacing:.06em;box-shadow:0 -4px 16px rgba(0,0,0,.18)}
@@ -638,7 +645,7 @@ html{scroll-padding-top:72px}
       </div>
       <!-- 予約受付期間・発売日（下の商品概要も同じ内容） -->
       <dl class="rsv-list">
-        <div><dt>内容</dt><dd>ドリップバッグ 30袋入り（30種×各1袋）</dd></div>
+        <div><dt>内容</dt><dd>ドリップバッグ 30袋入り<br class="sp-br">（30種×各1袋）</dd></div>
         <div><dt>予約受付期間</dt><dd>10月24日（土）00:00 〜<br class="sp-br">11月15日（日）10:00</dd></div>
         <div><dt>発売日</dt><dd>11月15日（日）</dd></div>
       </dl>
@@ -656,12 +663,12 @@ html{scroll-padding-top:72px}
     <div class="sec-hd">
       <span class="en rv">LINE UP</span>
       <h2 class="rv d1">入っている30種、<br>ぜんぶ見せます。</h2>
-      <p class="rv d2">気になる銘柄をタップすると、味わいの特長が見られます。</p>
+      <p class="rv d2">気になる銘柄をタップすると、<br class="sp-br">味わいの特長が見られます。</p>
     </div>
     <div class="filters" id="filters">
       <button class="ft on" data-cat="all">すべて（30）</button>
       <button class="ft" data-cat="a" style="--dot:var(--cat-a)"><i></i>まろやか・やさしい</button>
-      <button class="ft" data-cat="b" style="--dot:var(--cat-b)"><i></i>香り華やか・フルーティー</button>
+      <button class="ft" data-cat="b" style="--dot:var(--cat-b)"><i></i>香り華やか<span class="pc-only">・フルーティー</span></button>
       <button class="ft" data-cat="c" style="--dot:var(--cat-c)"><i></i>バランス・コク</button>
       <button class="ft" data-cat="d" style="--dot:var(--cat-d)"><i></i>しっかりビター</button>
     </div>
