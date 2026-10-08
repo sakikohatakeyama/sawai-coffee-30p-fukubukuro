@@ -213,6 +213,11 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 @keyframes shine{0%,55%{left:-60%}100%{left:130%}}
 @keyframes tkPulse{50%{transform:scale(1.05)}}
 
+/* ===== フルスクリーンの写真 ===== */
+.photo-band{background:#1a1a1a;line-height:0}
+.photo-band img{display:block;width:100%;height:auto}
+@media (max-width:768px){.photo-band img{height:260px;object-fit:cover;object-position:50% 50%}}
+
 /* ===== 中央寄せのメッセージ ===== */
 .msg{background:var(--cream);text-align:center;padding:100px 24px;position:relative;overflow:hidden}
 .msg .msg-big{text-align:center!important;font-family:var(--num);font-weight:700;color:var(--red);font-size:clamp(48px,7.5vw,100px);line-height:1.02;letter-spacing:.01em;margin-bottom:30px}
@@ -560,6 +565,9 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
     </div>
   </div>
 </section>
+
+<!-- ===== フルスクリーンの写真（photo.jpg） ===== -->
+<div class="photo-band"><img src="img/photo.jpg" width="2500" height="800" alt="リッチブレンドとハローブレンドのドリップバッグと、赤いカップに注いだコーヒー" loading="lazy"></div>
 
 <!-- ===== 30種ラインナップ ===== -->
 <section class="sec lineup" id="lineup">
