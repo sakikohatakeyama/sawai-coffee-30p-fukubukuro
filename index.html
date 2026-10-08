@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ぜんぶ違う30袋 飲み比べアソート福袋｜澤井珈琲</title>
 <meta name="description" content="澤井珈琲の予約販売・ドリップバッグ30種アソート福袋。30袋ぜんぶ違う珈琲を飲み比べできます。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -152,7 +152,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 /* ===== スマホのFV（画像＋流れる2列） ===== */
 .fv-sp{display:none;padding-top:52px;background:#c4171b}
 .fv-sp-in{position:relative;overflow:hidden}
-.fv-sp-in>img{display:block;width:100%;height:auto}
+.fv-sp-in>img:first-child{display:block;width:100%;height:auto}
 .fv-row{position:absolute;left:0;right:0;height:16.53%;overflow:hidden}
 .fv-row.r1{top:60.69%}.fv-row.r2{top:78.62%}
 .fv-row-track{display:flex;height:100%;width:max-content;animation:rowL 60s linear infinite}
@@ -162,7 +162,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .fv-row-track .bag-en{font-size:10px;letter-spacing:0}
 @keyframes rowL{to{transform:translateX(-50%)}}
 @keyframes rowR{from{transform:translateX(-50%)}to{transform:none}}
-.fv-sp-cup{position:absolute;left:59.8%;top:69.46%;width:40.8%;height:auto;z-index:2;pointer-events:none}
+.fv-sp-cup{position:absolute;left:59.8%;top:69.6%;width:50.9%;height:auto;z-index:2;pointer-events:none}
 @media (max-width:768px){.fv-sp{display:block}}
 
 
@@ -415,12 +415,12 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .cdlg-desc{font-size:14px;line-height:1.8}
   .cdlg-nav button{padding:8px 12px;font-size:12px}
   .play{grid-template-columns:1fr;gap:36px}
-  .play h2{font-size:34px;margin:12px 0 18px}
-  .msg h2{font-size:28px;line-height:1.45}
-  .sec-hd h2{font-size:28px}
-  .brief-hd h2{font-size:26px}
-  .type h3{font-size:24px}
-  .spec .sec-hd h2,.how .sec-hd h2{font-size:30px}
+  .play h2{font-size:38px;margin:12px 0 18px}
+  .msg h2{font-size:32px;line-height:1.45}
+  .sec-hd h2{font-size:32px}
+  .brief-hd h2{font-size:28px}
+  .type h3{font-size:26px}
+  .spec .sec-hd h2,.how .sec-hd h2{font-size:34px}
   .play p{font-size:14px}
   .rl{padding:28px 18px 22px;box-shadow:8px 8px 0 #122963}
   .rl-body{min-height:230px}
@@ -455,7 +455,8 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .rsv-list dt{font-size:14px}
   .rsv-list dd{font-size:17px}
   .rsv-btn{font-size:19px;padding:17px 10px}
-  .fix{display:block}
+  .fix{display:block;left:0;right:0;bottom:0}
+  .fix a{border-radius:0;background:#1a1a1a;padding:18px 16px calc(18px + env(safe-area-inset-bottom));font-size:17px;letter-spacing:.06em;box-shadow:0 -4px 16px rgba(0,0,0,.18)}
 }
 @media (prefers-reduced-motion:reduce){
   .fv-row-track{animation:none!important}
@@ -679,7 +680,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
         <!-- 予約期間・発売日 -->
         <tr><th>予約受付期間</th><td>10月24日（土）00:00〜11月15日（日）10:00</td></tr>
         <tr><th>発売日</th><td>11月15日（日）</td></tr>
-        <tr><th>ポイント</th><td>さらにポイント2倍</td></tr>
+        <tr><th>ポイント</th><td>ポイント2倍</td></tr>
       </table>
       <div class="spec-cta">
         <!-- ▼ 購入URL：福袋の商品ページURLに差し替え -->
