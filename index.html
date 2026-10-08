@@ -49,12 +49,13 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
 
 /* ===== ヘッダー ===== */
-.hd{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px 24px;transition:background .3s,box-shadow .3s}
-.hd.solid{background:rgba(247,238,223,.94);box-shadow:0 2px 12px rgba(58,35,24,.08)}
-.hd-logo{font-weight:800;letter-spacing:.12em;font-size:15px;color:var(--white);transition:color .3s;text-decoration:none}
-.hd.solid .hd-logo{color:var(--red)}
-.hd-cta{background:var(--white);color:var(--red);font-weight:700;font-size:13px;padding:8px 18px;border-radius:999px;text-decoration:none;transition:transform .2s}
-.hd.solid .hd-cta{background:var(--red);color:var(--white)}
+.hd{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;justify-content:space-between;align-items:center;height:64px;padding:0 24px;background:#d0121c;box-shadow:0 2px 12px rgba(80,0,0,.18)}  /* 背景はロゴ画像の赤に合わせる */
+.hd.solid{background:#d0121c}
+.hd-logo{display:block;line-height:0}
+.hd-logo img{display:block;height:36px;width:auto}
+
+.hd-cta{background:var(--white);color:#d0121c;font-weight:800;font-size:13px;padding:8px 18px;border-radius:999px;text-decoration:none;transition:transform .2s}
+
 .hd-cta:hover{transform:scale(1.05)}
 
 /* ===== FV（左右2色に分けたヒーロー） ===== */
@@ -144,9 +145,9 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 @keyframes flowDown{from{transform:translateY(-50%)}to{transform:none}}
 @media (min-width:769px){
   .fv{display:none}
-  .hd{background:rgba(247,238,223,.96);box-shadow:0 2px 12px rgba(58,35,24,.08)}
-  .hd .hd-logo{color:var(--red)}
-  .hd .hd-cta{background:var(--red);color:var(--white)}
+
+
+
 }
 @media (max-width:768px){.fv-img{display:none}}
 /* ===== スマホのFV（画像＋流れる2列） ===== */
@@ -373,7 +374,8 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 }
 @media (max-width:768px){
   .sp-br{display:inline}
-  .hd{padding:12px 16px}
+  .hd{height:52px;padding:0 16px}
+  .hd-logo img{height:26px}
   .hd-cta{display:none}
   .wrap{padding:0 16px}
   .fv{grid-template-columns:1fr;min-height:0;padding:0}
@@ -471,7 +473,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 <body>
 
 <header class="hd" id="hd">
-  <a class="hd-logo" href="#top">SAWAI COFFEE</a>
+  <a class="hd-logo" href="#top"><img src="img/logo.png" width="960" height="160" alt="SAWAI COFFEE 澤井珈琲"></a>
   <!-- ▼ 購入URL：福袋の商品ページURLに差し替え -->
   <a class="hd-cta" href="#spec">予約はこちら</a>
 </header>
