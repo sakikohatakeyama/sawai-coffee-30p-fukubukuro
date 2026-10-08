@@ -582,7 +582,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
       <span class="play-en rv">TODAY'S PICK</span>
       <h2 class="rv d1">本日の<br>澤井珈琲<br>おすすめ</h2>
       <p class="rv d2">30袋のうち、今日はどれから飲もう？<br>迷ったら、澤井珈琲の「本日のおすすめ」をどうぞ。</p>
-      <p class="note rv d2">おすすめは毎日0時（日本時間）に切り替わります。<br>30種類すべてが福袋に入っています。</p>
+      <p class="note rv d2">30種類すべてが福袋に入っています。</p>
     </div>
     <div class="rl rv d1" id="rl">
       <div class="rl-en" id="rlDate">TODAY'S COFFEE</div>
@@ -976,7 +976,9 @@ function rlConfetti(){
     rl.appendChild(c);c.addEventListener('animationend',()=>c.remove());
   }
 }
+let rlShown=null;  // 表示済みなら、ボタンで銘柄の詳しいポップアップを開く
 rlBtn.addEventListener('click',()=>{
+  if(rlShown){openCoffee(coffees.indexOf(rlShown));return}
   rlBtn.disabled=true;rlBtn.textContent='本日のおすすめを選んでいます…';
   const win=todayPick();
   let step=0,speed=45;const total=reduce?1:24;
@@ -988,11 +990,9 @@ rlBtn.addEventListener('click',()=>{
     }
     // 決まった一杯（ルーレット後の表示）
     rlBody.innerHTML=`<div class="rl-res"><div>${bagHTML(win)}</div><div>
-      <div class="lbl">本日の澤井珈琲おすすめは…</div><b class="rl-no">NO.${noOf(win)}</b><h3>${disp(win.name)}</h3><p>${win.desc}</p>
-      <button type="button" class="rl-more">この銘柄を詳しく見る</button></div></div>`;
-    rlBody.querySelector('.rl-more').onclick=()=>openCoffee(coffees.indexOf(win));
+      <div class="lbl">本日の澤井珈琲おすすめは…</div><b class="rl-no">NO.${noOf(win)}</b><h3>${disp(win.name)}</h3><p>${win.desc}</p></div></div>`;
     if(!reduce)rlConfetti();
-    rlBtn.disabled=false;rlBtn.textContent='もう一度見る';
+    rlBtn.disabled=false;rlBtn.textContent='この銘柄を詳しく見る';rlShown=win;
   })();
 });
 </script>
