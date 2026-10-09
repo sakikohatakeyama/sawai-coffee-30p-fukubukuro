@@ -337,6 +337,8 @@ html{scroll-padding-top:72px}
 .cdlg-no{position:absolute;left:18px;top:6px;font-family:var(--num);font-weight:700;font-size:110px;line-height:1;color:var(--cc);opacity:.35}
 .cdlg-bag{position:relative;width:min(170px,100%)}
 .cdlg-bag.in{animation:bagIn .5s cubic-bezier(.2,1.5,.4,1)}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+@keyframes bagFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes bagIn{from{opacity:0;transform:translateY(30px) rotate(-10deg) scale(.8)}to{opacity:1;transform:none}}
 .cdlg-body{padding:40px 34px 26px;display:flex;flex-direction:column}
 .cdlg-lbl{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;color:var(--brown-lt)}
@@ -409,7 +411,9 @@ html{scroll-padding-top:72px}
 .type h3{font-size:clamp(23px,2.4vw,30px);font-weight:800;line-height:1.4;margin-top:6px}
 .type p{margin-top:10px;font-size:15px;font-weight:500}
 .type ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
-.type li{font-size:12.5px;font-weight:700;background:rgba(255,255,255,.2);border-radius:999px;padding:2px 12px}
+.type li button{font-size:12.5px;font-weight:700;color:var(--white);background:rgba(255,255,255,.2);border-radius:999px;padding:4px 12px;cursor:pointer;transition:background .2s,color .2s,transform .2s}
+.type li button::after{content:" ＋";opacity:.7}
+.type li button:hover{background:var(--white);color:var(--brown);transform:translateY(-2px)}
 .type .big{position:absolute;right:-10px;bottom:-40px;font-family:var(--num);font-size:140px;font-weight:700;line-height:1;opacity:.12}
 
 /* ===== 商品概要 ===== */
@@ -485,13 +489,15 @@ html{scroll-padding-top:72px}
   .grid{grid-template-columns:repeat(2,1fr);gap:16px 12px}
   .card-in{padding:14px 10px 10px}
   .card-name{font-size:14px}
-  .cdlg{width:calc(100% - 24px);max-height:calc(100dvh - 24px);border-radius:16px}
-  .cdlg[open]{grid-template-columns:minmax(0,1fr)}
+  .cdlg{width:100%;max-width:100%;max-height:calc(100dvh - 56px);margin:auto 0 0;border-radius:18px 18px 0 0;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+  .cdlg::backdrop{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(42,26,18,.6)}
+  .cdlg[open]{grid-template-columns:minmax(0,1fr);animation:sheetUp .32s cubic-bezier(.2,.8,.2,1);will-change:transform}
+  .cdlg-bag.in{animation:bagFade .3s ease-out}
   .cdlg-vis{padding:30px 0 22px;height:200px}
   .cdlg-bag{width:120px}
   .cdlg-no{font-size:90px}
   .cdlg-x{width:38px;height:38px;right:10px;top:10px}
-  .cdlg-body{padding:20px 20px 18px}
+  .cdlg-body{padding:20px 20px calc(18px + env(safe-area-inset-bottom))}
   .cdlg-body h3{font-size:21px;margin:8px 0}
   .cdlg-hook{font-size:15px}
   .cdlg-desc{font-size:14px;line-height:1.8}
@@ -972,7 +978,8 @@ document.getElementById('filters').addEventListener('click',e=>{
 
 /* 4タイプの銘柄リスト */
 ['a','b','c','d'].forEach(k=>{
-  document.getElementById('ty'+k.toUpperCase()).innerHTML=coffees.filter(o=>o.cat===k).map(o=>`<li>${o.name.replace('星降るブレンド ','')}</li>`).join('');
+  document.getElementById('ty'+k.toUpperCase()).onclick=e=>{const b=e.target.closest('button[data-i]');if(b)openCoffee(+b.dataset.i)};
+  document.getElementById('ty'+k.toUpperCase()).innerHTML=coffees.filter(o=>o.cat===k).map(o=>`<li><button type="button" data-i="${coffees.indexOf(o)}" aria-haspopup="dialog">${o.name.replace('星降るブレンド ','')}</button></li>`).join('');
 });
 
 /* 「30 DAYS, 30 COFFEES!」を1文字ずつ出す */
