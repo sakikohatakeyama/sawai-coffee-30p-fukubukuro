@@ -491,7 +491,6 @@ html{scroll-padding-top:72px}
   .cdlg{width:calc(100% - 24px);max-height:calc(100dvh - 24px);margin:auto;border-radius:16px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
   .cdlg::backdrop{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(42,26,18,.6)}
   .cdlg[open]{grid-template-columns:minmax(0,1fr);animation:dlgFade .22s ease-out}  /* 真ん中にその場でふわっと出す（位置は動かさない） */
-  .cdlg-bag.in{animation:dlgFade .25s ease-out}
   .cdlg-vis{padding:30px 0 22px;height:200px}
   .cdlg-bag{width:120px}
   .cdlg-no{font-size:90px}
@@ -928,7 +927,7 @@ grid.addEventListener('click',e=>{
 const dlg=document.getElementById('cdlg');let dlgIdx=0;
 const $=id=>document.getElementById(id);
 const shownList=()=>[...grid.querySelectorAll('.card:not(.hide) .card-in')].map(b=>+b.dataset.i);
-function renderCoffee(i){
+function renderCoffee(i,anim){
   dlgIdx=i;const o=coffees[i],no=String(i+1).padStart(2,'0');
   const k=o.desc.indexOf('。'),hook=k>=0?o.desc.slice(0,k+1):o.desc,rest=k>=0?o.desc.slice(k+1):'';
   dlg.style.setProperty('--cc',CAT[o.cat].c);
@@ -939,17 +938,17 @@ function renderCoffee(i){
   $('cdlgDesc').textContent=rest;$('cdlgDesc').hidden=!rest;
   $('cdlgTags').innerHTML=o.tags.map(t=>`<span>${t}</span>`).join('');
   $('cdlgLink').href=SHOP+o.url+'/';
-  const bag=$('cdlgBag');bag.innerHTML=bagHTML(o);bag.classList.remove('in');void bag.offsetWidth;bag.classList.add('in');
+  const bag=$('cdlgBag');bag.innerHTML=bagHTML(o);bag.classList.remove('in');if(anim){void bag.offsetWidth;bag.classList.add('in')}
   const list=shownList(),p=list.indexOf(i);
   $('cdlgPos').textContent=p>=0?`${p+1} / ${list.length}`:`${i+1} / 30`;
 }
 function openCoffee(i){
-  renderCoffee(i);
+  renderCoffee(i,dlg.open);
   if(!dlg.open){dlg.showModal();document.documentElement.style.overflow='hidden'}
 }
 function stepCoffee(d){
   let list=shownList();if(list.indexOf(dlgIdx)<0)list=coffees.map((_,i)=>i);
-  renderCoffee(list[(list.indexOf(dlgIdx)+d+list.length)%list.length]);
+  renderCoffee(list[(list.indexOf(dlgIdx)+d+list.length)%list.length],true);
 }
 $('cdlgPrev').addEventListener('click',()=>stepCoffee(-1));
 $('cdlgNext').addEventListener('click',()=>stepCoffee(1));
