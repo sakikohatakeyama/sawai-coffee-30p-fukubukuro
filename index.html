@@ -701,7 +701,6 @@ html{scroll-padding-top:72px}
       <button class="ft" data-cat="c" style="--dot:var(--cat-c)"><i></i>バランス・コク</button>
       <button class="ft" data-cat="d" style="--dot:var(--cat-d)"><i></i>しっかりビター</button>
     </div>
-    <p class="lu-note">※パッケージ写真がない銘柄はイラストで表示しています。</p>
     <div class="grid" id="grid"></div>
   </div>
 </section>
@@ -848,43 +847,43 @@ html{scroll-padding-top:72px}
 <script>
 /* ===== 30種のデータ =====
    cat：a=まろやか・やさしい / b=香り華やか・フルーティー / c=バランス・コク / d=しっかりビター
-   img：商品ページから切り抜いたパッケージ写真（img/フォルダ）。写真がない銘柄は c の色でイラストを表示
+   img：澤井珈琲30Pの切り抜きデータ（PSD）から書き出したパッケージ写真（img/フォルダ。30種すべて）。写真がない銘柄は c の色でイラストを表示
    c：袋イラストの色（イメージ） k：袋の文字色
    味わいの文章は各商品ページの説明をもとに要約しています */
 const coffees=[
   {name:'マイルドブレンド',img:'pk-mild.webp',en:'MILD',cat:'a',c:'#c8202f',tags:['ハイロースト'],url:'dp-mdb50',desc:'香ばしい香りと、ふんわり広がるやさしい甘み。家族みんなで楽しめる、まろやかな定番の味わい。'},
   {name:'ライトブレンド',img:'pk-light.webp',en:'LIGHT',cat:'a',c:'#f0c869',k:'#5a3a1f',tags:['ミディアムロースト'],url:'dp-ltb50',desc:'苦味が少なく、酸味もひかえめ。すっきりとしたコクとキレで、軽やかに飲める一杯。'},
   {name:'アニバーサリーブレンド',img:'pk-anniversary.webp',en:'ANNI-<br>VERSARY',cat:'a',c:'#7b4f9e',tags:['ブラジル','コロンビア'],url:'dp-anb70',desc:'ブルーマウンテンを思わせる上品な風味に、芳ばしい香りがアクセント。おもてなしにも。'},
-  {name:'ブレンドフォルテシモ',en:'FORTI-<br>SSIMO',cat:'a',c:'#e27396',tags:['サントスベース'],url:'dp-fv100',desc:'サントスをベースにした、優しい口当たり。焼き立ての香ばしい香りがあふれます。'},
+  {name:'ブレンドフォルテシモ',img:'pk-fortissimo.webp',en:'FORTI-<br>SSIMO',cat:'a',c:'#e27396',tags:['サントスベース'],url:'dp-fv100',desc:'サントスをベースにした、優しい口当たり。焼き立ての香ばしい香りがあふれます。'},
   {name:'メローブレンド',img:'pk-mellow.webp',en:'MELLOW',cat:'a',c:'#d98c5f',tags:['ホンジュラス','ウガンダ'],url:'osechi-sw100set',desc:'甘い香りとまろやかな味わいが魅力。ほっとひと息つきたいときにぴったり。'},
-  {name:'ブレンドハーモニー',en:'HARMONY',cat:'a',c:'#7fae5a',tags:['中深煎り'],url:'dp-bhm50',desc:'しっかりしたコクとほどよい苦味、なのに口あたりはやさしい。酸味ひかえめで飲みやすい。'},
-  {name:'氷温甘熟ブレンド',en:'HYO-ON<br>KANJUKU',cat:'a',c:'#262222',tags:['氷温熟成'],url:'dp-hyouon2set',desc:'生豆を氷温域でじっくり熟成。引き出した甘みと旨みで、雑味が少なくまろやか。'},
+  {name:'ブレンドハーモニー',img:'pk-harmony.webp',en:'HARMONY',cat:'a',c:'#7fae5a',tags:['中深煎り'],url:'dp-bhm50',desc:'しっかりしたコクとほどよい苦味、なのに口あたりはやさしい。酸味ひかえめで飲みやすい。'},
+  {name:'氷温甘熟ブレンド',img:'pk-hyoon.webp',en:'HYO-ON<br>KANJUKU',cat:'a',c:'#262222',tags:['氷温熟成'],url:'dp-hyouon2set',desc:'生豆を氷温域でじっくり熟成。引き出した甘みと旨みで、雑味が少なくまろやか。'},
   {name:'ハローブレンド',img:'pk-hello.webp',en:'HELLO',cat:'a',c:'#f4f1ea',k:'#2a1a12',tags:['あっさり'],url:'dp-richhello50',desc:'あっさりした風味と爽やかな後味。軽やかでまろやか、コーヒー初心者にもおすすめ。'},
 
   {name:'やくもブレンド',img:'pk-yakumo.webp',en:'YAKUMO',cat:'b',c:'#8a5a3c',tags:['グアテマラ','人気No.1'],url:'dp-yakumofuku100',desc:'花のような香りと気品ある味わい。松江店限定から生まれた、澤井珈琲の人気No.1ブレンド。'},
   {name:'モカブレンド',img:'pk-mocha.webp',en:'MOCHA',cat:'b',c:'#d9668a',tags:['ハイロースト','エチオピア'],url:'dp-macha100',desc:'モカ特有の甘さを活かした、優しく華やかな香り。実店舗で女性に一番人気のブレンド。'},
-  {name:'キリマンジャロブレンド',en:'KILIMA-<br>NJARO',cat:'b',c:'#e07b24',tags:['中強煎り','タンザニア'],url:'dp-kilimanb50p',desc:'柑橘を思わせる瑞々しい果実感と、力強く上品な酸味。朝の目覚めにぴったり。'},
+  {name:'キリマンジャロブレンド',img:'pk-kilimanjaro.webp',en:'KILIMA-<br>NJARO',cat:'b',c:'#e07b24',tags:['中強煎り','タンザニア'],url:'dp-kilimanb50p',desc:'柑橘を思わせる瑞々しい果実感と、力強く上品な酸味。朝の目覚めにぴったり。'},
   {name:'プレミアムゴールド',img:'pk-premiumgold.webp',en:'PREMIUM<br>GOLD',cat:'b',c:'#b8862b',tags:['フルーティー'],url:'dp-premiumgold60',desc:'透明感のある口当たりに、完熟フルーツのような香りと甘み。上質なひとときに。'},
-  {name:'ソルブレンド',en:'SOL',cat:'b',c:'#b3262c',tags:['金のドリップ','メキシコ'],url:'dp-sol60',desc:'「金のドリップ」。メキシコ産豆のフルーティーな香りと、奥深いコクが楽しめます。'},
-  {name:'テルスブレンド',en:'TELLUS',cat:'b',c:'#8c5a2b',tags:['銅のドリップ'],url:'dp-tellus',desc:'「銅のドリップ」。フルーティーな香味とバランスの取れた飲みやすさ、すっきりした余韻。'},
+  {name:'ソルブレンド',img:'pk-sol.webp',en:'SOL',cat:'b',c:'#b3262c',tags:['金のドリップ','メキシコ'],url:'dp-sol60',desc:'「金のドリップ」。メキシコ産豆のフルーティーな香りと、奥深いコクが楽しめます。'},
+  {name:'テルスブレンド',img:'pk-tellus.webp',en:'TELLUS',cat:'b',c:'#8c5a2b',tags:['銅のドリップ'],url:'dp-tellus',desc:'「銅のドリップ」。フルーティーな香味とバランスの取れた飲みやすさ、すっきりした余韻。'},
   {name:'星降るブレンド カシオペア',img:'pk-cassiopeia.webp',en:'CASSIO-<br>PEIA',cat:'b',c:'#3f7fc1',tags:['インドネシア'],url:'dp-seizablend3s60',desc:'フルーティーな香りとマイルドな口当たり。苦味と酸味のバランスがとれた飲みやすさ。'},
   {name:'星降るブレンド サザンクロス',img:'pk-southerncross.webp',en:'SOUTHERN<br>CROSS',cat:'b',c:'#24508f',tags:['コクをプラス'],url:'dp-seizablend3s60',desc:'カシオペアをベースに少しコクをプラス。フルーティーな香りはそのまま、より深い味わいに。'},
-  {name:'星降るブレンド 星ロマン',en:'HOSHI<br>ROMAN',cat:'b',c:'#6a5acd',tags:['スペシャリティー配合'],url:'dp-seizablend3s60',desc:'カシオペアにスペシャリティーコーヒーを配合。華やかな香りと甘さが加わった贅沢な一杯。'},
+  {name:'星降るブレンド 星ロマン',img:'pk-hoshiroman.webp',en:'HOSHI<br>ROMAN',cat:'b',c:'#6a5acd',tags:['スペシャリティー配合'],url:'dp-seizablend3s60',desc:'カシオペアにスペシャリティーコーヒーを配合。華やかな香りと甘さが加わった贅沢な一杯。'},
 
   {name:'ブレンド夢浪漫',img:'pk-yumeroman.webp',en:'YUME<br>ROMAN',cat:'c',c:'#9b2d5a',tags:['40周年記念'],url:'dp-yumeroman40',desc:'創業40周年の記念ブレンド。香り・コク・酸味・苦みが調和した、贅沢な味わい。'},
   {name:'ビタークラシック',img:'pk-bitterclassic.webp',en:'BITTER<br>CLASSIC',cat:'c',c:'#a8141f',tags:['ブラジル','インドネシア'],url:'bitterclassicdripbag',desc:'程よい苦味と濃厚なコク。酸味ひかえめで、毎日飲んでも飽きない本格派。'},
-  {name:'ビターゴールド',en:'BITTER<br>GOLD',cat:'c',c:'#c9a04e',k:'#3a2318',tags:['中深煎り','ブラジル','グアテマラ'],url:'dp-bittergold200',desc:'苦すぎないのにコクが深い。香ばしい中深煎りで、厚みのある旨みが続きます。'},
-  {name:'ビジネスブレンド',en:'BUSINESS',cat:'c',c:'#1d6b4a',tags:['深煎り','ブラジル','コロンビア'],url:'dp-business50',desc:'苦味と甘味のバランスが絶妙。香ばしく濃厚なコクと、甘く芳醇な香り。'},
-  {name:'豆太のブレンド',en:'MAMETA',cat:'c',c:'#b5462f',tags:['グアテマラ','カフェオレ向き'],url:'dp-mtb80',desc:'少しビターな味わいと、しっかりしたコク。ミルクとの相性がよく、カフェオレ派に人気。'},
+  {name:'ビターゴールド',img:'pk-bittergold.webp',en:'BITTER<br>GOLD',cat:'c',c:'#c9a04e',k:'#3a2318',tags:['中深煎り','ブラジル','グアテマラ'],url:'dp-bittergold200',desc:'苦すぎないのにコクが深い。香ばしい中深煎りで、厚みのある旨みが続きます。'},
+  {name:'ビジネスブレンド',img:'pk-business.webp',en:'BUSINESS',cat:'c',c:'#1d6b4a',tags:['深煎り','ブラジル','コロンビア'],url:'dp-business50',desc:'苦味と甘味のバランスが絶妙。香ばしく濃厚なコクと、甘く芳醇な香り。'},
+  {name:'豆太のブレンド',img:'pk-mameta.webp',en:'MAMETA',cat:'c',c:'#b5462f',tags:['グアテマラ','カフェオレ向き'],url:'dp-mtb80',desc:'少しビターな味わいと、しっかりしたコク。ミルクとの相性がよく、カフェオレ派に人気。'},
   {name:'リッチブレンド',img:'pk-rich.webp',en:'RICH',cat:'c',c:'#1e1e1e',tags:['濃厚'],url:'dp-richhello50',desc:'豊かなコクと深い風味のあとに、すっきりとした清涼感。濃厚な味わいを楽しみたい方に。'},
 
   {name:'ビターブレンド',img:'pk-bitter.webp',en:'BITTER',cat:'d',c:'#5b3a29',tags:['深煎り','インドネシア'],url:'dp-btb50',desc:'香り高いインドネシア産の豆を深煎りに。濃厚なコクと苦味で、カフェオレにもぴったり。'},
-  {name:'濃い味ブレンド',en:'KOI-AJI',cat:'d',c:'#8f1d24',tags:['深煎り'],url:'dp-pbb70',desc:'通常の2倍の時間をかけて深煎りにした、本場ヨーロッパスタイル。深いコクでカフェオレにも。'},
-  {name:'ビクトリーブレンド',en:'VICTORY',cat:'d',c:'#2d4c8c',tags:['深煎り'],url:'dp-fv100',desc:'深煎りならではの、濃厚なコク。飲みごたえのある大人のブレンドです。'},
+  {name:'濃い味ブレンド',img:'pk-koiaji.webp',en:'KOI-AJI',cat:'d',c:'#8f1d24',tags:['深煎り'],url:'dp-pbb70',desc:'通常の2倍の時間をかけて深煎りにした、本場ヨーロッパスタイル。深いコクでカフェオレにも。'},
+  {name:'ビクトリーブレンド',img:'pk-victory.webp',en:'VICTORY',cat:'d',c:'#2d4c8c',tags:['深煎り'],url:'dp-fv100',desc:'深煎りならではの、濃厚なコク。飲みごたえのある大人のブレンドです。'},
   {name:'リッチヨーロピアン',img:'pk-richeuropean.webp',en:'RICH<br>EUROPEAN',cat:'d',c:'#6b3f22',tags:['深煎り','5種の豆'],url:'dp-ecb100-k',desc:'ヨーロッパで愛される伝統の味わいを再現。5種の豆を深煎りにした、ほろ苦さとコク。'},
-  {name:'ハウスブレンド',en:'HOUSE',cat:'d',c:'#4f5a2e',tags:['深煎り'],url:'dp-house80',desc:'旨みぎゅっと深煎り仕立て。雑味のないキレと、心落ち着くほろ苦さ。'},
-  {name:'オフィスブレンド',en:'OFFICE',cat:'d',c:'#1f3a6b',tags:['深煎り'],url:'dp-office80',desc:'通常の2倍の時間でじっくり深煎り。香ばしい香りとしっかりしたコクで、仕事の合間に。'},
-  {name:'ルナブレンド',en:'LUNA',cat:'d',c:'#1b2a55',tags:['銀のドリップ','グアテマラ'],url:'dp-luna60',desc:'「銀のドリップ」。倍以上の時間をかけた焙煎で、しっかりした苦味の中に豆本来の甘みも。'}
+  {name:'ハウスブレンド',img:'pk-house.webp',en:'HOUSE',cat:'d',c:'#4f5a2e',tags:['深煎り'],url:'dp-house80',desc:'旨みぎゅっと深煎り仕立て。雑味のないキレと、心落ち着くほろ苦さ。'},
+  {name:'オフィスブレンド',img:'pk-office.webp',en:'OFFICE',cat:'d',c:'#1f3a6b',tags:['深煎り'],url:'dp-office80',desc:'通常の2倍の時間でじっくり深煎り。香ばしい香りとしっかりしたコクで、仕事の合間に。'},
+  {name:'ルナブレンド',img:'pk-luna.webp',en:'LUNA',cat:'d',c:'#1b2a55',tags:['銀のドリップ','グアテマラ'],url:'dp-luna60',desc:'「銀のドリップ」。倍以上の時間をかけた焙煎で、しっかりした苦味の中に豆本来の甘みも。'}
 ];
 const CAT={a:{n:'まろやか・やさしい',c:'var(--cat-a)'},b:{n:'香り華やか',c:'var(--cat-b)'},c:{n:'バランス・コク',c:'var(--cat-c)'},d:{n:'しっかりビター',c:'var(--cat-d)'}};
 const SHOP='https://item.rakuten.co.jp/sawaicoffee-tea/';
@@ -892,7 +891,7 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* 長い銘柄名は「ブレンド」などの手前で改行させる */
 const disp=n=>n.startsWith('星降るブレンド ')?'<small>星降るブレンド</small>'+n.slice(8):n.replace(/(ブレンド|ゴールド|クラシック|ヨーロピアン|ジャロ)/g,'<wbr>$1').replace(/^<wbr>ブレンド/,'ブレンド<wbr>');
-const bagHTML=(o)=>o.img?`<div class="bag bag-img"><img src="img/${o.img}" alt=""></div>`:`<div class="bag${o.k?' light':''}" style="--c:${o.c};--k:${o.k||'#fff'}"><div class="bag-in"><span class="bag-brand">SAWAI</span><span class="bag-en">${o.en}</span><span class="bag-dot"></span></div></div>`;
+const bagHTML=(o)=>o.img?`<div class="bag bag-img"><img src="img/${o.img}" alt="" decoding="async"></div>`:`<div class="bag${o.k?' light':''}" style="--c:${o.c};--k:${o.k||'#fff'}"><div class="bag-in"><span class="bag-brand">SAWAI</span><span class="bag-en">${o.en}</span><span class="bag-dot"></span></div></div>`;
 
 /* PCのFV：左の2列にドリップバッグを流す（1列目は上へ、2列目は下へ。同じ並びを2回入れてつなぎ目なくループ） */
 (()=>{
@@ -1030,8 +1029,9 @@ function burst(){
       c.style.cssText=`left:${ox}px;top:${oy}px;background:${cols[i%6]};--cx:${Math.cos(a)*r}px;--cy:${Math.sin(a)*r*0.8+80}px;--cr:${Math.random()*720-360}deg;--t:${1.2+Math.random()*0.8}s`;
       fvR.appendChild(c);c.addEventListener('animationend',()=>c.remove());
     }
-    // 写真のある袋（15袋）だけを、箱に刺さった状態で扇形に飛び出させる
-    const inBox=photoBags;
+    // 15袋を、箱に刺さった状態で扇形に飛び出させる
+    const BQ=['mild','light','anniversary','mellow','hello','yakumo','mocha','premiumgold','cassiopeia','southerncross','yumeroman','bitterclassic','rich','bitter','richeuropean'];
+    const inBox=BQ.map(k=>coffees.find(o=>o.img==='pk-'+k+'.webp'));
     const bw=B.width,bs=bw*0.3,nb=7,nf=inBox.length-nb;  // 後ろの列7袋＋手前の列8袋
     bouquet.innerHTML='';burstLayer.innerHTML='';
     inBox.forEach((o,i)=>{
