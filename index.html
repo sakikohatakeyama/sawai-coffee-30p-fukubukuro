@@ -180,13 +180,11 @@ html{scroll-padding-top:72px}
 /* 左の2列（画像幅2000pxのうち x=45〜175 と x=199〜328 の位置） */
 .fv-col{position:absolute;top:0;bottom:0;width:6.5%;overflow:hidden}
 .fv-col.c1{left:4.75%}.fv-col.c2{left:12.45%}
-.fv-track{animation:flowUp 70s linear infinite;will-change:transform;-webkit-backface-visibility:hidden;backface-visibility:hidden}
-.fv-col.c2 .fv-track{animation-name:flowDown}
+/* 動きはJS（flowStrip）で毎フレーム位置を指定。CSSアニメーションだとiPhoneのSafariで画面外だった部分が描かれず、袋が消えるため */
+.fv-track{will-change:transform}
 .fv-track .bag{margin-bottom:.9vw}
 .fv-track .bag-en{font-size:clamp(8px,.75vw,12px);letter-spacing:0}
 .fv-track .bag-brand{font-size:clamp(6px,.5vw,8px)}
-@keyframes flowUp{to{transform:translateY(-50%)}}
-@keyframes flowDown{from{transform:translateY(-50%)}to{transform:none}}
 @media (min-width:769px){
   .fv{display:none}
 
@@ -200,13 +198,10 @@ html{scroll-padding-top:72px}
 .fv-sp-in>img:first-child{display:block;width:100%;height:auto}
 .fv-row{position:absolute;left:0;right:0;height:16.53%;overflow:hidden}
 .fv-row.r1{top:60.69%}.fv-row.r2{top:78.62%}
-.fv-row-track{display:flex;height:100%;width:max-content;animation:rowL 70s linear infinite;will-change:transform;-webkit-backface-visibility:hidden;backface-visibility:hidden}
-.fv-row.r2 .fv-row-track{animation-name:rowR}
+.fv-row-track{display:flex;height:100%;width:max-content;will-change:transform}
 .fv-row-track>div{flex:none;height:100%;aspect-ratio:313/341;margin-right:calc(100vw*.0193);display:flex;align-items:center;justify-content:center}
 .fv-row-track .bag{width:84%}
 .fv-row-track .bag-en{font-size:10px;letter-spacing:0}
-@keyframes rowL{to{transform:translateX(-50%)}}
-@keyframes rowR{from{transform:translateX(-50%)}to{transform:none}}
 .fv-sp-cup{position:absolute;left:59.8%;top:69.6%;width:50.9%;height:auto;z-index:2;pointer-events:none}
 @media (max-width:768px){.fv-sp{display:block}}
 
@@ -550,8 +545,6 @@ html{scroll-padding-top:72px}
   .fix a{border-radius:0;background:#1a1a1a;padding:18px 16px calc(18px + env(safe-area-inset-bottom));font-size:17px;letter-spacing:.06em;box-shadow:0 -4px 16px rgba(0,0,0,.18)}
 }
 @media (prefers-reduced-motion:reduce){
-  .fv-row-track{animation:none!important}
-  .fv-track{animation:none!important}
   .rsv-btn,.rsv-btn::after,.rsv-badge i{animation:none!important}
   .msg-big .ch{opacity:1;transform:none}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
@@ -900,7 +893,27 @@ const bagHTML=(o,sm)=>o.img?`<div class="bag bag-img"><img src="img/${sm?o.img.r
   const a=coffees,b=coffees.slice(15).concat(coffees.slice(0,15)).reverse();
   document.getElementById('fvTrack1').innerHTML=(a.map(o=>bagHTML(o,1)).join('')).repeat(2);
   document.getElementById('fvTrack2').innerHTML=(b.map(o=>bagHTML(o,1)).join('')).repeat(2);
+  flowStrip(document.getElementById('fvTrack1'),'y',-1,70);
+  flowStrip(document.getElementById('fvTrack2'),'y',1,70);
 })();
+/* FVの袋を流す（同じ並びを2回入れた帯を、半分の長さでつなぎ目なくループ）
+   axis：'x'横／'y'縦　dir：-1で左・上へ、1で右・下へ　sec：半周にかける秒数 */
+function flowStrip(el,axis,dir,sec){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  let half=0,pos=0,last=0;
+  // 半周＝2周目の先頭の袋の位置（つなぎ目がずれないよう、袋の位置から測る）
+  const measure=()=>{const k=el.children,h=k[k.length/2];half=h?(axis==='x'?h.offsetLeft-k[0].offsetLeft:h.offsetTop-k[0].offsetTop):0};
+  measure();addEventListener('resize',measure);addEventListener('load',measure);
+  const step=t=>{
+    if(!half)measure();
+    if(last&&half){pos=(pos+half/sec*Math.min(t-last,100)/1000)%half}
+    last=t;
+    const v=dir<0?-pos:pos-half;
+    el.style.transform=axis==='x'?`translate3d(${v}px,0,0)`:`translate3d(0,${v}px,0)`;
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
 /* スマホのFV：横に流れる2列（上の列は左へ、下の列は右へ）
    30種を15袋ずつに分けて各列に入れる（列の幅を短くして、iPhoneで列が消えるのを防ぐ） */
 (()=>{
@@ -908,6 +921,8 @@ const bagHTML=(o,sm)=>o.img?`<div class="bag bag-img"><img src="img/${sm?o.img.r
   const a=coffees.slice(0,15),b=coffees.slice(15).reverse();
   document.getElementById('spTrack1').innerHTML=(a.map(cell).join('')).repeat(2);
   document.getElementById('spTrack2').innerHTML=(b.map(cell).join('')).repeat(2);
+  flowStrip(document.getElementById('spTrack1'),'x',-1,70);
+  flowStrip(document.getElementById('spTrack2'),'x',1,70);
 })();
 
 /* ラインナップのカード */
