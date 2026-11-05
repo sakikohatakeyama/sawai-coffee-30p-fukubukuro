@@ -180,7 +180,7 @@ html{scroll-padding-top:72px}
 /* 左の2列（画像幅2000pxのうち x=45〜175 と x=199〜328 の位置） */
 .fv-col{position:absolute;top:0;bottom:0;width:6.5%;overflow:hidden}
 .fv-col.c1{left:4.75%}.fv-col.c2{left:12.45%}
-.fv-track{animation:flowUp 70s linear infinite}
+.fv-track{animation:flowUp 70s linear infinite;will-change:transform;-webkit-backface-visibility:hidden;backface-visibility:hidden}
 .fv-col.c2 .fv-track{animation-name:flowDown}
 .fv-track .bag{margin-bottom:.9vw}
 .fv-track .bag-en{font-size:clamp(8px,.75vw,12px);letter-spacing:0}
@@ -200,7 +200,7 @@ html{scroll-padding-top:72px}
 .fv-sp-in>img:first-child{display:block;width:100%;height:auto}
 .fv-row{position:absolute;left:0;right:0;height:16.53%;overflow:hidden}
 .fv-row.r1{top:60.69%}.fv-row.r2{top:78.62%}
-.fv-row-track{display:flex;height:100%;width:max-content;animation:rowL 60s linear infinite}
+.fv-row-track{display:flex;height:100%;width:max-content;animation:rowL 60s linear infinite;will-change:transform;-webkit-backface-visibility:hidden;backface-visibility:hidden}
 .fv-row.r2 .fv-row-track{animation-name:rowR}
 .fv-row-track>div{flex:none;height:100%;aspect-ratio:313/341;margin-right:calc(100vw*.0193);display:flex;align-items:center;justify-content:center}
 .fv-row-track .bag{width:84%}
@@ -892,17 +892,18 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* 長い銘柄名は「ブレンド」などの手前で改行させる */
 const disp=n=>n.startsWith('星降るブレンド ')?'<small>星降るブレンド</small>'+n.slice(8):n.replace(/(ブレンド|ゴールド|クラシック|ヨーロピアン|ジャロ)/g,'<wbr>$1').replace(/^<wbr>ブレンド/,'ブレンド<wbr>');
-const bagHTML=(o)=>o.img?`<div class="bag bag-img"><img src="img/${o.img}" alt="" decoding="async"></div>`:`<div class="bag${o.k?' light':''}" style="--c:${o.c};--k:${o.k||'#fff'}"><div class="bag-in"><span class="bag-brand">SAWAI</span><span class="bag-en">${o.en}</span><span class="bag-dot"></span></div></div>`;
+/* sm：FVの流れ・箱の演出など小さく動く所は軽い画像（pk-*-s.webp、高さ240px）を使う */
+const bagHTML=(o,sm)=>o.img?`<div class="bag bag-img"><img src="img/${sm?o.img.replace('.webp','-s.webp'):o.img}" alt=""></div>`:`<div class="bag${o.k?' light':''}" style="--c:${o.c};--k:${o.k||'#fff'}"><div class="bag-in"><span class="bag-brand">SAWAI</span><span class="bag-en">${o.en}</span><span class="bag-dot"></span></div></div>`;
 
 /* PCのFV：左の2列にドリップバッグを流す（1列目は上へ、2列目は下へ。同じ並びを2回入れてつなぎ目なくループ） */
 (()=>{
   const a=coffees,b=coffees.slice(15).concat(coffees.slice(0,15)).reverse();
-  document.getElementById('fvTrack1').innerHTML=(a.map(bagHTML).join('')).repeat(2);
-  document.getElementById('fvTrack2').innerHTML=(b.map(bagHTML).join('')).repeat(2);
+  document.getElementById('fvTrack1').innerHTML=(a.map(o=>bagHTML(o,1)).join('')).repeat(2);
+  document.getElementById('fvTrack2').innerHTML=(b.map(o=>bagHTML(o,1)).join('')).repeat(2);
 })();
 /* スマホのFV：横に流れる2列（上の列は左へ、下の列は右へ） */
 (()=>{
-  const cell=o=>'<div>'+bagHTML(o)+'</div>';
+  const cell=o=>'<div>'+bagHTML(o,1)+'</div>';
   const a=coffees,b=coffees.slice(15).concat(coffees.slice(0,15)).reverse();
   document.getElementById('spTrack1').innerHTML=(a.map(cell).join('')).repeat(2);
   document.getElementById('spTrack2').innerHTML=(b.map(cell).join('')).repeat(2);
@@ -996,7 +997,7 @@ let dropped=0,launched=0,dropTimer=null,busy=false;
 function dropOne(){
   const o=photoBags[launched++%photoBags.length];
   const d=document.createElement('div');d.className='drop';
-  d.innerHTML=bagHTML(o);
+  d.innerHTML=bagHTML(o,1);
   const w=stage.clientWidth,h=stage.clientHeight;
   d.style.left=(w*0.5-29+(Math.random()-0.5)*w*0.36)+'px';
   d.style.setProperty('--y',(h*0.62)+'px');
@@ -1040,7 +1041,7 @@ function burst(){
       const el=document.createElement('div');el.className='bq';
       const sz=bs*(back?0.92:1)*(0.92+Math.random()*0.16);
       el.style.cssText=`--s:${sz}px;--x:${t*bw*(back?0.74:0.92)+(back?bw*0.03:0)}px;--rise:${(back?sz*1.2:sz*0.62)+Math.random()*sz*0.2-Math.abs(t)*sz*0.35}px;--r:${t*(back?46:64)+(Math.random()*10-5)}deg;transition-delay:${0.05+Math.random()*0.25}s`;
-      el.innerHTML='<div>'+bagHTML(o)+'</div>';
+      el.innerHTML='<div>'+bagHTML(o,1)+'</div>';
       bouquet.appendChild(el);
     });
     void burstLayer.offsetWidth;setTimeout(()=>document.querySelectorAll('.burst,.bq').forEach(el=>el.classList.add('out')),30);
@@ -1151,7 +1152,7 @@ rlBtn.addEventListener('click',()=>{
   (function tick(){
     if(++step<total){
       const o=coffees[Math.floor(Math.random()*coffees.length)];
-      rlBody.innerHTML=`<div class="rl-spin" aria-hidden="true">${bagHTML(o)}<div><b>${noOf(o)}</b><span>${disp(o.name)}</span></div></div>`;
+      rlBody.innerHTML=`<div class="rl-spin" aria-hidden="true">${bagHTML(o,1)}<div><b>${noOf(o)}</b><span>${disp(o.name)}</span></div></div>`;
       speed+=step>total-8?40:3;setTimeout(tick,speed);return;
     }
     // 決まった一杯（ルーレット後の表示）
